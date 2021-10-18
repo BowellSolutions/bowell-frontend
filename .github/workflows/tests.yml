@@ -1,0 +1,43 @@
+name: Frontend Tests
+
+on:
+  push:
+    branches:
+      - '*'
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  jest-tests:
+    name: Jest run
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: |
+          yarn install
+      - name: Run tests
+        run: |
+          yarn test --coverage
+
+  cypress-tests:
+    name: Cypress run
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          build: yarn build
+          start: yarn start
+          wait-on: http://localhost:3000
