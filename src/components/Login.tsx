@@ -1,10 +1,17 @@
-import React, {FC, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {login} from "../api/auth";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../redux/reducers";
+import {loginUser, resetRegisterSuccess} from "../redux/actions/auth";
 
 
 const Login: FC = () => {
   const router = useRouter();
+
+  const dispatch = useDispatch();
+
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const loading = useSelector((state: RootState) => state.auth.loading);
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -25,14 +32,19 @@ const Login: FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    login(username, password).then(() => {
-      // dispatch success action handler
-      router.push('/').then(() => {
-      });
-    }).catch(() => {
-      // dispatch fail
-    });
+    if (dispatch != null) {
+      dispatch(loginUser(username, password));
+    }
   };
+
+  useEffect(() => {
+    // reset register_success on mount
+    if (dispatch != null) dispatch(resetRegisterSuccess());
+  }, [dispatch]);
+
+  if (typeof window !== 'undefined' && isAuthenticated) {
+    router.push('/dashboard').then();
+  }
 
   return (
     <div>
@@ -55,11 +67,15 @@ const Login: FC = () => {
           required
         />
 
-        <button
-          type="submit"
-        >
-          Submit
-        </button>
+        {loading ? (
+          <h2>Loading...</h2>
+        ) : (
+          <button
+            type="submit"
+          >
+            Submit
+          </button>
+        )}
       </form>
     </div>
   );

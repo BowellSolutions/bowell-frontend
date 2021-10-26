@@ -1,14 +1,23 @@
-import {FC, ReactNode} from "react";
+import {FC, ReactNode, useEffect} from "react";
 import Head from "next/head";
+import Navbar from "./Navbar";
+import {useDispatch} from "react-redux";
+import {checkAuthStatus} from "../../redux/actions/auth";
 
 interface LayoutProps {
   title: string,
   content: string,
-  children: ReactNode,
-
+  children?: ReactNode,
 }
 
 const Layout: FC<LayoutProps> = ({title, content, children}) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // check if we are still authenticated
+    if (dispatch != null) dispatch(checkAuthStatus());
+  }, [dispatch]);
+
   return (
     <>
       <Head>
@@ -16,6 +25,8 @@ const Layout: FC<LayoutProps> = ({title, content, children}) => {
         <title>{title}</title>
         <link rel="icon" href="/favicon.ico"/>
       </Head>
+
+      <Navbar/>
 
       <div>
         {children}
