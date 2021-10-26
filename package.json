@@ -18,6 +18,10 @@
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.0",
     "sass": "^1.43.2"
   },
   "devDependencies": {
@@ -25,6 +29,8 @@
     "@testing-library/react": "^12.1.2",
     "@types/jest": "^27.0.2",
     "@types/react": "17.0.30",
+    "@types/react-redux": "^7.1.20",
+    "@types/redux": "^3.6.0",
     "babel-jest": "^27.3.0",
     "cypress": "^8.6.0",
     "eslint": "^7.32.0",

@@ -7,14 +7,10 @@ export const login = (username: string, password: string): Promise<any> => {
   });
 };
 
-export const logout = (): Promise<any> => {
-  return axiosClient.get('/auth/logout/');
-};
+export const logout = (): Promise<any> => axiosClient.get('/auth/logout/');
 
-export const refreshToken = (): Promise<any> => {
-  return axiosClient.post('/auth/token/refresh/', {});
-};
+export const refreshToken = (): Promise<any> => axiosClient.post('/auth/token/refresh/', {});
 
-export const verifyToken = (): Promise<any> => {
-  return axiosClient.post('/auth/token/verify/', {});
-};
+export const verifyToken = (): Promise<any> => axiosClient.post('/auth/token/verify/', {});
+
+export const getCurrentUser = (): Promise<any> => axiosClient.get('/users/me/');
