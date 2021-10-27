@@ -2,8 +2,6 @@ name: Frontend Tests
 
 on:
   push:
-    branches:
-      - '*'
 
   pull_request:
     branches:
