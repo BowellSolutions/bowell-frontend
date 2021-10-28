@@ -3,6 +3,7 @@ import Layout from "../../components/layout/Layout";
 import {useRouter} from "next/router";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/reducers";
+import {Heading} from "@chakra-ui/react";
 
 const Dashboard: NextPage = () => {
   const router = useRouter();
@@ -19,8 +20,10 @@ const Dashboard: NextPage = () => {
       title="Dashboard"
       content="Bowell's dashboard"
     >
-      <h1>User Dashboard</h1>
-      {user != null && <h2>Welcome {user.username}!</h2>}
+      <Heading as="h1" size="xl">User Dashboard</Heading>
+      {user != null && (
+        <Heading as="h2" size="lg">Welcome {user.username}!</Heading>
+      )}
     </Layout>
   );
 };

@@ -2,6 +2,7 @@ import '../styles/globals.scss';
 import type {AppProps} from 'next/app';
 import {useStore} from "../redux/store";
 import {Provider} from "react-redux";
+import {ChakraProvider} from "@chakra-ui/react";
 
 function MyApp({Component, pageProps}: AppProps) {
   const store = useStore(pageProps.initialReduxState);
@@ -9,7 +10,9 @@ function MyApp({Component, pageProps}: AppProps) {
   return (
     // @ts-ignore
     <Provider store={store}>
-      <Component {...pageProps} />
+      <ChakraProvider>
+        <Component {...pageProps} />
+      </ChakraProvider>
     </Provider>
   );
 }

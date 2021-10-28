@@ -5,6 +5,7 @@
     <img src="https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white" alt=""/>    
     <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" alt=""/>    
+    <img src="https://img.shields.io/badge/Chakra--UI-319795?style=for-the-badge&logo=chakra-ui&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white" alt=""/>    
     <img src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white" alt=""/>
@@ -18,9 +19,10 @@ This setup uses Node 14 and yarn.
 ### Frontend
 
 - Next JS with Typescript
-- `sass` - Scss support
 - `axios` - HTTP client
 - `redux`, `redux-thunk` - (global) state management
+- `sass` - Scss support
+- `chakra-ui`, `emotion`, `framer-motion` - UI libraries
 - `jest` + dependencies - unit tests
 - `cypress` + dependencies - E2E testing
 

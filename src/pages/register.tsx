@@ -1,5 +1,6 @@
 import {NextPage} from "next";
 import Layout from "../components/layout/Layout";
+import {Heading} from "@chakra-ui/react";
 
 const RegisterPage: NextPage = () => {
   return (
@@ -7,7 +8,7 @@ const RegisterPage: NextPage = () => {
       title="Register"
       content="Bowell's login page"
     >
-      <h1>Register page</h1>
+      <Heading as="h1">Register page</Heading>
     </Layout>
   );
 };

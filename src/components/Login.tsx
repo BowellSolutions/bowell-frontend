@@ -3,6 +3,8 @@ import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../redux/reducers";
 import {loginUser, resetRegisterSuccess} from "../redux/actions/auth";
+import {Input} from "@chakra-ui/input";
+import {Box, Button, FormControl, FormLabel, Heading} from "@chakra-ui/react";
 
 
 const Login: FC = () => {
@@ -47,37 +49,39 @@ const Login: FC = () => {
   }
 
   return (
-    <div>
-      <h1>Login Page</h1>
+    <Box>
+      <Heading as="h1">Login Page</Heading>
 
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username*</label>
-        <input
-          onChange={handleInputChange}
-          type="text"
-          name="username"
-          required
-        />
+      <Box>
+        <form onSubmit={handleSubmit}>
+          <FormLabel>Username*</FormLabel>
+          <Input
+            onChange={handleInputChange}
+            type="text"
+            name="username"
+            required
+          />
 
-        <label htmlFor="password">Password*</label>
-        <input
-          onChange={handleInputChange}
-          type="password"
-          name="password"
-          required
-        />
+          <FormLabel>Password*</FormLabel>
+          <Input
+            onChange={handleInputChange}
+            type="password"
+            name="password"
+            required
+          />
 
-        {loading ? (
-          <h2>Loading...</h2>
-        ) : (
-          <button
+          <Button
             type="submit"
+            colorScheme="teal"
+            size="md"
+            isLoading={loading}
+            loadingText="Submitting"
           >
             Submit
-          </button>
-        )}
-      </form>
-    </div>
+          </Button>
+        </form>
+      </Box>
+    </Box>
   );
 };
 
