@@ -1,5 +1,5 @@
 import {FC, useCallback, useState} from "react";
-import {Box, Button, Flex, Heading, IconButton, Progress, Text} from "@chakra-ui/react";
+import {Box, Button, Flex, Heading, IconButton, Progress, Text, useColorModeValue} from "@chakra-ui/react";
 import {uploadFile} from "../../api/files";
 import {useDropzone} from "react-dropzone";
 import {DeleteIcon} from "@chakra-ui/icons";
@@ -15,6 +15,9 @@ export const FileUpload: FC = () => {
   const [percentage, setPercentage] = useState<number>(0);
   const [error, setError] = useState<any>(null);
 
+  const dropzoneBgColorActive = useColorModeValue("#f7fafc", "");
+  const dropzoneBgColorAccept = useColorModeValue("#eff2f7", "");
+
   const removeFile = (): void => {
     setError(null);
     setSelectedFile(null);
@@ -25,8 +28,6 @@ export const FileUpload: FC = () => {
     const {loaded, total} = progressEvent;
     const percent = Math.floor(loaded * 100 / total);
     setPercentage(percent);
-
-    console.log(`${loaded}/${total}, ${percent}%`);
   };
 
   const handleFileUpload = (): void => {
@@ -63,18 +64,19 @@ export const FileUpload: FC = () => {
   };
 
   return (
-    <Box>
+    <Box pt={{base: "125px", md: "75px"}}>
       <Heading as="h1">Upload file:</Heading>
       <Flex
         {...getRootProps()}
         flexDirection="column"
         alignItems="center"
         p="40px"
+        my="8px"
         borderWidth="2px"
         borderRadius="2px"
         borderStyle="dashed"
         borderColor={getBorderColor()}
-        backgroundColor={isDragAccept ? "#eff2f7" : "#f7fafc"}
+        backgroundColor={isDragAccept ? dropzoneBgColorAccept : dropzoneBgColorActive}
         color="#bdbdbd"
         transition="border 0.24s ease-in-out"
         cursor="pointer"

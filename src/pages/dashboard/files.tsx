@@ -1,15 +1,16 @@
 import {NextPage} from "next";
 import FileUpload from "../../components/dashboard/FileUpload";
-import Layout from "../../components/layout/Layout";
+import DoctorLayout from "../../components/layouts/DoctorLayout";
 
 const FilesRoute: NextPage = () => {
   return (
-    <Layout
+    <DoctorLayout
       title="File upload"
-      content=""
+      description=""
+      brandText="Files upload testing"
     >
       <FileUpload/>
-    </Layout>
+    </DoctorLayout>
   );
 };
 

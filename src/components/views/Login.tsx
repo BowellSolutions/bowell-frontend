@@ -149,7 +149,7 @@ const Login: FC = () => {
               mt="0px"
             >
               <Text color={textColor} fontWeight="medium">
-                Don't have an account?
+                Don&apost have an account?
                 <Link color={titleColor} as="span" ms="5px" fontWeight="bold">
                   Sign Up
                 </Link>
