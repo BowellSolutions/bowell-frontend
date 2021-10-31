@@ -1,15 +1,26 @@
 import {NextPage} from "next";
-import Login from "../components/Login";
-import Layout from "../components/layout/Layout";
+import Login from "../components/views/Login";
+import AuthLayout from "../components/layouts/AuthLayout";
+import {useSelector} from "react-redux";
+import {RootState} from "../redux/reducers";
+import {useRouter} from "next/router";
 
 const LoginPage: NextPage = () => {
+  const router = useRouter();
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+
+  if (typeof window !== 'undefined' && isAuthenticated) {
+    router.push('/dashboard').then();
+  }
+
   return (
-    <Layout
+    <AuthLayout
       title="Login"
-      content="Bowell's login page"
+      description="Bowell's login page"
+      secondary={false}
     >
       <Login/>
-    </Layout>
+    </AuthLayout>
   );
 };
 

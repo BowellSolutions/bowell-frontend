@@ -7,14 +7,12 @@ import {useRouter} from "next/router";
 import styles from "../../styles/Navbar.module.scss";
 
 
-export const Navbar: FC = () => {
+export const MainNavbar: FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
 
-  const logout = () => {
-    if (dispatch != null) dispatch(logoutUser());
-  };
+  const logout = () => dispatch(logoutUser());
 
   return (
     <header className={styles.navbar}>
@@ -47,4 +45,4 @@ export const Navbar: FC = () => {
   );
 };
 
-export default Navbar;
+export default MainNavbar;

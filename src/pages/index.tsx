@@ -1,15 +1,15 @@
 import type {NextPage} from 'next';
-import Homepage from "../components/Home";
-import Layout from "../components/layout/Layout";
+import Homepage from "../components/views/Home";
+import MainLayout from "../components/layouts/MainLayout";
 
 const Home: NextPage = () => {
   return (
-    <Layout
+    <MainLayout
       title="Bowell"
       content="Bowell's home page"
     >
       <Homepage/>
-    </Layout>
+    </MainLayout>
   );
 };
 

@@ -1,15 +1,16 @@
 import {NextPage} from "next";
-import Layout from "../components/layout/Layout";
-import {Heading} from "@chakra-ui/react";
+import Register from "../components/views/Register";
+import AuthLayout from "../components/layouts/AuthLayout";
 
 const RegisterPage: NextPage = () => {
   return (
-    <Layout
+    <AuthLayout
       title="Register"
-      content="Bowell's login page"
+      description="Bowell's login page"
+      secondary={false}
     >
-      <Heading as="h1">Register page</Heading>
-    </Layout>
+      <Register/>
+    </AuthLayout>
   );
 };
 

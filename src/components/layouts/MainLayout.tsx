@@ -1,6 +1,6 @@
 import {FC, ReactNode, useEffect} from "react";
 import Head from "next/head";
-import Navbar from "./Navbar";
+import MainNavbar from "./MainNavbar";
 import {useDispatch} from "react-redux";
 import {checkAuthStatus} from "../../redux/actions/auth";
 
@@ -10,7 +10,7 @@ interface LayoutProps {
   children?: ReactNode,
 }
 
-const Layout: FC<LayoutProps> = ({title, content, children}) => {
+const MainLayout: FC<LayoutProps> = ({title, content, children}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const Layout: FC<LayoutProps> = ({title, content, children}) => {
         <link rel="icon" href="/favicon.ico"/>
       </Head>
 
-      <Navbar/>
+      <MainNavbar/>
 
       <div>
         {children}
@@ -35,4 +35,4 @@ const Layout: FC<LayoutProps> = ({title, content, children}) => {
   );
 };
 
-export default Layout;
+export default MainLayout;
