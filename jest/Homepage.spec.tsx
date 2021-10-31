@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Homepage from "../src/components/Home";
+import Homepage from "../src/components/views/Home";
 
 describe("Homepage", () => {
   it("should render p tag", () => {

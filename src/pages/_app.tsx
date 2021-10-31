@@ -3,6 +3,7 @@ import type {AppProps} from 'next/app';
 import {useStore} from "../redux/store";
 import {Provider} from "react-redux";
 import {ChakraProvider} from "@chakra-ui/react";
+import theme from "../theme/theme";
 
 function MyApp({Component, pageProps}: AppProps) {
   const store = useStore(pageProps.initialReduxState);
@@ -10,7 +11,7 @@ function MyApp({Component, pageProps}: AppProps) {
   return (
     // @ts-ignore
     <Provider store={store}>
-      <ChakraProvider>
+      <ChakraProvider theme={theme} resetCSS>
         <Component {...pageProps} />
       </ChakraProvider>
     </Provider>
