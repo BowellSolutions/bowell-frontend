@@ -11,9 +11,9 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, {FC, useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../redux/reducers";
-import {loginUser, resetRegisterSuccess} from "../../redux/actions/auth";
+import {useDispatch} from "react-redux";
+import {useAppSelector} from "../../redux/hooks";
+import {loginUser, resetRegister} from "../../redux/actions/auth";
 
 
 const Login: FC = () => {
@@ -21,7 +21,7 @@ const Login: FC = () => {
   const textColor = useColorModeValue("gray.400", "white");
 
   const dispatch = useDispatch();
-  const loading = useSelector((state: RootState) => state.auth.loading);
+  const loading = useAppSelector((state) => state.auth.loading);
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -46,7 +46,7 @@ const Login: FC = () => {
 
   useEffect(() => {
     // reset register_success on mount
-    if (dispatch != null) dispatch(resetRegisterSuccess());
+    if (dispatch != null) dispatch(resetRegister());
   }, [dispatch]);
 
   return (
@@ -149,7 +149,7 @@ const Login: FC = () => {
               mt="0px"
             >
               <Text color={textColor} fontWeight="medium">
-                Don't have an account?
+                Don&apost have an account?
                 <Link color={titleColor} as="span" ms="5px" fontWeight="bold">
                   Sign Up
                 </Link>

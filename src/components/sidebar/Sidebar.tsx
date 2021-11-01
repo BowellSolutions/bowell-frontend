@@ -78,7 +78,6 @@ const Sidebar: FC<SidebarProps> = ({logoText, display, sidebarVariant}) => {
               }}
               py="12px"
               borderRadius="15px"
-              _hover="none"
               w="100%"
               _active={{
                 bg: "inherit",

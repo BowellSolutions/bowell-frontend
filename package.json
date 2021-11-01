@@ -18,9 +18,11 @@
     "@chakra-ui/react": "^1.6.10",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@reduxjs/toolkit": "^1.6.2",
     "axios": "^0.23.0",
     "framer-motion": "^4",
-    "next": "11.1.2",
+    "next": "^12.0.2",
+    "next-redux-wrapper": "^7.0.5",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-dropzone": "^11.4.2",
@@ -32,6 +34,7 @@
     "sass": "^1.43.2"
   },
   "devDependencies": {
+    "@testing-library/cypress": "^8.0.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.2",
     "@types/jest": "^27.0.2",
@@ -40,10 +43,12 @@
     "@types/redux": "^3.6.0",
     "babel-jest": "^27.3.0",
     "cypress": "^8.6.0",
+    "cypress-msw-interceptor": "^2.0.1",
     "eslint": "^7.32.0",
     "eslint-config-next": "11.1.2",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.3.0",
+    "msw": "^0.35.0",
     "react-test-renderer": "^17.0.2",
     "start-server-and-test": "^1.14.0",
     "typescript": "4.4.4"
