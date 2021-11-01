@@ -4,14 +4,15 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../redux/reducers";
 import DoctorLayout from "../../components/layouts/DoctorLayout";
 import Dashboard from "../../components/views/doctor/Dashboard";
+import {useAppSelector} from "../../redux/hooks";
 
 const DashboardHome: NextPage = () => {
   const router = useRouter();
 
-  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
-  const loading = useSelector((state: RootState) => state.auth.loading);
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const loading = useAppSelector((state) => state.auth.loading);
 
-  const user = useSelector((state: RootState) => state.auth.user);
+  const user = useAppSelector((state) => state.auth.user);
 
   if (typeof window !== 'undefined' && !loading && !isAuthenticated)
     router.push('/login').then();

@@ -5,8 +5,8 @@ import {BsFillPersonFill} from "react-icons/bs";
 import {IoMdSettings} from "react-icons/io";
 import SidebarResponsive from "../sidebar/SidebarResponsive";
 import Notifications from "../menu/Notifications";
-import {logoutUser} from "../../redux/actions/auth";
 import {useDispatch} from "react-redux";
+import {logoutUser} from "../../redux/actions/auth";
 
 interface DashboardNavbarLinksProps {
   logoText: string,

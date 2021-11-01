@@ -1,21 +1,15 @@
 import '../styles/globals.scss';
 import type {AppProps} from 'next/app';
-import {useStore} from "../redux/store";
-import {Provider} from "react-redux";
+import {wrapper} from "../redux/store";
 import {ChakraProvider} from "@chakra-ui/react";
 import theme from "../theme/theme";
 
 function MyApp({Component, pageProps}: AppProps) {
-  const store = useStore(pageProps.initialReduxState);
-
   return (
-    // @ts-ignore
-    <Provider store={store}>
-      <ChakraProvider theme={theme} resetCSS>
-        <Component {...pageProps} />
-      </ChakraProvider>
-    </Provider>
+    <ChakraProvider theme={theme} resetCSS>
+      <Component {...pageProps} />
+    </ChakraProvider>
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

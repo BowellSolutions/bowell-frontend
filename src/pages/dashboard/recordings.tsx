@@ -4,11 +4,12 @@ import Recordings from "../../components/views/doctor/Recordings";
 import {useRouter} from "next/router";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/reducers";
+import {useAppSelector} from "../../redux/hooks";
 
 const RecordingsPage: NextPage = () => {
   const router = useRouter();
-  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
-  const loading = useSelector((state: RootState) => state.auth.loading);
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const loading = useAppSelector((state) => state.auth.loading);
 
   if (typeof window !== 'undefined' && !loading && !isAuthenticated)
     router.push('/login').then();
