@@ -20,7 +20,7 @@ This setup uses Node 14 and yarn.
 
 - Next JS with Typescript
 - `axios` - HTTP client
-- `redux`, `redux-thunk` - (global) state management
+- `redux`, `@reduxjs/toolkit`, `next-redux-wrapper` - (global) state management
 - `sass` - Scss support
 - `chakra-ui`, `emotion`, `framer-motion` - UI libraries
 - `jest` + dependencies - unit tests
