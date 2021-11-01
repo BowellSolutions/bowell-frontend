@@ -1,13 +1,12 @@
 import {NextPage} from "next";
 import Login from "../components/views/Login";
 import AuthLayout from "../components/layouts/AuthLayout";
-import {useSelector} from "react-redux";
-import {RootState} from "../redux/reducers";
 import {useRouter} from "next/router";
+import {useAppSelector} from "../redux/hooks";
 
 const LoginPage: NextPage = () => {
   const router = useRouter();
-  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
   if (typeof window !== 'undefined' && isAuthenticated) {
     router.push('/dashboard').then();

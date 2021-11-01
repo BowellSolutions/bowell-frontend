@@ -1,42 +1,18 @@
-import {useMemo} from 'react';
-import {createStore, applyMiddleware, Store} from 'redux';
-import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
-import thunkMiddleware from 'redux-thunk';
-import reducers from './reducers';
+import {Action} from 'redux';
+import {ThunkAction} from 'redux-thunk';
+import rootReducer from './reducers';
+import {configureStore} from "@reduxjs/toolkit";
+import {createWrapper} from "next-redux-wrapper";
 
-// to do: type Store properly
-let store: Store | undefined;
+/* Next-Redux-Wrapper with Redux Toolkit  */
 
-function initStore(initialState: any) {
-  return createStore(
-    reducers,
-    initialState,
-    composeWithDevTools(applyMiddleware(thunkMiddleware))
-  );
-}
+const makeStore = () => configureStore({
+  reducer: rootReducer,
+  devTools: process.env.NODE_ENV === "development",
+});
 
-export const initializeStore = (preloadedState: any) => {
-  let _store = store ?? initStore(preloadedState);
+export type AppStore = ReturnType<typeof makeStore>;
+export type AppState = ReturnType<AppStore['getState']>;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppState, unknown, Action>;
 
-  // After navigating to a page with an initial Redux state, merge that state
-  // with the current state in the store, and create a new store
-  if (preloadedState && store) {
-    _store = initStore({
-      ...store.getState(),
-      ...preloadedState,
-    });
-    // Reset the current store
-    store = undefined;
-  }
-
-  // For SSG and SSR always create a new store
-  if (typeof window === 'undefined') return _store;
-  // Create the store once in the client
-  if (!store) store = _store as Store;
-
-  return _store;
-};
-
-export function useStore(initialState: any) {
-  return useMemo(() => initializeStore(initialState), [initialState]);
-}
+export const wrapper = createWrapper<AppStore>(makeStore);

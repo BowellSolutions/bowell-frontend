@@ -1,16 +1,16 @@
 import {FC} from "react";
 import Link from "next/link";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../redux/reducers";
-import {logoutUser} from "../../redux/actions/auth";
+import {useDispatch} from "react-redux";
 import {useRouter} from "next/router";
 import styles from "../../styles/Navbar.module.scss";
+import {useAppSelector} from "../../redux/hooks";
+import {logoutUser} from "../../redux/actions/auth";
 
 
 export const MainNavbar: FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
   const logout = () => dispatch(logoutUser());
 
