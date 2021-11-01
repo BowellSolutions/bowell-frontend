@@ -1,29 +1,12 @@
-import {
-  AUTHENTICATED_FAIL,
-  AUTHENTICATED_SUCCESS,
-  LOAD_USER_FAIL,
-  LOAD_USER_SUCCESS,
-  LOGIN_FAIL,
-  LOGIN_SUCCESS,
-  LOGOUT_FAIL,
-  LOGOUT_SUCCESS,
-  REFRESH_FAIL,
-  REFRESH_SUCCESS,
-  REMOVE_AUTH_LOADING,
-  RESET_REGISTER_SUCCESS,
-  SET_AUTH_LOADING
-} from "../actions/types";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {HYDRATE} from "next-redux-wrapper";
+import {UserData} from "../../api/types";
 
 interface State {
-  user: null,
+  user: null | UserData,
   isAuthenticated: boolean,
   loading: boolean,
   register_success: boolean,
-}
-
-interface Action {
-  type: string,
-  payload: any,
 }
 
 const initialState: State = {
@@ -33,84 +16,80 @@ const initialState: State = {
   register_success: false,
 };
 
-const authReducer = (state: State = initialState, action: Action) => {
-  const {type, payload} = action;
 
-  switch (type) {
-    case RESET_REGISTER_SUCCESS:
+export const authSlice = createSlice({
+  name: 'auth',
+
+  initialState: initialState,
+
+  reducers: {
+    resetRegisterSuccess: (state) => {
+      state.register_success = false;
+    },
+    loginSuccess: (state) => {
+      state.isAuthenticated = true;
+    },
+    loginFail: (state) => {
+      state.isAuthenticated = false;
+    },
+    logoutSuccess: (state) => {
+      state.isAuthenticated = false;
+    },
+    logoutFail: () => {
+    },
+    setAuthLoading: (state) => {
+      state.loading = true;
+    },
+    removeAuthLoading: (state) => {
+      state.loading = false;
+    },
+    loadUserSuccess: (state, action: PayloadAction<UserData>) => {
+      state.user = action.payload;
+      state.isAuthenticated = true;
+    },
+    loadUserFail: (state) => {
+      state.user = null;
+    },
+    refreshSuccess: () => {
+    },
+    refreshFail: (state) => {
+      state.user = null;
+      state.isAuthenticated = false;
+    },
+    authSuccess: (state) => {
+      state.isAuthenticated = true;
+    },
+    authFail: (state) => {
+      state.user = null;
+      state.isAuthenticated = false;
+    },
+  },
+
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
       return {
         ...state,
-        register_success: false,
+        ...action.payload
       };
-
-    case LOGIN_SUCCESS:
-      return {
-        ...state,
-        isAuthenticated: true,
-      };
-
-    case LOGIN_FAIL:
-      return {
-        ...state,
-        isAuthenticated: false,
-      };
-
-    case LOGOUT_SUCCESS:
-      return {
-        ...state,
-        isAuthenticated: false,
-      };
-
-    case LOGOUT_FAIL:
-      return state;
-
-    case SET_AUTH_LOADING:
-      return {
-        ...state,
-        loading: true,
-      };
-
-    case REMOVE_AUTH_LOADING:
-      return {
-        ...state,
-        loading: false,
-      };
-
-    case LOAD_USER_SUCCESS:
-      return {
-        ...state,
-        user: payload,
-      };
-
-    case LOAD_USER_FAIL:
-      return state;
-
-    case REFRESH_SUCCESS:
-      return {
-        ...state,
-      };
-    case REFRESH_FAIL:
-      return {
-        ...state,
-        isAuthenticated: false,
-        user: null
-      };
-
-    case AUTHENTICATED_SUCCESS:
-      return {
-        ...state,
-        isAuthenticated: true
-      };
-    case AUTHENTICATED_FAIL:
-      return {
-        ...state,
-        isAuthenticated: false,
-        user: null
-      };
-
-    default:
-      return state;
+    }
   }
-};
+});
 
-export default authReducer;
+
+export const {
+  resetRegisterSuccess,
+  loginSuccess,
+  loginFail,
+  logoutSuccess,
+  logoutFail,
+  setAuthLoading,
+  removeAuthLoading,
+  loadUserSuccess,
+  loadUserFail,
+  refreshSuccess,
+  refreshFail,
+  authSuccess,
+  authFail
+} = authSlice.actions;
+
+export default authSlice.reducer;

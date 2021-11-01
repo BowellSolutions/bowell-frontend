@@ -1,115 +1,114 @@
 import {getCurrentUser, login, logout, refreshToken, verifyToken} from "../../api/auth";
-import {Dispatch} from "redux";
-import {
-  AUTHENTICATED_FAIL,
-  AUTHENTICATED_SUCCESS,
-  LOAD_USER_FAIL,
-  LOAD_USER_SUCCESS,
-  LOGIN_FAIL,
-  LOGIN_SUCCESS,
-  LOGOUT_FAIL,
-  LOGOUT_SUCCESS,
-  REFRESH_FAIL,
-  REFRESH_SUCCESS,
-  REMOVE_AUTH_LOADING,
-  RESET_REGISTER_SUCCESS,
-  SET_AUTH_LOADING
-} from "./types";
 import {ACCESS_TOKEN_LIFETIME} from "../../config";
+import type {AppThunk} from "../store";
+import {
+  authFail,
+  authSuccess,
+  loadUserFail,
+  loadUserSuccess,
+  loginFail,
+  loginSuccess,
+  logoutFail,
+  logoutSuccess,
+  refreshFail,
+  refreshSuccess,
+  removeAuthLoading,
+  resetRegisterSuccess,
+  setAuthLoading
+} from "../reducers/auth";
 
 
-export const loginUser = (username: string, password: string) => async (dispatch: Dispatch<any>) => {
-  // set loading to true
-  dispatch({type: SET_AUTH_LOADING});
+export const loginUser =
+  (username: string, password: string): AppThunk =>
+    async (dispatch) => {
+      // set loading to true
+      dispatch(setAuthLoading());
 
-  try {
-    // send form data to backend
-    const res = await login(username, password);
+      try {
+        // send form data to backend
+        const res = await login(username, password);
 
-    // if successful, set isAuthenticated to true
-    if (res.status === 200) {
-      dispatch({type: LOGIN_SUCCESS});
-      dispatch(loadUser());
-    } else dispatch({type: LOGIN_FAIL});
+        // if successful, set isAuthenticated to true
+        if (res.status === 200) {
+          dispatch(loginSuccess());
+          dispatch(loadUser());
+        } else dispatch(loginFail());
 
-  } catch (err) {
-    dispatch({type: LOGIN_FAIL});
-  }
+      } catch (err) {
+        dispatch(loginFail());
+      }
 
-  // set loading to false
-  dispatch({type: REMOVE_AUTH_LOADING});
-};
+      // set loading to false
+      dispatch(removeAuthLoading());
+    };
 
-export const loadUser = () => async (dispatch: Dispatch) => {
+export const loadUser = (): AppThunk => async (dispatch) => {
   try {
     const res = await getCurrentUser();
     const userData = res.data;
 
     if (res.status === 200) {
-      dispatch({
-        type: LOAD_USER_SUCCESS,
-        payload: userData
-      });
-    } else dispatch({type: LOAD_USER_FAIL});
+      dispatch(loadUserSuccess(userData));
+    } else dispatch(loadUserFail());
 
   } catch (err) {
-    dispatch({type: LOAD_USER_FAIL});
+    dispatch(loadUserFail());
   }
 };
 
-export const resetRegisterSuccess = () => (dispatch: Dispatch) => {
-  dispatch({type: RESET_REGISTER_SUCCESS});
+export const resetRegister = (): AppThunk => (dispatch) => {
+  dispatch(resetRegisterSuccess());
 };
 
 
-export const requestTokenRefresh = () => async (dispatch: Dispatch<any>) => {
+export const requestTokenRefresh = (): AppThunk => async (dispatch) => {
   try {
     const res = await refreshToken();
 
     if (res.status === 200) {
-      dispatch({type: REFRESH_SUCCESS});
-      dispatch(checkAuthStatus());
-    } else dispatch({type: REFRESH_FAIL});
+      dispatch(refreshSuccess());
+      await dispatch(checkAuthStatus());
+    } else dispatch(refreshFail());
 
   } catch (err) {
-    dispatch({type: REFRESH_FAIL});
+    dispatch(refreshFail());
   }
 };
 
-export const setRefreshTimer = () => (dispatch: Dispatch<any>) => {
+export const setRefreshTimer = (): AppThunk => (dispatch) => {
   setTimeout(() => {
     dispatch(requestTokenRefresh());
   }, Number(ACCESS_TOKEN_LIFETIME) * 1000);
 };
 
-export const checkAuthStatus = () => async (dispatch: Dispatch<any>) => {
+export const checkAuthStatus = (): AppThunk => async (dispatch) => {
   try {
     const res = await verifyToken();
 
     if (res.status === 200) {
-      dispatch({type: AUTHENTICATED_SUCCESS});
+      dispatch(authSuccess());
       dispatch(setRefreshTimer());
       dispatch(loadUser());
     } else {
-      dispatch({type: AUTHENTICATED_FAIL});
+      dispatch(authFail());
     }
   } catch (err) {
-    dispatch({type: AUTHENTICATED_FAIL});
+    dispatch(authFail());
   }
 };
 
-export const logoutUser = () => async (dispatch: Dispatch) => {
+export const logoutUser = (): AppThunk => async (dispatch) => {
   try {
     const res = await logout();
 
-    if (res.status === 200) dispatch({type: LOGOUT_SUCCESS});
-    else dispatch({type: LOGOUT_FAIL});
+    if (res.status === 200) dispatch(logoutSuccess());
+    else dispatch(logoutFail());
 
   } catch (err) {
-    dispatch({type: LOGOUT_FAIL});
+    dispatch(logoutFail());
   }
 };
 
-export const registerUser = () => async (dispatch: Dispatch) => {
+export const registerUser = (): AppThunk => async (dispatch) => {
   // to do
 };

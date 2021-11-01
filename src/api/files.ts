@@ -1,14 +1,14 @@
 import AxiosClient from "./axiosClient";
 
-export const getFiles = (): Promise<any> => {
+export const getFiles = (): Promise<unknown> => {
   return AxiosClient.get('/files/');
 };
 
 export const uploadFile =
-  (data: FormData, callback: (progressEvent: ProgressEvent) => void): Promise<any> => {
-  return AxiosClient.put(
-    '/files/upload',
-    data,
-    {onUploadProgress: callback}
-  );
-};
+  (data: FormData, progressHandler: (progressEvent: ProgressEvent) => void): Promise<unknown> => {
+    return AxiosClient.put(
+      '/files/upload',
+      data,
+      {onUploadProgress: progressHandler}
+    );
+  };
