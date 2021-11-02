@@ -32,7 +32,7 @@ const SidebarResponsive: FC<SidebarResponsiveProps> = (
   {logoText, secondary}
 ) => {
   const router = useRouter();
-  const mainPanel = useRef();
+  const mainPanel = useRef(null);
 
   const activeRoute = (routeName: string) => router.pathname === routeName ? "active" : "";
 
@@ -150,30 +150,32 @@ const SidebarResponsive: FC<SidebarResponsiveProps> = (
   if (secondary) hamburgerColor = "white";
 
   const {isOpen, onOpen, onClose} = useDisclosure();
-  const btnRef = useRef();
+  const btnRef = useRef(null);
 
   return (
     <Flex
       display={{sm: "flex", xl: "none"}}
-      // @ts-ignore
       ref={mainPanel}
       alignItems="center"
     >
-      <HamburgerIcon
+      <Icon
+        as={HamburgerIcon}
         color={hamburgerColor}
-        w="18px"
-        h="18px"
-        // @ts-ignore
+        w="22px"
+        h="22px"
+        me={{sm: "16px", lg: "8px"}}
         ref={btnRef}
         colorScheme="teal"
         onClick={onOpen}
+        sx={{
+          cursor: 'pointer',
+        }}
       />
 
       <Drawer
         isOpen={isOpen}
         onClose={onClose}
-        placement={"left"}
-        // @ts-ignore
+        placement="left"
         finalFocusRef={btnRef}
       >
         <DrawerOverlay/>

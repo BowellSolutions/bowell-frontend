@@ -18,8 +18,8 @@ const AuthLayout: FC<AuthLayoutProps> = (
 ) => {
   const dispatch = useDispatch();
 
-  const wrapper = useRef();
-  const navRef = useRef();
+  const wrapper = useRef(null);
+  const navRef = useRef(null);
 
   useEffect(() => {
     // check if we are still authenticated
@@ -38,10 +38,8 @@ const AuthLayout: FC<AuthLayoutProps> = (
         <link rel="icon" href="/favicon.ico"/>
       </Head>
 
-      {/* @ts-ignore */}
       <Box ref={navRef} w="100%">
         <Portal
-          // @ts-ignore
           containerRef={navRef}
         >
           <AuthNavbar
@@ -52,7 +50,6 @@ const AuthLayout: FC<AuthLayoutProps> = (
 
         <Box w="100%">
           <Box
-            // @ts-ignore
             ref={wrapper}
             w="100%"
           >

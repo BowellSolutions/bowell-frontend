@@ -36,7 +36,11 @@ const Notifications: FC<NotificationsProps> = ({color}) => {
   return (
     <Menu>
       <MenuButton>
-        <BellIcon color={color} w="18px" h="18px"/>
+        <BellIcon
+          color={color}
+          w="22px"
+          h="22px"
+        />
       </MenuButton>
 
       <MenuList p="16px 8px">

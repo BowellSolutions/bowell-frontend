@@ -14,7 +14,7 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({logoText, display, sidebarVariant}) => {
   const router = useRouter();
-  const mainPanel = useRef();
+  const mainPanel = useRef(null);
 
   const variantChange = "0.2s linear";
 
@@ -161,7 +161,6 @@ const Sidebar: FC<SidebarProps> = ({logoText, display, sidebarVariant}) => {
   };
 
   return (
-    // @ts-ignore
     <Box ref={mainPanel}>
       <Box display={{sm: "none", xl: "block"}} position="fixed">
         <Box

@@ -35,7 +35,7 @@ const DoctorDashboard: FC = () => {
   const iconBoxInside = useColorModeValue("white", "white");
   const textColor = useColorModeValue("gray.700", "white");
 
-  const overlayRef = useRef();
+  const overlayRef = useRef(null);
 
   return (
     <Flex flexDirection="column" pt={{base: "120px", md: "75px"}}>
@@ -50,7 +50,7 @@ const DoctorDashboard: FC = () => {
                   fontWeight="bold"
                   pb=".1rem"
                 >
-                  Today&aposs Money
+                  {"Today's Money"}
                 </StatLabel>
                 <Flex>
                   <StatNumber fontSize="lg" color={textColor}>
@@ -78,7 +78,7 @@ const DoctorDashboard: FC = () => {
                   fontWeight="bold"
                   pb=".1rem"
                 >
-                  Today&aposs Users
+                  {"Today's Users"}
                 </StatLabel>
                 <Flex>
                   <StatNumber fontSize="lg" color={textColor}>
@@ -338,12 +338,10 @@ const DoctorDashboard: FC = () => {
               position="absolute"
               h="inherit"
               borderRadius="inherit"
-              // @ts-ignore
               ref={overlayRef}
             />
 
             <Portal
-              // @ts-ignore
               containerRef={overlayRef}
             >
               <Flex

@@ -1,6 +1,6 @@
 import {Button, Flex, Icon, Link, useColorModeValue} from "@chakra-ui/react";
 import NextLink from "next/link";
-import {FC} from "react";
+import {FC, useRef} from "react";
 import {BsFillPersonFill} from "react-icons/bs";
 import {IoMdSettings} from "react-icons/io";
 import SidebarResponsive from "../sidebar/SidebarResponsive";
@@ -34,6 +34,8 @@ const DashboardNavbarLinks: FC<DashboardNavbarLinksProps> = (
 
   const handleLogout = () => dispatch(logoutUser());
 
+  const settingsRef = useRef(null);
+
   return (
     <Flex
       pe={{sm: "0px", md: "16px"}}
@@ -46,42 +48,26 @@ const DashboardNavbarLinks: FC<DashboardNavbarLinksProps> = (
       <Button
         ms="0px"
         px="0px"
-        mr={{sm: "2px", md: "16px"}}
+        p={"8px"}
+        mr={{sm: "16px", md: "16px"}}
         color={navbarLinkColor}
-        variant="transparent-with-icon"
-        leftIcon={
-          <Icon
-            as={BsFillPersonFill}
-            color={navbarLinkColor}
-            w="22px"
-            h="22px"
-            me="0px"
-          />
-        }
+        variant="outline"
         onClick={handleLogout}
       >
         Logout
       </Button>
 
       <NextLink href="/dashboard/profile" passHref>
-        <Link>
-          <Button
-            ms="0px"
-            px="0px"
-            mr={{sm: "2px", md: "16px"}}
-            color={navbarLinkColor}
-            variant="transparent-with-icon"
-            rightIcon={
-              <Icon
-                as={BsFillPersonFill}
-                color={navbarLinkColor}
-                w="22px"
-                h="22px"
-                me="0px"
-              />
-            }
-          />
-        </Link>
+        <Icon
+          as={BsFillPersonFill}
+          w="22px"
+          h="22px"
+          mx="0px"
+          px="0px"
+          me={{sm: "16px", lg: "8px"}}
+          color={navbarLinkColor}
+          cursor="pointer"
+        />
       </NextLink>
 
       <SidebarResponsive
@@ -92,14 +78,13 @@ const DashboardNavbarLinks: FC<DashboardNavbarLinksProps> = (
 
       <Icon
         as={IoMdSettings}
-        cursor="pointer"
-        ms={{base: "16px", xl: "0px"}}
-        me="16px"
-        // ref={settingsRef}
+        w="22px"
+        h="22px"
+        me={{sm: "16px", lg: "4px"}}
+        ref={settingsRef}
         onClick={onOpen}
         color={navbarLinkColor}
-        w="18px"
-        h="18px"
+        cursor="pointer"
       />
 
       <Notifications color={navbarLinkColor}/>

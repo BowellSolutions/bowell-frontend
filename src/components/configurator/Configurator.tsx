@@ -20,6 +20,7 @@ interface ConfiguratorProps {
   onClose: () => void,
   fixed?: boolean,
   isChecked: boolean,
+  isTransparent: boolean,
   onTransparent: () => void,
   onOpaque: () => void,
   onSwitch: (value: boolean) => void,
@@ -31,6 +32,7 @@ const Configurator: FC<ConfiguratorProps> = (
     isOpen,
     onClose,
     isChecked,
+    isTransparent,
     onTransparent,
     onOpaque,
     onSwitch,
@@ -48,14 +50,13 @@ const Configurator: FC<ConfiguratorProps> = (
     }
   };
 
-  const settingsRef = useRef();
+  const settingsRef = useRef(null);
 
   return (
     <Drawer
       isOpen={isOpen}
       onClose={onClose}
       placement="right"
-      // @ts-ignore
       finalFocusRef={settingsRef}
       blockScrollOnMount={false}
     >
@@ -64,7 +65,7 @@ const Configurator: FC<ConfiguratorProps> = (
           <DrawerCloseButton/>
 
           <Text fontSize="xl" fontWeight="bold" mt="16px">
-            Purity UI Configurator
+            Configurator
           </Text>
 
           <Text fontSize="md" mb="16px">
@@ -77,21 +78,25 @@ const Configurator: FC<ConfiguratorProps> = (
           <Flex flexDirection="column">
             <Box>
               <Text fontSize="md" fontWeight="600">
-                Sidenav Type
+                Sidebar Type:
               </Text>
 
-              <Text fontSize="sm" mb="16px">
-                Choose between 2 different sidenav types.
-              </Text>
-
-              <Flex>
+              <Flex pt="10px" pb="5px">
                 <Button
+                  bg={isTransparent ? "teal.300" : ""}
                   w="50%"
                   p="8px 32px"
                   me="8px"
                   colorScheme="teal"
                   borderColor="teal.300"
-                  color="teal.300"
+                  sx={
+                    isTransparent ? {
+                      "&:hover": {
+                        background: "teal.300"
+                      }
+                    } : {}
+                  }
+                  color={isTransparent ? "white" : "teal.300"}
                   variant="outline"
                   fontSize="xs"
                   onClick={onTransparent}
@@ -101,13 +106,20 @@ const Configurator: FC<ConfiguratorProps> = (
 
                 <Button
                   type="submit"
-                  bg="teal.300"
+                  bg={isTransparent ? "" : "teal.300"}
                   w="50%"
                   p="8px 32px"
                   mb={5}
-                  // @ts-ignore
-                  _hover="teal.300"
-                  color="white"
+                  borderColor="teal.300"
+                  sx={
+                    isTransparent ? {} : {
+                      "&:hover": {
+                        background: "teal.300"
+                      }
+                    }
+                  }
+                  color={isTransparent ? "teal.300" : "white"}
+                  variant="outline"
                   fontSize="xs"
                   onClick={onOpaque}
                 >

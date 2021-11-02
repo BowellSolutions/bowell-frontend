@@ -23,13 +23,18 @@ interface DoctorLayoutProps {
 type SidebarVariantType = "opaque" | "transparent";
 
 const DoctorLayout: FC<DoctorLayoutProps> = (
-  {children, title, description, brandText}
+  {
+    children,
+    title,
+    description,
+    brandText
+  }
 ) => {
   const [sidebarVariant, setSidebarVariant] = useState<SidebarVariantType>("transparent");
   const [fixed, setFixed] = useState<boolean>(false);
   const {isOpen, onOpen, onClose} = useDisclosure();
 
-  const mainPanel = useRef();
+  const mainPanel = useRef(null);
 
   const dispatch = useDispatch();
 
@@ -87,6 +92,7 @@ const DoctorLayout: FC<DoctorLayoutProps> = (
           isOpen={isOpen}
           onClose={onClose}
           isChecked={fixed}
+          isTransparent={sidebarVariant === "transparent"}
           onSwitch={(value) => setFixed(value)}
           onOpaque={() => setSidebarVariant("opaque")}
           onTransparent={() => setSidebarVariant("transparent")}
