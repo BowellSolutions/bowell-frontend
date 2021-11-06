@@ -1,7 +1,5 @@
 import {NextPage} from "next";
 import {useRouter} from "next/router";
-import {useSelector} from "react-redux";
-import {RootState} from "../../redux/reducers";
 import DoctorLayout from "../../components/layouts/DoctorLayout";
 import Dashboard from "../../components/views/doctor/Dashboard";
 import {useAppSelector} from "../../redux/hooks";

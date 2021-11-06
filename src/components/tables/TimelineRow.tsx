@@ -1,5 +1,6 @@
 import {Box, Flex, Icon, Text, useColorModeValue} from "@chakra-ui/react";
 import React, {FC} from "react";
+import {BsFillPeopleFill} from "react-icons/bs";
 
 interface TimelineRowProps {
   logo?: string,
@@ -21,6 +22,7 @@ const TimelineRow: FC<TimelineRowProps> = (
       <Flex direction="column" h="100%">
         <Icon
           bg={bgIconColor}
+          as={BsFillPeopleFill}
           color={color}
           h={"30px"}
           w={"26px"}

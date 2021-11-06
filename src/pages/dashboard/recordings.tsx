@@ -2,8 +2,6 @@ import {NextPage} from "next";
 import DoctorLayout from "../../components/layouts/DoctorLayout";
 import Recordings from "../../components/views/doctor/Recordings";
 import {useRouter} from "next/router";
-import {useSelector} from "react-redux";
-import {RootState} from "../../redux/reducers";
 import {useAppSelector} from "../../redux/hooks";
 
 const RecordingsPage: NextPage = () => {

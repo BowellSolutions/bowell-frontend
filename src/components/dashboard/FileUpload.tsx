@@ -64,8 +64,7 @@ export const FileUpload: FC = () => {
   };
 
   return (
-    <Box pt={{base: "125px", md: "75px"}}>
-      <Heading as="h1">Upload file:</Heading>
+    <Box>
       <Flex
         {...getRootProps()}
         flexDirection="column"
@@ -105,7 +104,6 @@ export const FileUpload: FC = () => {
             onClick={removeFile}
           />
         </Flex>
-
       )}
 
       {percentage > 0 && selectedFile && (
