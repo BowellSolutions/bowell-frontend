@@ -8,9 +8,12 @@ const RecordingsPage: NextPage = () => {
   const router = useRouter();
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const loading = useAppSelector((state) => state.auth.loading);
+  const user = useAppSelector((state) => state.auth.user);
 
   if (typeof window !== 'undefined' && !loading && !isAuthenticated)
     router.push('/login').then();
+
+  if (user && !user.is_staff) return null;
 
   return (
     <DoctorLayout

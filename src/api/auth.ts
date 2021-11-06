@@ -1,17 +1,20 @@
 import axiosClient from "./axiosClient";
 import {UserData} from "./types";
+import {AxiosResponse} from "axios";
 
-export const login = (username: string, password: string): Promise<any> => {
+type Response<T> = AxiosResponse<T>;
+
+export const login = (username: string, password: string): Promise<Response<{}>> => {
   return axiosClient.post('/auth/token/', {
     username,
     password
   });
 };
 
-export const logout = (): Promise<{}> => axiosClient.get('/auth/logout/');
+export const logout = (): Promise<Response<{}>> => axiosClient.get('/auth/logout/');
 
-export const refreshToken = (): Promise<unknown> => axiosClient.post('/auth/token/refresh/', {});
+export const refreshToken = (): Promise<Response<{}>> => axiosClient.post('/auth/token/refresh/', {});
 
-export const verifyToken = (): Promise<{}> => axiosClient.post('/auth/token/verify/', {});
+export const verifyToken = (): Promise<Response<{}>> => axiosClient.post('/auth/token/verify/', {});
 
-export const getCurrentUser = (): Promise<UserData> => axiosClient.get('/users/me/');
+export const getCurrentUser = (): Promise<Response<UserData>> => axiosClient.get('/users/me/');

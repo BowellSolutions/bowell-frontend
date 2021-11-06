@@ -3,6 +3,7 @@ import {useRouter} from "next/router";
 import DoctorLayout from "../../components/layouts/DoctorLayout";
 import Dashboard from "../../components/views/doctor/Dashboard";
 import {useAppSelector} from "../../redux/hooks";
+import PatientLayout from "../../components/layouts/PatientLayout";
 
 const DashboardHome: NextPage = () => {
   const router = useRouter();
@@ -16,16 +17,27 @@ const DashboardHome: NextPage = () => {
     router.push('/login').then();
 
   // check user's role here and return proper layout
-
-  return (
-    <DoctorLayout
-      title="Dashboard"
-      description="Bowell Dashboard"
-      brandText="Dashboard"
-    >
-      <Dashboard/>
-    </DoctorLayout>
-  );
+  if (user && user.is_staff) {
+    return (
+      <DoctorLayout
+        title="Dashboard"
+        description="Bowell Dashboard"
+        brandText="Dashboard"
+      >
+        <Dashboard/>
+      </DoctorLayout>
+    );
+  } else if (user && !user.is_staff) {
+    return (
+      <PatientLayout
+        title="Dashboard"
+        description="Bowell Dashboard"
+      >
+        <h1>Patient dashboard</h1>
+      </PatientLayout>
+    );
+  }
+  return null;
 };
 
 export default DashboardHome;
