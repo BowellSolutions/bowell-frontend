@@ -13,21 +13,24 @@ import Head from "next/head";
 import {useDispatch} from "react-redux";
 import {checkAuthStatus} from "../../redux/actions/auth";
 
-interface DoctorLayoutProps {
+export type UserType = "doctor" | "patient";
+export type SidebarVariantType = "opaque" | "transparent";
+
+interface DashboardLayoutProps {
   children: ReactNode;
   title: string,
   description?: string,
   brandText: string,
+  type: UserType,
 }
 
-type SidebarVariantType = "opaque" | "transparent";
-
-const DoctorLayout: FC<DoctorLayoutProps> = (
+const DashboardLayout: FC<DashboardLayoutProps> = (
   {
     children,
     title,
     description,
-    brandText
+    brandText,
+    type,
   }
 ) => {
   const [sidebarVariant, setSidebarVariant] = useState<SidebarVariantType>("transparent");
@@ -55,6 +58,7 @@ const DoctorLayout: FC<DoctorLayoutProps> = (
         logoText="BOWELL DASHBOARD"
         display="none"
         sidebarVariant={sidebarVariant}
+        user={type}
       />
 
       <MainPanel
@@ -102,4 +106,4 @@ const DoctorLayout: FC<DoctorLayoutProps> = (
   );
 };
 
-export default DoctorLayout;
+export default DashboardLayout;

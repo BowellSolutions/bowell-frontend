@@ -1,6 +1,6 @@
 import {FC, ReactNode, useEffect} from "react";
 import Head from "next/head";
-import MainNavbar from "./MainNavbar";
+import MainNavbar from "../navbar/MainNavbar";
 import {useDispatch} from "react-redux";
 import {checkAuthStatus} from "../../redux/actions/auth";
 

@@ -8,7 +8,8 @@ import Examinations from "./views/doctor/Examinations";
 import Recordings from "./views/doctor/Recordings";
 import Profile from "./views/doctor/Profile";
 
-const routes = [
+
+export const doctorsRoutes = [
   {
     path: "",
     name: "Dashboard",
@@ -50,6 +51,23 @@ const routes = [
   },
 ];
 
-export const patientsRoutes = [];
-
-export default routes;
+export const patientsRoutes = [
+  {
+    path: "",
+    name: "Dashboard",
+    icon: <Icon as={IoIosHome} color="inherit"/>,
+    layout: "/dashboard",
+  },
+  {
+    path: "/examinations",
+    name: "Examinations",
+    icon: <Icon as={BiReceipt} color="inherit"/>,
+    layout: "/dashboard",
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    icon: <Icon as={BsFillPersonFill} color="inherit"/>,
+    layout: "/dashboard",
+  },
+];
