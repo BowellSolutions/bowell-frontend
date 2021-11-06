@@ -35,24 +35,6 @@ export const tablesTableData = [
     status: "Online",
     date: "14/11/21",
   },
-  {
-    logo: "",
-    name: "Daniel Thomas",
-    email: "daniel@simmmple.com",
-    subdomain: "Programmer",
-    domain: "Developer",
-    status: "Offline",
-    date: "21/01/21",
-  },
-  {
-    logo: "",
-    name: "Mark Wilson",
-    email: "mark@simmmple.com",
-    subdomain: "Designer",
-    domain: "UI/UX Design",
-    status: "Offline",
-    date: "04/09/20",
-  },
 ];
 
 export const tablesProjectData = [
@@ -196,68 +178,5 @@ export const invoicesData = [
     code: "#AR-803481",
     price: "$300",
     format: "PDF",
-  },
-];
-
-export const billingData = [
-  {
-    name: "Oliver Liam",
-    company: "Viking Burrito",
-    email: "oliver@burrito.com",
-    number: "FRB1235476",
-  },
-  {
-    name: "Lucas Harper",
-    company: "Stone Tech Zone",
-    email: "lucas@stone-tech.com",
-    number: "FRB1235476",
-  },
-  {
-    name: "Ethan James",
-    company: "Fiber Notion",
-    email: "ethan@fiber.com",
-    number: "FRB1235476",
-  },
-];
-
-export const newestTransactions = [
-  {
-    name: "Netflix",
-    date: "27 March 2021, at 12:30 PM",
-    price: "- $2,500",
-    logo: "",
-  },
-  {
-    name: "Apple",
-    date: "27 March 2021, at 12:30 PM",
-    price: "+ $2,500",
-    logo: "",
-  },
-];
-
-export const olderTransactions = [
-  {
-    name: "Stripe",
-    date: "26 March 2021, at 13:45 PM",
-    price: "+ $800",
-    logo: "",
-  },
-  {
-    name: "HubSpot",
-    date: "26 March 2021, at 12:30 PM",
-    price: "+ $1,700",
-    logo: "",
-  },
-  {
-    name: "Webflow",
-    date: "26 March 2021, at 05:00 PM",
-    price: "Pending",
-    logo: "",
-  },
-  {
-    name: "Microsoft",
-    date: "25 March 2021, at 16:30 PM",
-    price: "- $987",
-    logo: "",
   },
 ];
