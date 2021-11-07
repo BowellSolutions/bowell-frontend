@@ -12,6 +12,7 @@ import {Portal} from "@chakra-ui/react";
 import Head from "next/head";
 import {useDispatch} from "react-redux";
 import {checkAuthStatus} from "../../redux/actions/auth";
+import DashboardContext from "../context/DashboardContext";
 
 export type UserType = "doctor" | "patient";
 export type SidebarVariantType = "opaque" | "transparent";
@@ -61,47 +62,51 @@ const DashboardLayout: FC<DashboardLayoutProps> = (
         user={type}
       />
 
-      <MainPanel
-        // @ts-ignore
-        ref={mainPanel}
-        w={{
-          base: "100%",
-          xl: "calc(100% - 275px)",
-        }}
-      >
-        <Portal>
-          <DashboardNavbar
-            onOpen={onOpen}
-            logoText="BOWELL DASHBOARD"
-            brandText={brandText}
+      <DashboardContext.Provider value={{
+        type: type,
+      }}>
+        <MainPanel
+          // @ts-ignore
+          ref={mainPanel}
+          w={{
+            base: "100%",
+            xl: "calc(100% - 275px)",
+          }}
+        >
+          <Portal>
+            <DashboardNavbar
+              onOpen={onOpen}
+              logoText="BOWELL DASHBOARD"
+              brandText={brandText}
+              secondary={false}
+              fixed={fixed}
+            />
+          </Portal>
+
+          <PanelContent>
+            <PanelContainer>
+              {children}
+            </PanelContainer>
+          </PanelContent>
+
+          <Footer/>
+
+          <Portal>
+            <ScrollToTopButton/>
+          </Portal>
+
+          <Configurator
             secondary={false}
-            fixed={fixed}
+            isOpen={isOpen}
+            onClose={onClose}
+            isChecked={fixed}
+            isTransparent={sidebarVariant === "transparent"}
+            onSwitch={(value) => setFixed(value)}
+            onOpaque={() => setSidebarVariant("opaque")}
+            onTransparent={() => setSidebarVariant("transparent")}
           />
-        </Portal>
-
-        <PanelContent>
-          <PanelContainer>
-            {children}
-          </PanelContainer>
-        </PanelContent>
-
-        <Footer/>
-
-        <Portal>
-          <ScrollToTopButton/>
-        </Portal>
-
-        <Configurator
-          secondary={false}
-          isOpen={isOpen}
-          onClose={onClose}
-          isChecked={fixed}
-          isTransparent={sidebarVariant === "transparent"}
-          onSwitch={(value) => setFixed(value)}
-          onOpaque={() => setSidebarVariant("opaque")}
-          onTransparent={() => setSidebarVariant("transparent")}
-        />
-      </MainPanel>
+        </MainPanel>
+      </DashboardContext.Provider>
     </>
   );
 };

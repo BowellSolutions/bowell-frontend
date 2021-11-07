@@ -1,9 +1,9 @@
 import {Box, Flex, Heading, Link, useColorModeValue} from "@chakra-ui/react";
 import React, {FC, useEffect, useState} from "react";
-import DashboardNavbarLinks from "./DashbarNavbarLinks";
+import DashboardNavbarLinks from "./DashboardNavbarLinks";
 
 
-interface AdminNavbarProps {
+interface DashboardNavbarProps {
   logoText: string,
   variant?: string,
   fixed: boolean,
@@ -12,7 +12,7 @@ interface AdminNavbarProps {
   onOpen: any,
 }
 
-const AdminNavbar: FC<AdminNavbarProps> = (props) => {
+const DashboardNavbar: FC<DashboardNavbarProps> = (props) => {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const {logoText, variant, fixed, secondary, brandText, onOpen} = props;
 
@@ -140,4 +140,4 @@ const AdminNavbar: FC<AdminNavbarProps> = (props) => {
   );
 };
 
-export default AdminNavbar;
+export default DashboardNavbar;
