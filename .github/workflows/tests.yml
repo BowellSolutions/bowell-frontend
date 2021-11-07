@@ -12,7 +12,7 @@ on:
 jobs:
   jest-tests:
     name: Jest run1
-    runs-on: self-hosted
+    runs-on: [self-hosted, linux, arm64]
 
     steps:
       - name: Checkout
