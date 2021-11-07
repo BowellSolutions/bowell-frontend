@@ -1,8 +1,6 @@
 import axiosClient from "./axiosClient";
+import type {Response} from "./types";
 import {UserData} from "./types";
-import {AxiosResponse} from "axios";
-
-type Response<T> = AxiosResponse<T>;
 
 export const login = (username: string, password: string): Promise<Response<{}>> => {
   return axiosClient.post('/auth/token/', {

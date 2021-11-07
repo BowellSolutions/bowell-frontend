@@ -15,8 +15,8 @@ export const FileUpload: FC = () => {
   const [percentage, setPercentage] = useState<number>(0);
   const [error, setError] = useState<any>(null);
 
-  const dropzoneBgColorActive = useColorModeValue("#f7fafc", "");
-  const dropzoneBgColorAccept = useColorModeValue("#eff2f7", "");
+  const dropzoneBgColorActive = useColorModeValue("gray.50", "transparent");
+  const dropzoneBgColorAccept = useColorModeValue("gray.100", "gray.600");
 
   const removeFile = (): void => {
     setError(null);
@@ -36,6 +36,7 @@ export const FileUpload: FC = () => {
     if (selectedFile) {
       const data = new FormData();
       data.append('file', selectedFile);
+      data.append('name', selectedFile.name);
       uploadFile(data, onUploadProgress).then(
         res => console.log(res)
       ).catch(err => setError(JSON.stringify(err)));
@@ -57,10 +58,10 @@ export const FileUpload: FC = () => {
   });
 
   const getBorderColor = () => {
-    if (isDragAccept) return '#81e6d9'; // teal-200
-    else if (isDragActive) return '#90cdf4'; // blue-200
-    else if (isDragReject) return '#e53e3e'; // red-500
-    return '#e2e8f0'; // gray-200
+    if (isDragAccept) return 'teal.200';
+    else if (isDragActive) return 'blue.200';
+    else if (isDragReject) return 'red.500';
+    return 'gray.200';
   };
 
   return (
