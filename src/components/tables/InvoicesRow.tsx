@@ -35,22 +35,6 @@ const InvoicesRow: FC<InvoicesRowProps> = (
       </Flex>
 
       <Spacer/>
-
-      <Box me="12px">
-        <Text fontSize="md" color="gray.400" fontWeight="semibold">
-          {price}
-        </Text>
-      </Box>
-
-      <Button p="0px" bg="transparent" variant="no-hover">
-        <Flex alignItems="center" p="12px">
-          <Icon w="20px" h="auto" me="5px"/>
-
-          <Text fontSize="md" color={textColor} fontWeight="bold">
-            {format}
-          </Text>
-        </Flex>
-      </Button>
     </Flex>
   );
 };

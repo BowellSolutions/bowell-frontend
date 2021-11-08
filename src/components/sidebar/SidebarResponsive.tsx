@@ -1,14 +1,11 @@
 import {FC, ReactNode, useRef} from "react";
 import {Separator} from "../utils/Separator";
-import routes from "../routes";
-import IconBox from "../icons/IconBox";
 import {HamburgerIcon} from "@chakra-ui/icons";
 import {useDisclosure} from "@chakra-ui/hooks";
 import {useRouter} from "next/router";
 import NextLink from "next/link";
 import {
   Box,
-  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -21,6 +18,8 @@ import {
   Text,
   useColorModeValue
 } from "@chakra-ui/react";
+import {useDashboardContext} from "../context/DashboardContext";
+import SidebarResponsiveLinks from "./SidebarResponsiveLinks";
 
 interface SidebarResponsiveProps {
   logoText: string,
@@ -31,149 +30,38 @@ interface SidebarResponsiveProps {
 const SidebarResponsive: FC<SidebarResponsiveProps> = (
   {logoText, secondary}
 ) => {
-  const router = useRouter();
-  const mainPanel = useRef();
+  const mainPanel = useRef(null);
 
-  const activeRoute = (routeName: string) => router.pathname === routeName ? "active" : "";
-
-  const activeBg = useColorModeValue("white", "gray.700");
-  const inactiveBg = useColorModeValue("white", "gray.700");
-  const activeColor = useColorModeValue("gray.700", "white");
-  const inactiveColor = useColorModeValue("gray.400", "gray.400");
-
-  const createLinks = (routes: any) => {
-    return routes.map((prop: any) => {
-      return (
-        <NextLink href={prop.layout + prop.path} passHref key={prop.layout + prop.path}>
-          {activeRoute(prop.layout + prop.path) === "active" ? (
-            <Button
-              boxSize="initial"
-              justifyContent="flex-start"
-              alignItems="center"
-              bg={activeBg}
-              mb={{
-                xl: "12px",
-              }}
-              mx={{
-                xl: "auto",
-              }}
-              ps={{
-                sm: "10px",
-                xl: "16px",
-              }}
-              py="12px"
-              borderRadius="15px"
-              sx={{
-                "&:hover": "none",
-              }}
-              w="100%"
-              _active={{
-                bg: "inherit",
-                transform: "none",
-                borderColor: "transparent",
-              }}
-              _focus={{
-                boxShadow: "none",
-              }}
-            >
-              <Flex>
-                <IconBox
-                  // @ts-ignore
-                  bg="teal.300"
-                  color="white"
-                  h="30px"
-                  w="30px"
-                  me="12px"
-                >
-                  {prop.icon}
-                </IconBox>
-
-                <Text color={activeColor} my="auto" fontSize="sm">
-                  {prop.name}
-                </Text>
-              </Flex>
-            </Button>
-          ) : (
-            <Button
-              boxSize="initial"
-              justifyContent="flex-start"
-              alignItems="center"
-              bg="transparent"
-              mb={{
-                xl: "12px",
-              }}
-              mx={{
-                xl: "auto",
-              }}
-              py="12px"
-              ps={{
-                sm: "10px",
-                xl: "16px",
-              }}
-              borderRadius="15px"
-              sx={{
-                "&:hover": "none",
-              }}
-              w="100%"
-              _active={{
-                bg: "inherit",
-                transform: "none",
-                borderColor: "transparent",
-              }}
-              _focus={{
-                boxShadow: "none",
-              }}
-            >
-              <Flex>
-                <IconBox
-                  // @ts-ignore
-                  bg={inactiveBg}
-                  color="teal.300"
-                  h="30px"
-                  w="30px"
-                  me="12px"
-                >
-                  {prop.icon}
-                </IconBox>
-                <Text color={inactiveColor} my="auto" fontSize="sm">
-                  {prop.name}
-                </Text>
-              </Flex>
-            </Button>
-          )}
-        </NextLink>
-      );
-    });
-  };
-
-  let hamburgerColor = useColorModeValue("gray.500", "gray.200");
-  if (secondary) hamburgerColor = "white";
+  const grayColor = useColorModeValue("gray.500", "gray.200");
+  const hamburgerColor = secondary ? "white" : grayColor;
 
   const {isOpen, onOpen, onClose} = useDisclosure();
-  const btnRef = useRef();
+  const btnRef = useRef(null);
 
   return (
     <Flex
       display={{sm: "flex", xl: "none"}}
-      // @ts-ignore
       ref={mainPanel}
       alignItems="center"
     >
-      <HamburgerIcon
+      <Icon
+        as={HamburgerIcon}
         color={hamburgerColor}
-        w="18px"
-        h="18px"
-        // @ts-ignore
+        w="22px"
+        h="22px"
+        me={{sm: "16px", lg: "8px"}}
         ref={btnRef}
         colorScheme="teal"
         onClick={onOpen}
+        sx={{
+          cursor: 'pointer',
+        }}
       />
 
       <Drawer
         isOpen={isOpen}
         onClose={onClose}
-        placement={"left"}
-        // @ts-ignore
+        placement="left"
         finalFocusRef={btnRef}
       >
         <DrawerOverlay/>
@@ -212,9 +100,7 @@ const SidebarResponsive: FC<SidebarResponsiveProps> = (
                 </Box>
               </Box>
               <Stack direction="column" mb="40px">
-                <Box>
-                  {createLinks(routes)}
-                </Box>
+                <SidebarResponsiveLinks/>
               </Stack>
             </Box>
           </DrawerBody>

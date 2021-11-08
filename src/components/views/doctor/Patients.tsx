@@ -1,11 +1,11 @@
 import {FC} from "react";
-import TablesProjectRow from "../../tables/TablesProjectRow";
-import {Flex, Table, Tbody, Th, Thead, Tr, useColorModeValue, Text} from "@chakra-ui/react";
+import {Flex, Table, Tbody, Text, Th, Thead, Tr, useColorModeValue} from "@chakra-ui/react";
 import CardBody from "../../card/CardBody";
 import CardHeader from "../../card/CardHeader";
 import TablesTableRow from "../../tables/TablesTableRow";
 import Card from "../../card/Card";
-import {tablesProjectData, tablesTableData} from "../../../mocks";
+import {tablesTableData} from "../../../mocks";
+import ExaminationModal from "../../dashboard/ExaminationModal";
 
 
 const Patients: FC = () => {
@@ -17,9 +17,13 @@ const Patients: FC = () => {
         overflowX={{sm: "scroll", xl: "hidden"}}
       >
         <CardHeader p="6px 0px 22px 0px">
-          <Text fontSize="xl" color={textColor} fontWeight="bold">
-            Patients Table
-          </Text>
+          <Flex alignItems="center" grow={1}>
+            <Text fontSize="xl" color={textColor} fontWeight="bold">
+              Patients
+            </Text>
+          </Flex>
+
+          <ExaminationModal/>
         </CardHeader>
         <CardBody>
           <Table variant="simple" color={textColor}>
@@ -39,7 +43,6 @@ const Patients: FC = () => {
                 return (
                   <TablesTableRow
                     name={row.name}
-                    // logo={row.logo}
                     email={row.email}
                     subdomain={row.subdomain}
                     domain={row.domain}
@@ -49,43 +52,6 @@ const Patients: FC = () => {
                   />
                 );
               })}
-            </Tbody>
-          </Table>
-        </CardBody>
-      </Card>
-
-      <Card my="22px" overflowX={{sm: "scroll", xl: "hidden"}}>
-        <CardHeader p="6px 0px 22px 0px">
-          <Flex direction="column">
-            <Text fontSize="lg" color={textColor} fontWeight="bold" pb=".5rem">
-              Projects Table
-            </Text>
-          </Flex>
-        </CardHeader>
-
-        <CardBody>
-          <Table variant="simple" color={textColor}>
-            <Thead>
-              <Tr my=".8rem" pl="0px">
-                <Th pl="0px" color="gray.400">
-                  Companies
-                </Th>
-                <Th color="gray.400">Budget</Th>
-                <Th color="gray.400">Status</Th>
-                <Th color="gray.400">Completion</Th>
-                <Th/>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {tablesProjectData.map((row) => (
-                <TablesProjectRow
-                  name={row.name}
-                  status={row.status}
-                  budget={row.budget}
-                  progression={row.progression}
-                  key={row.name + row.budget + row.progression}
-                />
-              ))}
             </Tbody>
           </Table>
         </CardBody>

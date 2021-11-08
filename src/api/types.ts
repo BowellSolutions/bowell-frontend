@@ -1,3 +1,7 @@
+import {AxiosResponse} from "axios";
+
+export type Response<T> = AxiosResponse<T>;
+
 export interface UserData {
   id: number,
   username: string,
@@ -11,4 +15,11 @@ export interface UserData {
   date_joined: Date,
   groups: any[],
   user_permissions: any[],
+}
+
+export interface FileData {
+  id: number,
+  file: string,
+  name: string,
+  uploaded_at: number | string | UserData,  // to be decided
 }
