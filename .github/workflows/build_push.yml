@@ -9,6 +9,11 @@ on:
       - main
       - develop
   workflow_dispatch:
+    inputs:
+      name:
+        description: 'param1'
+        required: false
+        default: '*'
 
 jobs:
   build-image:
