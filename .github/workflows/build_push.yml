@@ -28,10 +28,18 @@ jobs:
         with:
           repository: BowellSolutions/bowell-infra
           token: ${{ secrets.GH_PAT }} 
-          path: k8s_front
+          path: infra_front
+          ref: develop
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      - name: Set buildkit pod name
+        id: buildkit_pod
+        run: echo "::set-output name=pod_name::front-buildkit_${{ github.run_number }}"
+      - name: Kubectl apply buildkit pod
+        run: |
+          cat infra_front/build_agents/buildkit/pod.yaml | sed "s|{{POD_NAME}}|${{ steps.buildkit_pod.outputs.pod_name }}|" | kubectl apply -f -
+        
       # - name: build the image
       #   run: |
       #     docker buildx build \
