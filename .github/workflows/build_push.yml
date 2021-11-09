@@ -1,6 +1,12 @@
 name: Build 
 
 on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'param1'
+        required: false
+        default: '*'
   push:
     branches:
       - 'develop'
@@ -8,41 +14,31 @@ on:
     branches:
       - main
       - develop
-  workflow_dispatch:
-    inputs:
-      name:
-        description: 'param1'
-        required: false
-        default: '*'
+
 
 jobs:
   build-image:
     name: build image
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Login to private container registry
-        uses: docker/login-action@v1 
+      - name: Checkout infra
+        uses: actions/checkout@v2
         with:
-          registry: ${{ secrets.PCR_URL }}
-          username: ${{ secrets.PCR_USER_NAME }}
-          password: ${{ secrets.PCR_PASSWORD }}
+          repository: BowellSolutions/bowell-infra
+          token: ${{ secrets.GH_PAT }} 
+          path: k8s_front
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
-      - name: install buildx
-        id: buildx
-        uses: crazy-max/ghaction-docker-buildx@v1
-        with:
-          version: latest
-      - name: build the image
-        run: |
-          docker buildx build \
-            --tag ${{ secrets.PCR_URL }}/bowelsound/frontend:${{ steps.date.outputs.date }}_${{ github.run_number }} \
-            --platform linux/amd64 . \
-            --cache-to type=registry,mode=max,ref=${{ secrets.PCR_URL }}/bowelsound/frontend_c:buildcache,push=true \
-            --cache-from type=registry,ref=${{ secrets.PCR_URL }}/bowelsound/frontend_c:buildcache \
-            --file=Dockerfile.prod --push=true 
+      # - name: build the image
+      #   run: |
+      #     docker buildx build \
+      #       --tag ${{ secrets.PCR_URL }}/bowelsound/frontend:${{ steps.date.outputs.date }}_${{ github.run_number }} \
+      #       --platform linux/amd64 . \
+      #       --cache-to type=registry,mode=max,ref=${{ secrets.PCR_URL }}/bowelsound/frontend_c:buildcache,push=true \
+      #       --cache-from type=registry,ref=${{ secrets.PCR_URL }}/bowelsound/frontend_c:buildcache \
+      #       --file=Dockerfile.prod --push=true 
             
 
