@@ -54,6 +54,6 @@ jobs:
                     --output type=image,\"name=nexus.nexus-dev.svc.cluster.local:5056/bowelsound/frontend:${{ steps.date.outputs.date }}_${{ github.run_number }},nexus.nexus-dev.svc.cluster.local:5056/bowelsound/frontend:latest\",push=true \
                     --export-cache type=inline \
                     --import-cache type=registry,ref=nexus.nexus-dev.svc.cluster.local:5056/bowelsound/frontend:latest
- 
+          kubectl delete pod -n build-agents-dev ${{ steps.buildkit_pod.outputs.pod_name }}
             
 
