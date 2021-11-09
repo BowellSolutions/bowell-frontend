@@ -38,7 +38,7 @@ jobs:
         run: echo "::set-output name=pod_name::front-buildkit_${{ github.run_number }}"
       - name: Kubectl apply buildkit pod
         run: |
-          cat infra_front/build_agents/buildkit/pod.yaml | sed "s|{{POD_NAME}}|${{ steps.buildkit_pod.outputs.pod_name }}|" | kubectl apply -f -
+          cat infra_front/build-agents/buildkit/pod.yaml | sed "s|{{POD_NAME}}|${{ steps.buildkit_pod.outputs.pod_name }}|" | kubectl apply -f -
         
       # - name: build the image
       #   run: |
