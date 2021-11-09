@@ -48,7 +48,7 @@ jobs:
           build \
           --frontend dockerfile.v0 \
           --local context=/tmp/bcontext \
-          --local dockerfile=/tmp/bcontext/Dockerfile.prod \
+          --frontend-opt filename=/tmp/bcontext/Dockerfile.prod \
           --output type=image,name=nexus.nexus-dev.svc.cluster.local:5055/bowelsound/frontend:${{ steps.date.outputs.date }}_${{ github.run_number }},push=true,registry.insecure=true \
           --opt platform=linux/arm64 \
           --export-cache type=registry,mode=max,ref=nexus.nexus-dev.svc.cluster.local:5055/bowelsound/frontend_c:buildcache,push=true \
