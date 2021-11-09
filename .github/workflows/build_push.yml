@@ -43,8 +43,9 @@ jobs:
       - name: Build image
         run: |
           kubectl wait --timeout=300s --for=condition=Ready pod/${{ steps.buildkit_pod.outputs.pod_name }} -n build-agents-dev \
-          && kubectl cp ./ ${{ steps.buildkit_pod.outputs.pod_name }}:/tmp/bcontext -n build-agents-dev \
-          && kubectl exec -n build-agents-dev ${{ steps.buildkit_pod.outputs.pod_name }} -- update-ca-certificates && buildctl \
+          kubectl exec -n build-agents-dev ${{ steps.buildkit_pod.outputs.pod_name }} -- update-ca-certificates \
+          kubectl cp ./ ${{ steps.buildkit_pod.outputs.pod_name }}:/tmp/bcontext -n build-agents-dev \
+          && kubectl exec -n build-agents-dev ${{ steps.buildkit_pod.outputs.pod_name }} -- buildctl \          
           build \
           --frontend dockerfile.v0 \
           --local dockerfile=. \
