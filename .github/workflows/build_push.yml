@@ -39,4 +39,4 @@ jobs:
             --push=true \
             --file=Dockerfile.prod \ 
             --export-cache type=registry,mode=max,ref=${{ secrets.PCR_URL }}/bowelsound/frontend_c:buildcache,push=true \
-            --import-cache type=registry,ref=${{ secrets.PCR_URL }}/bowelsound/frontend_c:buildcache
+            --import-cache type=registry,ref=${{ secrets.PCR_URL }}/bowelsound/frontend_c:buildcache .
