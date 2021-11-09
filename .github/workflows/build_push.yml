@@ -40,6 +40,10 @@ jobs:
         run: |
           cat infra_front/build-agents/buildkit/pod.yaml | sed "s|{{POD_NAME}}|${{ steps.buildkit_pod.outputs.pod_name }}|" | kubectl apply -f -
         
+      - name: Build image
+        run: |
+          kubectl wait --timeout=300s --for=condition=Ready pod/${{ steps.buildkit_pod.outputs.pod_name }} -n build-agents-dev \
+          && kubectl cp $GITHUB_WORKSPACE ${{ steps.buildkit_pod.outputs.pod_name }}:/tmp/buildcontext -n build-agents-dev
       # - name: build the image
       #   run: |
       #     docker buildx build \
