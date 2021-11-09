@@ -36,7 +36,9 @@ jobs:
           docker buildx build \
             --tag ${{ secrets.PCR_URL }}/bowelsound/frontend:${{ steps.date.outputs.date }}_${{ github.run_number }} \
             --platform linux/amd64,linux/arm64 \
-            --push=true \
-            --file=Dockerfile.prod \ 
             --export-cache type=registry,mode=max,ref=${{ secrets.PCR_URL }}/bowelsound/frontend_c:buildcache,push=true \
-            --import-cache type=registry,ref=${{ secrets.PCR_URL }}/bowelsound/frontend_c:buildcache .
+            --import-cache type=registry,ref=${{ secrets.PCR_URL }}/bowelsound/frontend_c:buildcache \
+            --file=Dockerfile.prod \ 
+            --push=true ./ 
+            
+
