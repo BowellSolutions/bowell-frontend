@@ -12,6 +12,7 @@ import {
   DrawerOverlay,
   Flex,
   Icon,
+  Image,
   Link,
   Stack,
   Text,
@@ -88,7 +89,7 @@ const SidebarResponsive: FC<SidebarResponsiveProps> = (
                       alignItems="center"
                       fontSize="11px"
                     >
-                      <Icon w="32px" h="32px" me="10px"/>
+                      <Image w="32px" h="32px" me="10px" src="/logo.png" alt=""/>
                       <Text fontSize="sm" mt="3px">
                         {logoText}
                       </Text>

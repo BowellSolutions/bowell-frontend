@@ -1,4 +1,4 @@
-import {Box, Flex, Icon, Link, Text, useColorModeValue,} from "@chakra-ui/react";
+import {Box, Flex, Image, Link, Text, useColorModeValue,} from "@chakra-ui/react";
 import {FC} from "react";
 import NextLink from "next/link";
 import SidebarResponsive from "../sidebar/SidebarResponsive";
@@ -73,7 +73,7 @@ const AuthNavbar: FC<AuthNavbarProps> = ({logo, logoText, secondary, ...rest}) =
             alignItems="center"
             color={mainText}
           >
-            <Icon w="32px" h="32px" me="10px"/>
+            <Image w="32px" h="32px" me="10px" src="/logo.png" alt=""/>
             <Text fontsize="sm" mt="3px">
               {logoText}
             </Text>
