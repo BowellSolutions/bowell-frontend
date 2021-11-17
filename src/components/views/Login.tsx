@@ -10,7 +10,8 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import React, {FC, useEffect, useState} from "react";
+import NextLink from "next/link";
+import {ChangeEvent, FC, FormEvent, useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../redux/hooks";
 import {loginUser, resetRegister} from "../../redux/actions/auth";
@@ -19,6 +20,7 @@ import {loginUser, resetRegister} from "../../redux/actions/auth";
 const Login: FC = () => {
   const titleColor = useColorModeValue("teal.300", "teal.200");
   const textColor = useColorModeValue("gray.400", "white");
+  const bgColor = useColorModeValue("white", "gray.700");
 
   const dispatch = useDispatch();
   const loading = useAppSelector((state) => state.auth.loading);
@@ -26,7 +28,7 @@ const Login: FC = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const handleInputChange = (e: React.BaseSyntheticEvent) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     switch (e.target.name) {
       case 'email':
         setUsername(e.target.value);
@@ -39,7 +41,7 @@ const Login: FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(loginUser(username, password));
   };
@@ -52,13 +54,12 @@ const Login: FC = () => {
   return (
     <Flex position="relative" mb="40px">
       <Flex
-        h={{sm: "initial", md: "75vh", lg: "85vh"}}
         w="100%"
         maxW="1044px"
-        mx="auto"
+        mx={{sm: "24px", lg: "auto"}}
         justifyContent="space-between"
         mb="30px"
-        pt={{sm: "100px", md: "0px"}}
+        mt={{sm: "120px"}}
       >
         <Flex
           alignItems="center"
@@ -71,11 +72,15 @@ const Login: FC = () => {
             w="100%"
             background={"transparent"}
             p="48px"
-            mt={{md: "150px", lg: "80px"}}
+            mt={{md: "32px", lg: "64px"}}
+            borderRadius="15px"
+            bg={bgColor}
+            boxShadow="0 20px 27px 0 rgb(0 0 0 / 5%)"
           >
             <Heading color={titleColor} fontSize="32px" mb="10px">
               Welcome Back
             </Heading>
+
             <Text
               mb="36px"
               ms="4px"
@@ -149,10 +154,12 @@ const Login: FC = () => {
               mt="0px"
             >
               <Text color={textColor} fontWeight="medium">
-                Don&apost have an account?
-                <Link color={titleColor} as="span" ms="5px" fontWeight="bold">
-                  Sign Up
-                </Link>
+                {"Don't have an account?"}
+                <NextLink href="/register">
+                  <Link color={titleColor} as="span" ms="5px" fontWeight="bold">
+                    Sign Up
+                  </Link>
+                </NextLink>
               </Text>
             </Flex>
           </Flex>

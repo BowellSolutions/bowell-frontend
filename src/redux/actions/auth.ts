@@ -81,14 +81,20 @@ export const setRefreshTimer = (): AppThunk => (dispatch) => {
   }, Number(ACCESS_TOKEN_LIFETIME) * 1000);
 };
 
-export const checkAuthStatus = (): AppThunk => async (dispatch) => {
+export const checkAuthStatus = (): AppThunk => async (dispatch, getState) => {
   try {
     const res = await verifyToken();
+    const state = getState();
 
     if (res.status === 200) {
       dispatch(authSuccess());
       dispatch(setRefreshTimer());
-      dispatch(loadUser());
+
+      // do not fetch user if it is already inside the store
+      if (state.auth.user == null) {
+        dispatch(loadUser());
+      }
+
     } else {
       dispatch(authFail());
     }

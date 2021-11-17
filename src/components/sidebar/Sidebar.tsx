@@ -1,7 +1,6 @@
 import {FC, useRef} from "react";
 import {Separator} from "../utils/Separator";
-import {Box, Icon, Link, Stack, Text, useColorModeValue} from "@chakra-ui/react";
-import {useRouter} from "next/router";
+import {Box, Image, Link, Stack, Text, useColorModeValue} from "@chakra-ui/react";
 import NextLink from "next/link";
 import type {UserType} from "../layouts/DashboardLayout";
 import SidebarLinks from "./SidebarLinks";
@@ -60,7 +59,7 @@ const Sidebar: FC<SidebarProps> = ({logoText, display, sidebarVariant, user}) =>
                   alignItems="center"
                   fontSize="11px"
                 >
-                  <Icon w="32px" h="32px" me="10px"/>
+                  <Image w="32px" h="32px" me="10px" src="/logo.png" alt=""/>
                   <Text fontSize="sm" mt="3px">
                     {logoText}
                   </Text>

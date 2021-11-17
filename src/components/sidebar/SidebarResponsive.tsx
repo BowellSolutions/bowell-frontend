@@ -2,7 +2,6 @@ import {FC, ReactNode, useRef} from "react";
 import {Separator} from "../utils/Separator";
 import {HamburgerIcon} from "@chakra-ui/icons";
 import {useDisclosure} from "@chakra-ui/hooks";
-import {useRouter} from "next/router";
 import NextLink from "next/link";
 import {
   Box,
@@ -13,12 +12,12 @@ import {
   DrawerOverlay,
   Flex,
   Icon,
+  Image,
   Link,
   Stack,
   Text,
   useColorModeValue
 } from "@chakra-ui/react";
-import {useDashboardContext} from "../context/DashboardContext";
 import SidebarResponsiveLinks from "./SidebarResponsiveLinks";
 
 interface SidebarResponsiveProps {
@@ -41,8 +40,8 @@ const SidebarResponsive: FC<SidebarResponsiveProps> = (
   return (
     <Flex
       display={{sm: "flex", xl: "none"}}
-      ref={mainPanel}
       alignItems="center"
+      ref={mainPanel}
     >
       <Icon
         as={HamburgerIcon}
@@ -65,6 +64,7 @@ const SidebarResponsive: FC<SidebarResponsiveProps> = (
         finalFocusRef={btnRef}
       >
         <DrawerOverlay/>
+
         <DrawerContent
           w="250px"
           maxW="250px"
@@ -76,9 +76,9 @@ const SidebarResponsive: FC<SidebarResponsiveProps> = (
           />
 
           <DrawerBody maxW="250px" px="1rem">
-            <Box maxW="100%" h="100vh">
+            <Box maxW="100%" h="calc(100vh-1rem)">
               <Box>
-                <Box pt={"35px"} mb="8px">
+                <Box pt="35px" mb="8px">
                   <NextLink href="/" passHref key="link-to-homepage">
                     <Link
                       display="flex"
@@ -89,7 +89,7 @@ const SidebarResponsive: FC<SidebarResponsiveProps> = (
                       alignItems="center"
                       fontSize="11px"
                     >
-                      <Icon w="32px" h="32px" me="10px"/>
+                      <Image w="32px" h="32px" me="10px" src="/logo.png" alt=""/>
                       <Text fontSize="sm" mt="3px">
                         {logoText}
                       </Text>

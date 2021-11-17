@@ -9,12 +9,13 @@ interface DashboardNavbarProps {
   fixed: boolean,
   secondary: boolean,
   brandText: string,
-  onOpen: any,
+  onOpen: () => void,
 }
 
-const DashboardNavbar: FC<DashboardNavbarProps> = (props) => {
+const DashboardNavbar: FC<DashboardNavbarProps> = (
+  {logoText, variant, fixed, secondary, brandText, onOpen}
+) => {
   const [scrolled, setScrolled] = useState<boolean>(false);
-  const {logoText, variant, fixed, secondary, brandText, onOpen} = props;
 
   let mainText = useColorModeValue("gray.700", "gray.200");
   let navbarPosition = "absolute";
@@ -42,7 +43,7 @@ const DashboardNavbar: FC<DashboardNavbarProps> = (props) => {
     "drop-shadow(0px 7px 23px rgba(0, 0, 0, 0.05))"
   );
 
-  if (props.fixed)
+  if (fixed)
     if (scrolled) {
       navbarPosition = "fixed";
       navbarShadow = navShadow;
@@ -92,13 +93,8 @@ const DashboardNavbar: FC<DashboardNavbarProps> = (props) => {
       pb="8px"
       left=""
       right="30px"
-      px={{
-        sm: paddingX,
-        md: "30px",
-      }}
-      ps={{
-        xl: "12px",
-      }}
+      px={{sm: paddingX, md: "30px",}}
+      ps={{xl: "12px",}}
       pt="8px"
       top="18px"
       w={{sm: "calc(100vw - 30px)", xl: "calc(100vw - 75px - 275px)"}}
@@ -117,9 +113,7 @@ const DashboardNavbar: FC<DashboardNavbarProps> = (props) => {
               transform: "none",
               borderColor: "transparent",
             }}
-            _focus={{
-              boxShadow: "none",
-            }}
+            _focus={{boxShadow: "none",}}
           >
             <Heading as="h1" size="lg" pl={"16px"}>
               {brandText}

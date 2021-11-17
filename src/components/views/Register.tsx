@@ -1,20 +1,11 @@
-import {
-  Box,
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Link,
-  Switch,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import {Button, Flex, FormControl, FormLabel, Heading, Input, Link, Text, useColorModeValue,} from "@chakra-ui/react";
 import {FC} from "react";
+import NextLink from "next/link";
+
 
 const Register: FC = () => {
   const titleColor = useColorModeValue("teal.300", "teal.200");
-  const textColor = useColorModeValue("gray.700", "white");
+  const textColor = useColorModeValue("gray.400", "white");
   const bgColor = useColorModeValue("white", "gray.700");
 
   return (
@@ -24,23 +15,6 @@ const Register: FC = () => {
       justifySelf="center"
       overflow="hidden"
     >
-      <Box
-        position="absolute"
-        minH={{base: "70vh", md: "50vh"}}
-        w={{md: "calc(100vw - 50px)"}}
-        borderRadius={{md: "15px"}}
-        left="0"
-        right="0"
-        bgRepeat="no-repeat"
-        overflow="hidden"
-        zIndex="-1"
-        top="0"
-        // bgImage={BgSignUp}
-        bgSize="cover"
-        mx={{md: "auto"}}
-        mt={{md: "14px"}}
-      />
-
       <Flex
         direction="column"
         textAlign="center"
@@ -48,29 +22,24 @@ const Register: FC = () => {
         align="center"
         mt="6.5rem"
         mb="30px"
-      >
-      </Flex>
+      />
 
-      <Flex alignItems="center" justifyContent="center" mb="60px" mt="20px">
+      <Flex alignItems="center" justifyContent="center" mb="60px">
         <Flex
           direction="column"
-          w="445px"
+          w="100%"
+          maxW="445px"
           background={"transparent"}
           borderRadius="15px"
           p="40px"
-          mx={{base: "100px"}}
+          mx={{base: "100px", sm: "auto"}}
           bg={bgColor}
           boxShadow="0 20px 27px 0 rgb(0 0 0 / 5%)"
+          textAlign="center"
         >
-          <Text
-            fontSize="xl"
-            color={textColor}
-            fontWeight="bold"
-            textAlign="center"
-            mb="22px"
-          >
-            Register
-          </Text>
+          <Heading color={titleColor} fontSize="32px" mb="24px">
+            Join Us
+          </Heading>
 
           <FormControl>
             <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
@@ -154,15 +123,17 @@ const Register: FC = () => {
           >
             <Text color={textColor} fontWeight="medium">
               Already have an account?
-              <Link
-                color={titleColor}
-                as="span"
-                ms="5px"
-                href="#"
-                fontWeight="bold"
-              >
-                Sign In
-              </Link>
+              <NextLink href="/login">
+                <Link
+                  color={titleColor}
+                  as="span"
+                  ms="5px"
+                  href="#"
+                  fontWeight="bold"
+                >
+                  Sign In
+                </Link>
+              </NextLink>
             </Text>
           </Flex>
         </Flex>

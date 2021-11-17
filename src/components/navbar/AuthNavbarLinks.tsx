@@ -2,7 +2,7 @@ import NextLink from "next/link";
 import {Button, HStack, Icon, Text} from "@chakra-ui/react";
 import {IoIosHome, IoIosRocket} from "react-icons/io";
 import {BsFillPersonFill} from "react-icons/bs";
-import {IoDocumentSharp} from "react-icons/io5";
+import {MdLogin} from "react-icons/md";
 import {FC} from "react";
 
 interface AuthNavbarLinksProps {
@@ -56,6 +56,27 @@ const AuthNavbarLinks: FC<AuthNavbarLinksProps> = ({color}) => {
         </Button>
       </NextLink>
 
+      <NextLink href="/login" passHref>
+        <Button
+          fontSize="sm"
+          px="0px"
+          me={{sm: "2px", md: "16px"}}
+          color={color}
+          variant="transparent-with-icon"
+          leftIcon={
+            <Icon
+              as={MdLogin}
+              color={color}
+              w="14px"
+              h="14px"
+              me="0px"
+            />
+          }
+        >
+          <Text>Login</Text>
+        </Button>
+      </NextLink>
+
       <NextLink href="/register" passHref>
         <Button
           fontSize="sm"
@@ -75,27 +96,6 @@ const AuthNavbarLinks: FC<AuthNavbarLinksProps> = ({color}) => {
           }
         >
           <Text>Register</Text>
-        </Button>
-      </NextLink>
-
-      <NextLink href="/login" passHref>
-        <Button
-          fontSize="sm"
-          px="0px"
-          me={{sm: "2px", md: "16px"}}
-          color={color}
-          variant="transparent-with-icon"
-          leftIcon={
-            <Icon
-              as={IoDocumentSharp}
-              color={color}
-              w="12px"
-              h="12px"
-              me="0px"
-            />
-          }
-        >
-          <Text>Login</Text>
         </Button>
       </NextLink>
     </HStack>
