@@ -38,7 +38,7 @@ jobs:
         run: echo "::set-output name=pod_name::front-buildkit-${{ github.run_number }}"
       - name: Generate image's name based on tag and date
         id: image_name
-        run: echo "::set-output name=tag::frontend:${{ steps.date.outputs.date }}_${{ github.run_number }}"
+        run: echo "::set-output name=name::frontend:${{ steps.date.outputs.date }}_${{ github.run_number }}"
       - name: Kubectl apply buildkit pod
         run: |
           cat infra_front/build-agents/buildkit/pod.yaml | sed "s|{{POD_NAME}}|${{ steps.buildkit_pod.outputs.pod_name }}|" | kubectl apply -f -
@@ -53,9 +53,7 @@ jobs:
                     --local dockerfile=. \
                     --local context=/tmp/bcontext \
                     --frontend-opt filename=tmp/bcontext/Dockerfile.prod \
-                    --output type=image,\"name=nexus.nexus-dev.svc.cluster.local:5056/bowelsound/frontend:${{ steps.image_name.name }},nexus.nexus-dev.svc.cluster.local:5056/bowelsound/frontend:latest\",push=true \
-                    # --export-cache type=inline \
-                    # --import-cache type=registry,ref=nexus.nexus-dev.svc.cluster.local:5056/bowelsound/frontend:latest
+                    --output type=image,\"name=nexus.nexus-dev.svc.cluster.local:5056/bowelsound/${{ steps.image_name.outputs.name }},nexus.nexus-dev.svc.cluster.local:5056/bowelsound/frontend:latest\",push=true \
           retVal=$?
 
           if [ $retVal -ne 0 ]; then
@@ -67,6 +65,6 @@ jobs:
           
       - name: Apply new deployment
         run : |
-          sed "s|{{IMAGE_NAME}}|${{ steps.image_name.name }}|" infra_front/k8s_front/k8s/deployment.yaml | kubectl apply -f -
+          sed "s|{{IMAGE_NAME}}|${{ steps.image_name.outputs.name }}|" infra_front/k8s_front/k8s/deployment.yaml | kubectl apply -f -
           kubectl rollout restart deployment/bowelsound-frontend -n bowelsound-dev
           kubectl rollout status deployment/bowelsound-frontend -n bowelsound-dev --timeout=300s
