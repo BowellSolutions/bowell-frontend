@@ -70,3 +70,4 @@ jobs:
           sed "s|{{IMAGE_NAME}}|${{ steps.image_name.name }}|" infra_front/k8s_front/k8s/deployment.yaml | kubectl apply -f -
           kubectl rollout restart deployment/bowelsound-frontend -n bowelsound-dev
           kubectl rollout status deployment/bowelsound-frontend -n bowelsound-dev --timeout=300s
+          echo "finished"
