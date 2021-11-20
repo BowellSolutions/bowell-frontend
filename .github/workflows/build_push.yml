@@ -1,0 +1,59 @@
+name: Build 
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'param1'
+        required: false
+        default: '*'
+  push:
+    branches:
+      - 'develop'
+  pull_request:
+    branches:
+      - main
+      - develop
+
+
+jobs:
+  build-image:
+    name: build image
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Checkout infra
+        uses: actions/checkout@v2
+        with:
+          repository: BowellSolutions/bowell-infra
+          token: ${{ secrets.GH_PAT }} 
+          path: infra_front
+          ref: develop
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      - name: Set buildkit pod name
+        id: buildkit_pod
+        run: echo "::set-output name=pod_name::front-buildkit-${{ github.run_number }}"
+      - name: Kubectl apply buildkit pod
+        run: |
+          cat infra_front/build-agents/buildkit/pod.yaml | sed "s|{{POD_NAME}}|${{ steps.buildkit_pod.outputs.pod_name }}|" | kubectl apply -f -
+        
+      - name: Build image
+        run: |
+          kubectl wait --timeout=300s --for=condition=Ready pod/${{ steps.buildkit_pod.outputs.pod_name }} -n build-agents-dev 
+          kubectl exec -n build-agents-dev ${{ steps.buildkit_pod.outputs.pod_name }} -- update-ca-certificates 
+          kubectl cp ./ ${{ steps.buildkit_pod.outputs.pod_name }}:/tmp/bcontext -n build-agents-dev 
+          kubectl exec -n build-agents-dev ${{ steps.buildkit_pod.outputs.pod_name }} -- buildctl \
+                    build \
+                    --frontend dockerfile.v0 \
+                    --local dockerfile=. \
+                    --local context=/tmp/bcontext \
+                    --frontend-opt filename=tmp/bcontext/Dockerfile.prod \
+                    --output type=image,\"name=nexus.nexus-dev.svc.cluster.local:5056/bowelsound/frontend:${{ steps.date.outputs.date }}_${{ github.run_number }},nexus.nexus-dev.svc.cluster.local:5056/bowelsound/frontend:latest\",push=true \
+                    --export-cache type=inline \
+                    --import-cache type=registry,ref=nexus.nexus-dev.svc.cluster.local:5056/bowelsound/frontend:latest
+          kubectl delete pod -n build-agents-dev ${{ steps.buildkit_pod.outputs.pod_name }}
+            
+
