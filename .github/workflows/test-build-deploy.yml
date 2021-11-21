@@ -1,12 +1,7 @@
-name: Build and deploy
+name: Frontend CI
 
 on:
   workflow_dispatch:
-    inputs:
-      name:
-        description: 'Name'
-        required: false
-        default: '*'
   push:
     branches:
       - 'develop'
@@ -17,9 +12,28 @@ on:
 
 
 jobs:
-  build-image:
+  jest-tests:
+    name: Jest run
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: |
+          yarn install
+      - name: Run tests
+        run: |
+          yarn test --coverage
+
+  build-and-deploy:
     name: build image
     runs-on: self-hosted
+    needs: [jest-tests]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
