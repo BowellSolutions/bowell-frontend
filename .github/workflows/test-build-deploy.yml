@@ -29,24 +29,24 @@ jobs:
         run: |
           yarn test --coverage
 
-  cypress-tests:
-   name: Cypress run
-   runs-on: ubuntu-latest
+#   cypress-tests:
+#    name: Cypress run
+#    runs-on: ubuntu-latest
 
-   steps:
-     - name: Checkout
-       uses: actions/checkout@v2
-     - name: Cypress run
-       uses: cypress-io/github-action@v2
-       with:
-         build: yarn build
-         start: yarn start
-         wait-on: http://localhost:3000
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#      - name: Cypress run
+#        uses: cypress-io/github-action@v2
+#        with:
+#          build: yarn build
+#          start: yarn start
+#          wait-on: http://localhost:3000
 
   build-and-deploy:
     name: build image
     runs-on: self-hosted
-    needs: [jest-tests, cypress-tests]
+    needs: [jest-tests]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
