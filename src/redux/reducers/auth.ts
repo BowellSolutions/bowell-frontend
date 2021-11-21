@@ -50,7 +50,8 @@ export const authSlice = createSlice({
     loadUserFail: (state) => {
       state.user = null;
     },
-    refreshSuccess: () => {
+    refreshSuccess: (state) => {
+      state.isAuthenticated = true;
     },
     refreshFail: (state) => {
       state.user = null;
