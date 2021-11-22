@@ -6,13 +6,15 @@ import AuthReducer, {
   loginFail,
   loginSuccess,
   logoutFail,
-  logoutSuccess, refreshFail, refreshSuccess,
+  logoutSuccess,
+  refreshFail,
+  refreshSuccess,
   removeAuthLoading,
   resetRegisterSuccess,
   setAuthLoading
-} from "../src/redux/reducers/auth";
+} from "../../src/redux/reducers/auth";
 import {Action} from "redux";
-import {UserData} from "../src/api/types";
+import {UserData} from "../../src/api/types";
 
 describe("test auth reducer", () => {
   const initialState = {
