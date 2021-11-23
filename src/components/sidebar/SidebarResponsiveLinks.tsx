@@ -62,14 +62,14 @@ const SidebarResponsiveLinks: FC = () => {
 
           {router.pathname === "/register" ? (
             <ButtonActiveLink
-              icon={<Icon/>}
+              icon={<Icon as={IoIosRocket}/>}
               name="Register"
               href="/register"
               key="button-link-register-active"
             />
           ) : (
             <ButtonLink
-              icon={<Icon/>}
+              icon={<Icon as={IoIosRocket}/>}
               name="Register"
               href="/register"
               key="button-link-register"
