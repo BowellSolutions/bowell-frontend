@@ -60,7 +60,7 @@ const Configurator: FC<ConfiguratorProps> = (
       finalFocusRef={settingsRef}
       blockScrollOnMount={false}
     >
-      <DrawerContent>
+      <DrawerContent transition="all .05s">
         <DrawerHeader pt="24px" px="24px">
           <DrawerCloseButton/>
 

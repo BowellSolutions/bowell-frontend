@@ -26,7 +26,6 @@ import {BiReceipt} from "react-icons/bi";
 import NextLink from "next/link";
 import {useAppSelector} from "../../../redux/hooks";
 import {MdOutlineDashboard, MdOutlineMore} from "react-icons/md";
-import {useRouter} from "next/router";
 import {useDispatch} from "react-redux";
 import {logoutUser} from "../../../redux/actions/auth";
 

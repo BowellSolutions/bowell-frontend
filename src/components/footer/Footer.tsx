@@ -1,31 +1,30 @@
 import {Flex, Link, Text} from "@chakra-ui/react";
-import React from "react";
-import {useRouter} from "next/router";
+import React, {FC} from "react";
 
-const Footer = () => {
-  const router = useRouter();
+interface FooterProps {
+  textColor?: string,
+  linkColor?: string,
+}
 
+const Footer: FC<FooterProps> = ({textColor = 'gray.400', linkColor = 'teal.400'}) => {
   return (
     <Flex
       flexDirection={{base: "column", xl: "row",}}
       alignItems={{base: "center", xl: "start",}}
-      justifyContent={
-        router.pathname === "/register"
-        ? "center"
-        : "space-between"
-      }
+      justifyContent={"center"}
       px="30px"
       pb="20px"
     >
       <Text
-        color="gray.400"
+        color={textColor}
         textAlign={{base: "center", xl: "start",}}
         mb={{base: "20px", xl: "0px"}}
       >
         <Text as="span">{"Made by "}</Text>
 
         <Link
-          color="teal.400"
+          color={linkColor}
+          fontWeight="600"
           href="https://github.com/BowellSolutions"
           target="_blank"
         >

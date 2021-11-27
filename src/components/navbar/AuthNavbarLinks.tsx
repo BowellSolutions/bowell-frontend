@@ -1,8 +1,7 @@
 import NextLink from "next/link";
 import {Button, HStack, Icon, Text} from "@chakra-ui/react";
 import {IoIosHome, IoIosRocket} from "react-icons/io";
-import {BsFillPersonFill} from "react-icons/bs";
-import {MdLogin} from "react-icons/md";
+import {MdLogin, MdOutlineDashboard} from "react-icons/md";
 import {FC} from "react";
 
 interface AuthNavbarLinksProps {
@@ -12,20 +11,40 @@ interface AuthNavbarLinksProps {
 const AuthNavbarLinks: FC<AuthNavbarLinksProps> = ({color}) => {
   return (
     <HStack display={{sm: "none", lg: "flex"}}>
-      <NextLink href="/dashboard/" passHref>
+      <NextLink href="/" passHref>
         <Button
           fontSize="sm"
           px="0px"
-          ms="0px"
-          me={{sm: "2px", md: "16px"}}
+          mx="1px"
           color={color}
           variant="transparent-with-icon"
           leftIcon={
             <Icon
               as={IoIosHome}
               color={color}
-              w="12px"
-              h="12px"
+              w="14px"
+              h="14px"
+              me="0px"
+            />
+          }
+        >
+          <Text>Home</Text>
+        </Button>
+      </NextLink>
+
+      <NextLink href="/dashboard" passHref>
+        <Button
+          fontSize="sm"
+          px="0px"
+          mx="1px"
+          color={color}
+          variant="transparent-with-icon"
+          leftIcon={
+            <Icon
+              as={MdOutlineDashboard}
+              color={color}
+              w="14px"
+              h="14px"
               me="0px"
             />
           }
@@ -34,33 +53,11 @@ const AuthNavbarLinks: FC<AuthNavbarLinksProps> = ({color}) => {
         </Button>
       </NextLink>
 
-      <NextLink href="/dashboard/profile" passHref>
-        <Button
-          fontSize="sm"
-          ms="0"
-          px="0"
-          me={{sm: "2px", md: "16px"}}
-          color={color}
-          variant="transparent-with-icon"
-          leftIcon={
-            <Icon
-              as={BsFillPersonFill}
-              color={color}
-              w="12px"
-              h="12px"
-              me="0px"
-            />
-          }
-        >
-          <Text>Profile</Text>
-        </Button>
-      </NextLink>
-
       <NextLink href="/login" passHref>
         <Button
           fontSize="sm"
           px="0px"
-          me={{sm: "2px", md: "16px"}}
+          mx="1px"
           color={color}
           variant="transparent-with-icon"
           leftIcon={
@@ -80,9 +77,8 @@ const AuthNavbarLinks: FC<AuthNavbarLinksProps> = ({color}) => {
       <NextLink href="/register" passHref>
         <Button
           fontSize="sm"
-          ms="0px"
           px="0px"
-          me={{sm: "2px", md: "16px"}}
+          mx="1px"
           color={color}
           variant="transparent-with-icon"
           leftIcon={
