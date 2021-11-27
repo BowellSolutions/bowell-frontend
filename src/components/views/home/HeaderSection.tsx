@@ -156,7 +156,7 @@ export default function HeaderSection() {
   // to do buttons based on auth state
   const dispatch = useDispatch();
   const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated);
-  const logout = () => dispatch(logoutUser());
+  const logout = () => () => dispatch(logoutUser());
 
   const MobileNavContent = (
     <VStack
@@ -217,7 +217,7 @@ export default function HeaderSection() {
         </Button>
       </NextLink>
 
-      <NextLink href="/profile" passHref>
+      <NextLink href="/dashboard/profile" passHref>
         <Button
           w="full"
           variant="ghost"
@@ -274,11 +274,21 @@ export default function HeaderSection() {
             <HStack spacing={1}>
               {isAuthenticated ? (
                 <>
-                  <NextLink passHref href="/profile">
+                  <NextLink passHref href="/dashboard">
+                    <Button colorScheme="teal" variant="ghost" size="sm">
+                      Dashboard
+                    </Button>
+                  </NextLink>
+
+                  <NextLink passHref href="/dashboard/profile">
                     <Button colorScheme="teal" variant="ghost" size="sm">
                       Profile
                     </Button>
                   </NextLink>
+
+                  <Button colorScheme="teal" variant="ghost" size="sm" onClick={logout()}>
+                    Logout
+                  </Button>
                 </>
               ) : <>
                 <NextLink passHref href="/login">
