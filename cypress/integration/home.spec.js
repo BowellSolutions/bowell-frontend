@@ -10,7 +10,21 @@
 describe('test homepage', () => {
   it('checks home page', () => {
     cy.visit('/');
+  });
 
-    cy.get('main');
-  })
+  // it('clicks dark mode', () => {
+  //
+  // });
+  //
+  // it('clicks sign in', () => {
+  //
+  // });
+  //
+  // it('clicks sign up', () => {
+  //
+  // });
+  //
+  // it('hovers on features', () => {
+  //
+  // });
 })

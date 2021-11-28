@@ -30,6 +30,6 @@ describe('Test login page', () => {
     // successful authentication
     cy.intercept('/api/auth/token/verify/', 'success');
     // redirect to dashboard
-    cy.url({timeout: 10000}).should('eq', 'http://localhost:3000/dashboard');
+    cy.url({timeout: 20000}).should('eq', 'http://localhost:3000/dashboard');
   });
 });
