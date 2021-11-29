@@ -4,7 +4,8 @@
     "baseUrl": "../node_modules",
     "types": [
       "cypress",
-      "@testing-library/cypress"
+      "@testing-library/cypress",
+      "cypress-real-events",
     ]
   },
   "include": [
