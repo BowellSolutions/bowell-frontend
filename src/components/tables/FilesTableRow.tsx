@@ -1,6 +1,6 @@
 import {Badge, Box, Button, Flex, Icon, Td, Text, Tr, useColorModeValue,} from "@chakra-ui/react";
 import {FC, useEffect, useState} from "react";
-import {FaTrashAlt} from "react-icons/fa";
+import {FaTrashAlt, FaCheck} from "react-icons/fa";
 import {useDisclosure} from "@chakra-ui/hooks";
 import {MdExpandLess, MdExpandMore} from "react-icons/md";
 import {formatDate} from "../views/utils/format";
@@ -35,6 +35,10 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
     }).catch(() => {
       // display some error, popup, alert etc.
     });
+  };
+
+  const handleAttach = (): void => {
+    // to do
   };
 
   useEffect(() => {
@@ -96,7 +100,7 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
         </Td>
 
         <Td borderBottom={borderBottom}>
-          {examination != null && (
+          {examination != null ? (
             <Button
               p="0px"
               bg="transparent"
@@ -108,6 +112,20 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
                 <Icon as={FaTrashAlt} me="4px"/>
                 <Text fontSize="sm" fontWeight="semibold">
                   DETACH
+                </Text>
+              </Flex>
+            </Button>
+          ) : (
+            <Button
+              p="0px"
+              bg="transparent"
+              mb={{sm: "10px", md: "0px"}}
+              me={{md: "12px"}}
+              onClick={handleAttach}
+            >
+              <Flex color="green.500" cursor="pointer" align="center" p="12px">
+                <Text fontSize="sm" fontWeight="semibold">
+                  ATTACH
                 </Text>
               </Flex>
             </Button>

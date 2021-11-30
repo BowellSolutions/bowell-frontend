@@ -11,6 +11,8 @@ import {
   Select,
   useColorModeValue
 } from "@chakra-ui/react";
+import {useAppSelector} from "../../redux/hooks";
+import {createExamination} from "../../api/examinations";
 
 interface ExaminationFormProps {
   onClose: () => void,
@@ -19,9 +21,11 @@ interface ExaminationFormProps {
 const ExaminationForm: FC<ExaminationFormProps> = () => {
   const [chosenPatient, setChosenPatient] = useState<string | null>(null);
   const [appointmentDate, setAppointmentDate] = useState<string | null>(null);
-  // const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const patients = useAppSelector(state => state.dashboard.patients);
+  const doctor = useAppSelector(state => state.auth.user);
 
   const bgColor = useColorModeValue("white", "gray.700");
 
@@ -36,11 +40,12 @@ const ExaminationForm: FC<ExaminationFormProps> = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    // simulate request
     setIsLoading(true);
-    setTimeout(() => {
+    createExamination(
+      {doctor: doctor?.id, date: appointmentDate, patient: chosenPatient}
+    ).then((res) => {
       setIsLoading(false);
-    }, 3000);
+    }).catch(err => setError(JSON.stringify(err)));
   };
 
   const isDateTimeInvalid = () => {
@@ -109,10 +114,11 @@ const ExaminationForm: FC<ExaminationFormProps> = () => {
                 disabled={isLoading}
                 isRequired
               >
-                <option value="1">Joseph Bratan</option>
-                <option value="2">Thomas Raven</option>
-                <option value="3">Jurij Sobchenko</option>
-                <option value="4">Peter Stick</option>
+                {patients.filter(p => !p.is_staff).map((patient) => (
+                  <option value={patient.id} key={`patient-option-${patient.id}`}>
+                    {patient.first_name} {patient.last_name}
+                  </option>
+                ))}
               </Select>
             </Box>
 

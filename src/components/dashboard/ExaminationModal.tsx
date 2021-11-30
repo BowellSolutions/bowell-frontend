@@ -19,7 +19,7 @@ const ExaminationModal: FC<ExaminationModalProps> = () => {
           bgColor="teal.300"
           onClick={onOpen}
         >
-          Add New Patient
+          New Appointment
         </Button>
       </Flex>
 

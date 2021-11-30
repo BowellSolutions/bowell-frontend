@@ -85,7 +85,7 @@ const Recordings: FC = () => {
             {examinations.length > 0 && examinations.map((examination) => (
               <option key={`option-exam-${examination.id}`} value={examination.id}>
                 Examination (#{examination.id}) --
-                {examination.patient.first_name} {examination.patient.last_name} (id. {examination.patient.id}) --
+                {examination?.patient?.first_name} {examination?.patient?.last_name} (id. {examination?.patient?.id}) --
                 DATE: {formatDate(examination.date)} --
                 STATUS: {examination.status}
               </option>

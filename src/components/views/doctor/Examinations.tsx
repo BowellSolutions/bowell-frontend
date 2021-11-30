@@ -1,6 +1,6 @@
 import {FC, useEffect} from "react";
 import CardBody from "../../card/CardBody";
-import {Flex, Table, Tbody, Text, Th, Thead, Tr, useColorModeValue} from "@chakra-ui/react";
+import {Flex, SimpleGrid, Text, useColorModeValue} from "@chakra-ui/react";
 import CardHeader from "../../card/CardHeader";
 import Card from "../../card/Card";
 import {useAppSelector} from "../../../redux/hooks";
@@ -33,14 +33,17 @@ const Examinations: FC = () => {
         </CardHeader>
 
         <CardBody>
-          {examinations.length > 0 && examinations.map((examination) => {
-            return (
-              <ExaminationsTableRow
-                examination={examination}
-                key={`examination-row-${examination.id}`}
-              />
-            );
-          })}
+          <SimpleGrid columns={{sm: 1, md: 2, lg: 2, xl: 3}} spacing="8px">
+            {examinations.length > 0 && examinations.map((examination) => {
+              return (
+                // fix this layout
+                <ExaminationsTableRow
+                  examination={examination}
+                  key={`examination-row-${examination.id}`}
+                />
+              );
+            })}
+          </SimpleGrid>
         </CardBody>
       </Card>
     </Flex>

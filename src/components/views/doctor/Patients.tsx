@@ -15,6 +15,7 @@ const Patients: FC = () => {
 
   const dispatch = useDispatch();
   const patients = useAppSelector(state => state.dashboard.patients);
+  const user = useAppSelector(state => state.auth.user);
 
   useEffect(() => {
     // try to load patients on each load because they could have changed
@@ -30,7 +31,8 @@ const Patients: FC = () => {
               Patients
             </Text>
           </Flex>
-          <ExaminationModal/>
+
+          {/*<ExaminationModal/>*/}
         </CardHeader>
 
         <CardBody>
@@ -43,13 +45,13 @@ const Patients: FC = () => {
                 <Th color="gray.400" pl="0px">Patient</Th>
                 <Th color="gray.400">Status</Th>
                 <Th color="gray.400">Joined At</Th>
+                <Th color="gray.400">Examinations</Th>
                 <Th color="gray.400"/>
-                <Th/>
               </Tr>
             </Thead>
 
             <Tbody>
-              {patients.length > 0 && patients.map((user) => {
+              {patients.filter(p => !p.is_staff && p.id !== user?.id).map((user) => {
                 return (
                   <PatientsTableRow
                     id={user.id}
