@@ -4,6 +4,8 @@ import {doctorsRoutes, patientsRoutes} from "../routes";
 import {useDashboardContext} from "../context/DashboardContext";
 import {useRouter} from "next/router";
 import {useAppSelector} from "../../redux/hooks";
+import {MdLogin} from "react-icons/md";
+import {IoIosRocket} from "react-icons/io";
 import ButtonActiveLink from "./ButtonActiveLink";
 import ButtonLink from "./ButtonLink";
 
@@ -44,14 +46,14 @@ const SidebarResponsiveLinks: FC = () => {
 
           {router.pathname === "login" ? (
             <ButtonActiveLink
-              icon={<Icon/>}
+              icon={<Icon as={MdLogin}/>}
               name="Login"
               href="/login"
               key="button-link-login-active"
             />
           ) : (
             <ButtonLink
-              icon={<Icon/>}
+              icon={<Icon as={MdLogin}/>}
               name="Login"
               href="/login"
               key="button-link-login"
@@ -60,14 +62,14 @@ const SidebarResponsiveLinks: FC = () => {
 
           {router.pathname === "/register" ? (
             <ButtonActiveLink
-              icon={<Icon/>}
+              icon={<Icon as={IoIosRocket}/>}
               name="Register"
               href="/register"
               key="button-link-register-active"
             />
           ) : (
             <ButtonLink
-              icon={<Icon/>}
+              icon={<Icon as={IoIosRocket}/>}
               name="Register"
               href="/register"
               key="button-link-register"
