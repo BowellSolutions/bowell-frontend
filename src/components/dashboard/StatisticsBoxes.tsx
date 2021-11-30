@@ -3,6 +3,7 @@ import CardBody from "../card/CardBody";
 import {Flex, Icon, SimpleGrid, Stat, StatLabel, StatNumber, useColorModeValue} from "@chakra-ui/react";
 import IconBox from "../icons/IconBox";
 import {FC, useState} from "react";
+import {useAppSelector} from "../../redux/hooks";
 
 const StatisticsBoxes: FC = () => {
   const iconTeal = useColorModeValue("teal.300", "teal.300");
@@ -14,6 +15,8 @@ const StatisticsBoxes: FC = () => {
   const [totalExaminations, setTotalExaminations] = useState<number>(12);
   const [pendingExaminations, setPendingExaminations] = useState<number>(3);
   const [thisWeekExaminations, setThisWeekExaminations] = useState<number>(0);
+
+  const statistics = useAppSelector(state => state.dashboard.statistics);
 
   return (
     <SimpleGrid columns={{sm: 1, md: 2, xl: 4}} spacing="24px">

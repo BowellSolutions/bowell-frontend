@@ -4,10 +4,14 @@ import CardHeader from "../../card/CardHeader";
 import Card from "../../card/Card";
 import RecentExaminations from "../../dashboard/RecentExaminations";
 import StatisticsBoxes from "../../dashboard/StatisticsBoxes";
+import {useAppSelector} from "../../../redux/hooks";
 
 
 const DoctorDashboard: FC = () => {
   const textColor = useColorModeValue("gray.700", "white");
+
+  const patients = useAppSelector(state => state.dashboard.patients);
+  const recordings = useAppSelector(state => state.dashboard.recordings);
 
   return (
     <Flex flexDirection="column" pt={{base: "120px", md: "75px"}}>

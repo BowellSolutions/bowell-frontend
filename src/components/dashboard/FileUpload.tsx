@@ -4,13 +4,17 @@ import {uploadFile} from "../../api/files";
 import {useDropzone} from "react-dropzone";
 import {DeleteIcon} from "@chakra-ui/icons";
 
-const MAX_SIZE = 1024 * 1024;
+const MAX_SIZE = 1024 * 1024 * 1024;
 
 interface AcceptedFile extends File {
   path: string,
 }
 
-export const FileUpload: FC = () => {
+interface FileUploadProps {
+  examinationId?: number,
+}
+
+export const FileUpload: FC<FileUploadProps> = ({examinationId}) => {
   const [selectedFile, setSelectedFile] = useState<AcceptedFile | null>(null);
   const [percentage, setPercentage] = useState<number>(0);
   const [error, setError] = useState<any>(null);
@@ -33,18 +37,32 @@ export const FileUpload: FC = () => {
   const handleFileUpload = (): void => {
     setError(null);
     setPercentage(0);
-    if (selectedFile) {
+    if (!examinationId) {
+      setError({message: "Please select examination id first!"});
+    }
+
+    if (selectedFile && examinationId) {
       const data = new FormData();
       data.append('file', selectedFile);
       data.append('name', selectedFile.name);
+      data.append('examination', String(examinationId));
       uploadFile(data, onUploadProgress).then(
-        res => console.log(res)
-      ).catch(err => setError(JSON.stringify(err)));
+        res => {
+          if (res.status === 201) {
+            setPercentage(0);
+            setError(null);
+          }
+        }
+      ).catch(err => {
+        setError(JSON.stringify(err));
+      });
     }
   };
 
   const onDrop = useCallback((acceptedFiles, fileRejections, event) => {
     setSelectedFile(acceptedFiles[0]);
+    if (fileRejections.length) setError(fileRejections);
+    else setError(null);
   }, []);
 
   const {
@@ -54,7 +72,7 @@ export const FileUpload: FC = () => {
     isDragAccept,
     isDragReject
   } = useDropzone({
-    onDrop: onDrop, multiple: false, maxSize: MAX_SIZE,
+    onDrop: onDrop, multiple: false, maxSize: MAX_SIZE, accept: "audio/wav"
   });
 
   const getBorderColor = () => {
@@ -87,12 +105,18 @@ export const FileUpload: FC = () => {
         </Text>
       </Flex>
 
+      {percentage > 0 && selectedFile && (
+        <Box py="8px">
+          <Progress value={percentage} colorScheme={error ? "red" : "blue"}/>
+        </Box>
+      )}
+
       {selectedFile && (
         <Flex
           flexDirection="row"
           alignItems="center"
         >
-          <Text as="p" p={2}>
+          <Text as="p" p={2} textTransform="none">
             {selectedFile.path}
           </Text>
 
@@ -107,17 +131,15 @@ export const FileUpload: FC = () => {
         </Flex>
       )}
 
-      {percentage > 0 && selectedFile && (
-        <Progress value={percentage} colorScheme={error ? "red" : "blue"}/>
+      {examinationId != null && (
+        <Button
+          colorScheme="teal"
+          display={selectedFile ? "block" : "none"}
+          onClick={handleFileUpload}
+        >
+          {error ? "Retry" : "Submit"}
+        </Button>
       )}
-
-      <Button
-        colorScheme="teal"
-        display={selectedFile ? "block" : "none"}
-        onClick={handleFileUpload}
-      >
-        {error ? "Retry" : "Submit"}
-      </Button>
     </Box>
   );
 };
