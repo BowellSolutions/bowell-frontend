@@ -25,7 +25,7 @@ const MainLayout: FC<LayoutProps> = ({title, content, children}) => {
         <link rel="icon" href="/favicon.ico"/>
       </Head>
 
-      <div>
+      <div className="main">
         {children}
       </div>
     </>
