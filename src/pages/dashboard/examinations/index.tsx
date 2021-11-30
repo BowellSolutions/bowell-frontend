@@ -1,7 +1,7 @@
 import {NextPage} from "next";
-import Examinations from "../../components/views/doctor/Examinations";
-import DispatchLayout from "../../components/views/utils/DispatchLayout";
-import DashboardLayout from "../../components/layouts/DashboardLayout";
+import Examinations from "../../../components/views/doctor/Examinations";
+import DispatchLayout from "../../../components/views/utils/DispatchLayout";
+import DashboardLayout from "../../../components/layouts/DashboardLayout";
 
 const ExaminationsPage: NextPage = () => {
   return (

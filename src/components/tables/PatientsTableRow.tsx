@@ -1,16 +1,7 @@
-import {
-  Avatar,
-  Badge,
-  Button,
-  Flex,
-  Td,
-  Text,
-  Tr,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import {Avatar, Badge, Button, Flex, Td, Text, Tr, useColorModeValue,} from "@chakra-ui/react";
 import React, {FC} from "react";
-import {isA} from "expect/build/jasmineUtils";
 import {formatDate} from "../views/utils/format";
+import NextLink from "next/link";
 
 interface TablesTableRowProps {
   id: number,
@@ -91,9 +82,25 @@ const PatientsTableRow: FC<TablesTableRowProps> = (
             fontWeight="bold"
             cursor="pointer"
           >
-            Edit
+            Show
           </Text>
         </Button>
+      </Td>
+
+      <Td>
+        {/* redirect to profile/id later */}
+        <NextLink passHref href="/dashboard">
+          <Button p="0px" bg="transparent" variant="no-hover">
+            <Text
+              fontSize="md"
+              color="gray.400"
+              fontWeight="bold"
+              cursor="pointer"
+            >
+              View
+            </Text>
+          </Button>
+        </NextLink>
       </Td>
     </Tr>
   );

@@ -23,7 +23,7 @@ const ProfilePage: NextPage = () => {
           brandText="Profile"
           type="patient"
         >
-          <Profile/>
+          <></>
         </DashboardLayout>
       }
     />

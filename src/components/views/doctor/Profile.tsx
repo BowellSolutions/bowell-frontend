@@ -4,9 +4,10 @@ import CardBody from "../../card/CardBody";
 import CardHeader from "../../card/CardHeader";
 import Card from "../../card/Card";
 import {useAppSelector} from "../../../redux/hooks";
-import {UserData} from "../../../api/types";
+import {ExaminationData, UserData} from "../../../api/types";
 import {useDispatch} from "react-redux";
 import {loadExaminations, loadPatients} from "../../../redux/actions/dashboard";
+import NextLink from "next/link";
 
 interface PatientsProps {
   patients: UserData[],
@@ -15,11 +16,21 @@ interface PatientsProps {
 
 const Patients: FC<PatientsProps> = ({patients}) => {
   const textColor = useColorModeValue("gray.700", "white");
+  const bgColor = useColorModeValue("#F8F9FA", "gray.800");
 
   return (
     <>
-      {patients && patients.map((user, idx) => (
-        <Flex justifyContent="space-between" mb="21px" key={`patient-container-${idx}`}>
+      {patients && patients.map((patient, idx) => (
+        <Flex
+          justifyContent="space-between" mb="21px"
+          key={`profile-patient-container-${idx}`}
+          bg={bgColor}
+          px="8px" py="8px"
+          borderRadius="15px"
+          w="100%"
+          cursor="default"
+          _hover={{shadow: 'md', transition: "box-shadow 0.3s"}}
+        >
           <Flex align="center">
             <Avatar
               src=""
@@ -30,15 +41,15 @@ const Patients: FC<PatientsProps> = ({patients}) => {
             />
             <Flex direction="column">
               <Text fontSize="sm" color={textColor} fontWeight="bold" textTransform="none">
-                {user?.first_name}{" "}{user?.last_name}
+                {patient?.first_name}{" "}{patient?.last_name}
               </Text>
               <Text fontSize="xs" color="gray.500" fontWeight="400" textTransform="none">
-                {user?.email}
+                {patient?.email}
               </Text>
             </Flex>
           </Flex>
 
-          <Button p="0px" bg="transparent" variant="no-hover">
+          <Button bg="transparent" variant="no-hover">
             <Text
               fontSize="sm"
               fontWeight="600"
@@ -55,16 +66,58 @@ const Patients: FC<PatientsProps> = ({patients}) => {
 };
 
 interface ExaminationsProps {
-  examinations: any[],
+  examinations: ExaminationData[],
 }
 
 const Examinations: FC<ExaminationsProps> = ({examinations}) => {
+  const textColor = useColorModeValue("gray.700", "white");
+  const borderColor = useColorModeValue("gray.200", "gray.700");
+  const bgColor = useColorModeValue("#F8F9FA", "gray.800");
+
   return (
     <>
-      {examinations && examinations.map((exam, idx) => (
-        <>
+      {examinations.length && examinations.map((examination, idx) => (
+        <Flex
+          justifyContent="space-between" mb="21px"
+          shadow="sm" p={{sm: "4px", md: "8px"}} borderRadius="16px"
+          border="1px solid"
+          borderColor={borderColor}
+          bgColor={bgColor}
+          key={`examinations-container-${idx}`}
+          _hover={{shadow: 'md', transition: "box-shadow 0.3s"}}
+          cursor="default"
+        >
+          <Flex align="center">
+            <Flex direction="column">
+              <Text fontSize="sm" color={textColor} fontWeight="bold" textTransform="none">
+                Examination #{examination.id}
+              </Text>
 
-        </>
+              <Text fontSize="sm" color="gray.500" fontWeight="semibold" textTransform="none">
+                Patient:{" "}
+                <Text as="span" color="gray.500" fontWeight="semibold">
+                  {examination?.patient?.first_name} {examination?.patient?.last_name}
+                </Text>
+              </Text>
+
+              <Text fontSize="sm" color="gray.500" fontWeight="semibold" textTransform="none">
+                Status:{" "}
+                <Text as="span" color="gray.500">{examination.status}</Text>
+              </Text>
+            </Flex>
+          </Flex>
+
+          <Button pr="4px" bg="transparent" variant="no-hover">
+            <Text
+              fontSize="sm"
+              fontWeight="600"
+              color="teal.300"
+              alignSelf="center"
+            >
+              VIEW
+            </Text>
+          </Button>
+        </Flex>
       ))}
     </>
   );
@@ -232,50 +285,30 @@ const Profile: FC = () => {
                   {user?.email}
                 </Text>
               </Flex>
-
-              {/*<Flex align="center" mb="18px">*/}
-              {/*  <Text*/}
-              {/*    fontSize="md"*/}
-              {/*    color={textColor}*/}
-              {/*    fontWeight="bold"*/}
-              {/*    me="10px"*/}
-              {/*  >*/}
-              {/*    Mobile:{" "}*/}
-              {/*  </Text>*/}
-              {/*  <Text fontSize="md" color="gray.500" fontWeight="400">*/}
-              {/*    +48 694 202 137*/}
-              {/*  </Text>*/}
-              {/*</Flex>*/}
-
-              {/*<Flex align="center" mb="18px">*/}
-              {/*  <Text*/}
-              {/*    fontSize="md"*/}
-              {/*    color={textColor}*/}
-              {/*    fontWeight="bold"*/}
-              {/*    me="10px"*/}
-              {/*  >*/}
-              {/*    Location:{" "}*/}
-              {/*  </Text>*/}
-              {/*  <Text fontSize="md" color="gray.500" fontWeight="400" textTransform="none">*/}
-              {/*    Poland*/}
-              {/*  </Text>*/}
-              {/*</Flex>*/}
             </Flex>
           </CardBody>
         </Card>
 
         <Card p="16px" id="doctor-profile-examinations">
           <CardHeader p="12px 5px" mb="12px">
-            <Text fontSize="lg" color={textColor} fontWeight="bold">
+            <Text fontSize="lg" color={textColor} fontWeight="bold" flexGrow={1}>
               Examinations
             </Text>
           </CardHeader>
 
           <CardBody px="5px">
             <Flex direction="column" w="100%">
-              {examinations && examinations.length > 0 && <Examinations examinations={examinations}/>}
+              {examinations.length > 0 && <Examinations examinations={examinations}/>}
             </Flex>
           </CardBody>
+
+          <Flex justifyContent="flex-end" alignItems="center">
+            <NextLink passHref href="/dashboard/examinations">
+              <Button bgColor="teal.300" color={textColor}>
+                View All
+              </Button>
+            </NextLink>
+          </Flex>
         </Card>
 
         <Card p="16px">
@@ -284,11 +317,20 @@ const Profile: FC = () => {
               Patients
             </Text>
           </CardHeader>
+
           <CardBody px="5px">
             <Flex direction="column" w="100%">
               {patients && patients.length > 0 && <Patients patients={patients}/>}
             </Flex>
           </CardBody>
+
+          <Flex justifyContent="flex-end" alignItems="center">
+            <NextLink passHref href="/dashboard/patients">
+              <Button bgColor="teal.300" color={textColor}>
+                View All
+              </Button>
+            </NextLink>
+          </Flex>
         </Card>
       </Grid>
     </Flex>
