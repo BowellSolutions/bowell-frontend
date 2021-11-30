@@ -56,6 +56,7 @@ const Carousel: FC<CarouselProps> = ({slides, currentSlide, setCurrentSlide}) =>
       justifyContent="center"
       shadow="2xl"
       rounded="lg"
+      className="carousel"
     >
       <Flex w="full" overflow="hidden" pos="relative">
         <Flex w="full" {...carouselStyle}>
@@ -79,6 +80,7 @@ const Carousel: FC<CarouselProps> = ({slides, currentSlide, setCurrentSlide}) =>
           {...arrowStyles}
           left="0"
           onClick={prevSlide}
+          className="arrow-left"
         >
           &#10094;
         </Text>
@@ -86,7 +88,9 @@ const Carousel: FC<CarouselProps> = ({slides, currentSlide, setCurrentSlide}) =>
         <Text
           {...arrowStyles}
           right="0"
-          onClick={nextSlide}>
+          onClick={nextSlide}
+          className="arrow-right"
+        >
           &#10095;
         </Text>
 

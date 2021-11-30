@@ -64,6 +64,7 @@ const PatientSection: FC = () => {
       pt={8}
       pb={16}
       mx="auto"
+      id="patient-section"
     >
       <Carousel slides={slides} currentSlide={currentSlide} setCurrentSlide={setCurrentSlide}/>
 

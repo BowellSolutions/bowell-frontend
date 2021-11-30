@@ -4,7 +4,7 @@ import NextLink from "next/link";
 
 export default function WelcomeSection() {
   return (
-    <Box px={8} py={24} mx="auto" mt={{sm: "0", md: "32px"}}>
+    <Box px={8} py={24} mx="auto" mt={{sm: "0", md: "32px"}} id="welcome-section">
       <Box
         w={{base: "full", md: 11 / 12, xl: 9 / 12}}
         mx="auto"

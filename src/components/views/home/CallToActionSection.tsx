@@ -13,6 +13,7 @@ const CallToActionSection: FC = () => {
       alignItems="center"
       justifyContent="center"
       shadow="xl"
+      id="cta-section"
     >
       <Box
         w="full"
@@ -71,7 +72,7 @@ const CallToActionSection: FC = () => {
                       bg: useColorModeValue("teal.700", "teal.600"),
                     }}
                   >
-                    Get started
+                    Get Started
                   </chakra.a>
                 </NextLink>
               </Box>
