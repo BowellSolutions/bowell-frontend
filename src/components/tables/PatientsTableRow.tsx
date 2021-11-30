@@ -9,18 +9,20 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, {FC} from "react";
+import {isA} from "expect/build/jasmineUtils";
+import {formatDate} from "../views/utils/format";
 
 interface TablesTableRowProps {
-  name: string,
+  id: number,
+  firstName: string,
+  lastName: string,
   email: string,
-  subdomain: string,
-  domain: string,
-  status: string,
-  date: string,
+  isActive: boolean,
+  dateJoined: string | Date,
 }
 
-const TablesTableRow: FC<TablesTableRowProps> = (
-  {name, email, subdomain, domain, status, date}
+const PatientsTableRow: FC<TablesTableRowProps> = (
+  {id, firstName, lastName, email, isActive, dateJoined}
 ) => {
   const textColor = useColorModeValue("gray.700", "white");
   const bgStatus = useColorModeValue("gray.400", "#1a202c");
@@ -28,19 +30,35 @@ const TablesTableRow: FC<TablesTableRowProps> = (
 
   return (
     <Tr>
+      <Td minWidth={{sm: "50px"}} pl="0px">
+        <Flex align="center" py=".8rem" minWidth="100%" flexWrap="nowrap">
+          <Flex direction="column">
+            <Text
+              fontSize="md"
+              fontWeight="bold"
+              color={textColor}
+              minWidth="100%"
+            >
+              {id}
+            </Text>
+          </Flex>
+        </Flex>
+      </Td>
+
       <Td minWidth={{sm: "250px"}} pl="0px">
         <Flex align="center" py=".8rem" minWidth="100%" flexWrap="nowrap">
-          <Avatar src="" w="50px" borderRadius="12px" me="18px"/>
+          <Avatar src="" w="50px" borderRadius="12px" mr="18px"/>
           <Flex direction="column">
             <Text
               fontSize="md"
               color={textColor}
               fontWeight="bold"
               minWidth="100%"
+              textTransform="none"
             >
-              {name}
+              {firstName} {lastName}
             </Text>
-            <Text fontSize="sm" color="gray.400" fontWeight="normal">
+            <Text fontSize="sm" color="gray.400" fontWeight="normal" textTransform="none">
               {email}
             </Text>
           </Flex>
@@ -48,31 +66,23 @@ const TablesTableRow: FC<TablesTableRowProps> = (
       </Td>
 
       <Td>
-        <Flex direction="column">
-          <Text fontSize="md" color={textColor} fontWeight="bold">
-            {domain}
-          </Text>
-          <Text fontSize="sm" color="gray.400" fontWeight="normal">
-            {subdomain}
-          </Text>
-        </Flex>
-      </Td>
-      <Td>
         <Badge
-          bg={status === "Online" ? "green.400" : bgStatus}
-          color={status === "Online" ? "white" : colorStatus}
+          bg={isActive ? "green.400" : bgStatus}
+          color={isActive ? "white" : colorStatus}
           fontSize="16px"
           p="3px 10px"
           borderRadius="8px"
         >
-          {status}
+          {isActive ? "Active" : "Inactive"}
         </Badge>
       </Td>
+
       <Td>
         <Text fontSize="md" color={textColor} fontWeight="bold" pb=".5rem">
-          {date}
+          {formatDate(dateJoined)}
         </Text>
       </Td>
+
       <Td>
         <Button p="0px" bg="transparent" variant="no-hover">
           <Text
@@ -89,4 +99,4 @@ const TablesTableRow: FC<TablesTableRowProps> = (
   );
 };
 
-export default TablesTableRow;
+export default PatientsTableRow;

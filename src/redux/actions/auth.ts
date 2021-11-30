@@ -16,6 +16,7 @@ import {
   resetRegisterSuccess,
   setAuthLoading
 } from "../reducers/auth";
+import {clearDashboardData} from "../reducers/dashboard";
 
 
 export const loginUser =
@@ -107,8 +108,10 @@ export const logoutUser = (): AppThunk => async (dispatch) => {
   try {
     const res = await logout();
 
-    if (res.status === 200) dispatch(logoutSuccess());
-    else dispatch(logoutFail());
+    if (res.status === 200) {
+      dispatch(logoutSuccess());
+      dispatch(clearDashboardData());
+    } else dispatch(logoutFail());
 
   } catch (err) {
     dispatch(logoutFail());
