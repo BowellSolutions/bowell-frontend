@@ -83,6 +83,8 @@ jobs:
                     --output type=image,\"name=nexus.nexus-dev.svc.cluster.local:5056/bowelsound/${{ steps.image_name.outputs.name }},nexus.nexus-dev.svc.cluster.local:5056/bowelsound/frontend:latest\",push=true \
                     --export-cache type=registry,ref=torisels/frontend:latest,mode=max \
                     --import-cache type=registry,ref=torisels/frontend:latest
+                    --opt build-arg:API_URL=https://api.bowelsound.gddc.pl/api
+                    --opt build-arg:API_ACCESS_TOKEN_LIFETIME=3600
           retVal=$?
 
           if [ "$retVal" -ne "0" ]; then

@@ -6,10 +6,12 @@ RUN yarn install --production=true && yarn add --dev typescript  && yarn cache c
 COPY . .
 
 FROM base AS build
+ARG API_URL
+ARG API_ACCESS_TOKEN_LIFETIME
+
 ENV NODE_ENV=production
 WORKDIR /build
 COPY --from=base /app ./
-COPY env.local /build/.env.local
 RUN yarn build 
 
 FROM node:14.17.5-alpine AS production
