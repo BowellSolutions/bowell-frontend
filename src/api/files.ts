@@ -5,12 +5,12 @@ export const getFiles = (): Promise<Response<FileData[]>> => {
   return AxiosClient.get('/recordings/');
 };
 
-export const getFile = (fileId: string): Promise<Response<FileData>> => {
+export const getFile = (fileId: string | number): Promise<Response<FileData>> => {
   return AxiosClient.get(`/recordings/${fileId}/`);
 };
 
-export const deleteFile = (fileId: string): Promise<Response<{}>> => {
-  return AxiosClient.delete(`/recordings/${fileId}`);
+export const deleteFile = (fileId: string | number): Promise<Response<any>> => {
+  return AxiosClient.delete(`/recordings/${fileId}/`);
 };
 
 export const uploadFile =
