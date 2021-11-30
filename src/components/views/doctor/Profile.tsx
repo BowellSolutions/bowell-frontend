@@ -1,160 +1,71 @@
-import {FC} from "react";
+import {FC, useEffect} from "react";
 import {Avatar, Box, Button, Flex, Grid, Text, useColorModeValue} from "@chakra-ui/react";
 import CardBody from "../../card/CardBody";
 import CardHeader from "../../card/CardHeader";
 import Card from "../../card/Card";
+import {useAppSelector} from "../../../redux/hooks";
+import {UserData} from "../../../api/types";
+import {useDispatch} from "react-redux";
+import {loadExaminations, loadPatients} from "../../../redux/actions/dashboard";
 
-// mocked data, remove later
-const Conversations = () => {
+interface PatientsProps {
+  patients: UserData[],
+}
+
+
+const Patients: FC<PatientsProps> = ({patients}) => {
   const textColor = useColorModeValue("gray.700", "white");
 
   return (
     <>
-      <Flex justifyContent="space-between" mb="21px">
-        <Flex align="center">
-          <Avatar
-            src=""
-            w="50px"
-            h="50px"
-            borderRadius="15px"
-            me="10px"
-          />
-          <Flex direction="column">
-            <Text fontSize="sm" color={textColor} fontWeight="bold">
-              Sophie B.{" "}
-            </Text>
-            <Text fontSize="xs" color="gray.500" fontWeight="400">
-              Hi! I need more information...
-            </Text>
+      {patients && patients.map((user, idx) => (
+        <Flex justifyContent="space-between" mb="21px" key={`patient-container-${idx}`}>
+          <Flex align="center">
+            <Avatar
+              src=""
+              w="50px"
+              h="50px"
+              borderRadius="15px"
+              me="10px"
+            />
+            <Flex direction="column">
+              <Text fontSize="sm" color={textColor} fontWeight="bold" textTransform="none">
+                {user?.first_name}{" "}{user?.last_name}
+              </Text>
+              <Text fontSize="xs" color="gray.500" fontWeight="400" textTransform="none">
+                {user?.email}
+              </Text>
+            </Flex>
           </Flex>
+
+          <Button p="0px" bg="transparent" variant="no-hover">
+            <Text
+              fontSize="sm"
+              fontWeight="600"
+              color="teal.300"
+              alignSelf="center"
+            >
+              VIEW
+            </Text>
+          </Button>
         </Flex>
-        <Button p="0px" bg="transparent" variant="no-hover">
-          <Text
-            fontSize="sm"
-            fontWeight="600"
-            color="teal.300"
-            alignSelf="center"
-          >
-            REPLY
-          </Text>
-        </Button>
-      </Flex>
-      <Flex justifyContent="space-between" mb="21px">
-        <Flex align="center">
-          <Avatar
-            src=""
-            w="50px"
-            h="50px"
-            borderRadius="15px"
-            me="10px"
-          />
-          <Flex direction="column">
-            <Text fontSize="sm" color={textColor} fontWeight="bold">
-              Sophie B.{" "}
-            </Text>
-            <Text fontSize="xs" color="gray.500" fontWeight="400">
-              Awesome work, can you change...
-            </Text>
-          </Flex>
-        </Flex>
-        <Button p="0px" bg="transparent" variant="no-hover">
-          <Text
-            fontSize="sm"
-            fontWeight="600"
-            color="teal.300"
-            alignSelf="center"
-          >
-            REPLY
-          </Text>
-        </Button>
-      </Flex>
-      <Flex justifyContent="space-between" mb="21px">
-        <Flex align="center">
-          <Avatar
-            src=""
-            w="50px"
-            h="50px"
-            borderRadius="15px"
-            me="10px"
-          />
-          <Flex direction="column">
-            <Text fontSize="sm" color={textColor} fontWeight="bold">
-              Sophie B.{" "}
-            </Text>
-            <Text fontSize="xs" color="gray.500" fontWeight="400">
-              Have a great afternoon...
-            </Text>
-          </Flex>
-        </Flex>
-        <Button p="0px" bg="transparent" variant="no-hover">
-          <Text
-            fontSize="sm"
-            fontWeight="600"
-            color="teal.300"
-            alignSelf="center"
-          >
-            REPLY
-          </Text>
-        </Button>
-      </Flex>
-      <Flex justifyContent="space-between" mb="21px">
-        <Flex align="center">
-          <Avatar
-            src=""
-            w="50px"
-            h="50px"
-            borderRadius="15px"
-            me="10px"
-          />
-          <Flex direction="column">
-            <Text fontSize="sm" color={textColor} fontWeight="bold">
-              Sophie B.{" "}
-            </Text>
-            <Text fontSize="xs" color="gray.500" fontWeight="400">
-              About files I can...
-            </Text>
-          </Flex>
-        </Flex>
-        <Button p="0px" bg="transparent" variant="no-hover">
-          <Text
-            fontSize="sm"
-            fontWeight="600"
-            color="teal.300"
-            alignSelf="center"
-          >
-            REPLY
-          </Text>
-        </Button>
-      </Flex>
-      <Flex justifyContent="space-between" mb="21px">
-        <Flex align="center">
-          <Avatar
-            src=""
-            w="50px"
-            h="50px"
-            borderRadius="15px"
-            me="10px"
-          />
-          <Flex direction="column">
-            <Text fontSize="sm" color={textColor} fontWeight="bold">
-              Sophie B.{" "}
-            </Text>
-            <Text fontSize="xs" color="gray.500" fontWeight="400">
-              About files I can...
-            </Text>
-          </Flex>
-        </Flex>
-        <Button p="0px" bg="transparent" variant="no-hover">
-          <Text
-            fontSize="sm"
-            fontWeight="600"
-            color="teal.300"
-            alignSelf="center"
-          >
-            REPLY
-          </Text>
-        </Button>
-      </Flex>
+      ))}
+    </>
+  );
+};
+
+interface ExaminationsProps {
+  examinations: any[],
+}
+
+const Examinations: FC<ExaminationsProps> = ({examinations}) => {
+  return (
+    <>
+      {examinations && examinations.map((exam, idx) => (
+        <>
+
+        </>
+      ))}
     </>
   );
 };
@@ -163,7 +74,7 @@ const Conversations = () => {
 const Profile: FC = () => {
   const textColor = useColorModeValue("gray.700", "white");
   const bgProfile = useColorModeValue(
-    "hsla(0,0%,100%,.8)",
+    "hsla(0, 0%, 100%, .8)",
     "linear-gradient(112.83deg, rgba(255, 255, 255, 0.21) 0%, rgba(255, 255, 255, 0) 110.84%)"
   );
   const borderProfileColor = useColorModeValue(
@@ -171,6 +82,25 @@ const Profile: FC = () => {
     "rgba(255, 255, 255, 0.31)"
   );
   const emailColor = useColorModeValue("gray.400", "gray.300");
+
+  const dispatch = useDispatch();
+  const user = useAppSelector(state => state.auth.user);
+  const patients = useAppSelector(state => state.dashboard.patients);
+  const examinations = useAppSelector(state => state.dashboard.examinations);
+
+  useEffect(() => {
+    // load patients if they are missing
+    if (!patients.length) {
+      dispatch(loadPatients());
+    }
+  }, [patients, dispatch]);
+
+  useEffect(() => {
+    // load examinations if they are missing
+    if (!examinations.length) {
+      dispatch(loadExaminations());
+    }
+  }, [examinations, dispatch]);
 
   return (
     <Flex direction="column">
@@ -232,16 +162,18 @@ const Profile: FC = () => {
                   color={textColor}
                   fontWeight="bold"
                   ms={{sm: "8px", md: "0px"}}
+                  textTransform="none"
                 >
-                  Firstname Lastname
+                  {user?.first_name} {user?.last_name}
                 </Text>
 
                 <Text
                   fontSize={{sm: "sm", md: "md"}}
                   color={emailColor}
                   fontWeight="semibold"
+                  textTransform="none"
                 >
-                  admin@admin.com
+                  {user?.email}
                 </Text>
               </Flex>
             </Flex>
@@ -250,12 +182,13 @@ const Profile: FC = () => {
       </Box>
 
       <Grid templateColumns={{sm: "1fr", xl: "repeat(3, 1fr)"}} gap="22px">
-        <Card p="16px" my={{sm: "24px", xl: "0px"}}>
+        <Card p="16px" my={{sm: "24px", xl: "0px"}} id="doctor-profile-info">
           <CardHeader p="12px 5px" mb="12px">
             <Text fontSize="lg" color={textColor} fontWeight="bold">
               Profile Information
             </Text>
           </CardHeader>
+
           <CardBody px="5px">
             <Flex direction="column">
               <Flex align="center" mb="18px">
@@ -267,8 +200,8 @@ const Profile: FC = () => {
                 >
                   First Name:{" "}
                 </Text>
-                <Text fontSize="md" color="gray.500" fontWeight="400">
-                  Firstname
+                <Text fontSize="md" color="gray.500" fontWeight="400" textTransform="none">
+                  {user?.first_name}
                 </Text>
               </Flex>
 
@@ -281,8 +214,8 @@ const Profile: FC = () => {
                 >
                   Last Name:{" "}
                 </Text>
-                <Text fontSize="md" color="gray.500" fontWeight="400">
-                  Lastname
+                <Text fontSize="md" color="gray.500" fontWeight="400" textTransform="none">
+                  {user?.last_name}
                 </Text>
               </Flex>
 
@@ -295,50 +228,54 @@ const Profile: FC = () => {
                 >
                   Email:{" "}
                 </Text>
-                <Text fontSize="md" color="gray.500" fontWeight="400">
-                  admin@admin.com
+                <Text fontSize="md" color="gray.500" fontWeight="400" textTransform="none">
+                  {user?.email}
                 </Text>
               </Flex>
 
-              <Flex align="center" mb="18px">
-                <Text
-                  fontSize="md"
-                  color={textColor}
-                  fontWeight="bold"
-                  me="10px"
-                >
-                  Mobile:{" "}
-                </Text>
-                <Text fontSize="md" color="gray.500" fontWeight="400">
-                  +48 694 202 137
-                </Text>
-              </Flex>
+              {/*<Flex align="center" mb="18px">*/}
+              {/*  <Text*/}
+              {/*    fontSize="md"*/}
+              {/*    color={textColor}*/}
+              {/*    fontWeight="bold"*/}
+              {/*    me="10px"*/}
+              {/*  >*/}
+              {/*    Mobile:{" "}*/}
+              {/*  </Text>*/}
+              {/*  <Text fontSize="md" color="gray.500" fontWeight="400">*/}
+              {/*    +48 694 202 137*/}
+              {/*  </Text>*/}
+              {/*</Flex>*/}
 
-              <Flex align="center" mb="18px">
-                <Text
-                  fontSize="md"
-                  color={textColor}
-                  fontWeight="bold"
-                  me="10px"
-                >
-                  Location:{" "}
-                </Text>
-                <Text fontSize="md" color="gray.500" fontWeight="400">
-                  Poland
-                </Text>
-              </Flex>
+              {/*<Flex align="center" mb="18px">*/}
+              {/*  <Text*/}
+              {/*    fontSize="md"*/}
+              {/*    color={textColor}*/}
+              {/*    fontWeight="bold"*/}
+              {/*    me="10px"*/}
+              {/*  >*/}
+              {/*    Location:{" "}*/}
+              {/*  </Text>*/}
+              {/*  <Text fontSize="md" color="gray.500" fontWeight="400" textTransform="none">*/}
+              {/*    Poland*/}
+              {/*  </Text>*/}
+              {/*</Flex>*/}
             </Flex>
           </CardBody>
         </Card>
 
-        <Card p="16px">
+        <Card p="16px" id="doctor-profile-examinations">
           <CardHeader p="12px 5px" mb="12px">
             <Text fontSize="lg" color={textColor} fontWeight="bold">
               Examinations
             </Text>
           </CardHeader>
 
-          {/* to do*/}
+          <CardBody px="5px">
+            <Flex direction="column" w="100%">
+              {examinations && examinations.length > 0 && <Examinations examinations={examinations}/>}
+            </Flex>
+          </CardBody>
         </Card>
 
         <Card p="16px">
@@ -349,9 +286,7 @@ const Profile: FC = () => {
           </CardHeader>
           <CardBody px="5px">
             <Flex direction="column" w="100%">
-
-              {/* to do */}
-              <Conversations/>
+              {patients && patients.length > 0 && <Patients patients={patients}/>}
             </Flex>
           </CardBody>
         </Card>

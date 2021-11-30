@@ -3,8 +3,6 @@
 
 * {
   font-family: 'Poppins', sans-serif;
-  text-transform: capitalize;
-  transition: all .2s ease-out;
   text-decoration: none;
 }
 
@@ -27,6 +25,10 @@ a {
   text-decoration: none;
 }
 
+.main * {
+  transition: all .2s ease-out;
+  text-transform: capitalize;
+}
 
 .header {
   box-shadow: 0 .5rem 1.5rem $light-black;

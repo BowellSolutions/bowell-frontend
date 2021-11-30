@@ -9,6 +9,7 @@ import {
   resetRegister
 } from "../../src/redux/actions/auth";
 import {UserData} from "../../src/api/types";
+import {AppState} from "../../src/redux/store";
 
 const TIMEOUT_MS = 500;
 
@@ -44,7 +45,7 @@ const mockedUser = {
 
 describe('Test auth action creators', () => {
   it('should login user - dispatch 4 success actions', async () => {
-    const store = storeMock(initialState);
+    const store = storeMock(initialState as AppState);
 
     server.use(
       rest.post('http://127.0.0.1:8000/api/auth/token/', ((req, res, ctx) => {
@@ -75,7 +76,7 @@ describe('Test auth action creators', () => {
   });
 
   it('should fail user login - dispatch fail actions', async () => {
-    const store = storeMock(initialState);
+    const store = storeMock(initialState as AppState);
 
     server.use(rest.post(
       'http://127.0.0.1:8000/api/auth/token/',
@@ -99,7 +100,7 @@ describe('Test auth action creators', () => {
   });
 
   it('should load user', async () => {
-    const store = storeMock(initialState);
+    const store = storeMock(initialState as AppState);
 
     server.use(
       rest.get('http://127.0.0.1:8000/api/users/me/', (req, res, ctx) => {
@@ -117,7 +118,7 @@ describe('Test auth action creators', () => {
   });
 
   it('should fail user load', async () => {
-    const store = storeMock(initialState);
+    const store = storeMock(initialState as AppState);
 
     server.use(rest.get(
       'http://127.0.0.1:8000/api/users/me/',
@@ -136,21 +137,22 @@ describe('Test auth action creators', () => {
   });
 
   it('should reset register success', async () => {
-    const store = storeMock(initialState);
+    const store = storeMock(initialState as AppState);
     await store.dispatch<any>(resetRegister());
     const actions = store.getActions();
     expect(actions).toEqual([{type: 'auth/resetRegisterSuccess', payload: undefined}]);
   });
 
   it('should refresh token', async () => {
-    const store = storeMock({
+    const mockedState = {
       auth: {
         user: {} as UserData,
         isAuthenticated: true,
         loading: false,
         register_success: false
       }
-    });
+    };
+    const store = storeMock(mockedState as AppState);
 
     server.use(rest.post(
       'http://127.0.0.1:8000/api/auth/token/refresh/',
@@ -183,7 +185,7 @@ describe('Test auth action creators', () => {
   });
 
   it('should fail refresh token', async () => {
-    const store = storeMock(initialState);
+    const store = storeMock(initialState as AppState);
 
     server.use(rest.post(
       'http://127.0.0.1:8000/api/auth/token/refresh/',
@@ -202,7 +204,7 @@ describe('Test auth action creators', () => {
   });
 
   it('should check auth status success', async () => {
-    const store = storeMock(initialState);
+    const store = storeMock(initialState as AppState);
 
     server.use(rest.post(
       'http://127.0.0.1:8000/api/auth/token/verify/',
@@ -233,14 +235,15 @@ describe('Test auth action creators', () => {
   });
 
   it('should check auth status without refetching user', async () => {
-    const store = storeMock({
+    const mockedState = {
       auth: {
         user: {} as UserData,
         isAuthenticated: true,
         loading: false,
         register_success: false
       }
-    });
+    };
+    const store = storeMock(mockedState as AppState);
 
     server.use(rest.post(
       'http://127.0.0.1:8000/api/auth/token/verify/',
@@ -259,7 +262,7 @@ describe('Test auth action creators', () => {
   });
 
   it('should check auth status and fail', async () => {
-    const store = storeMock(initialState);
+    const store = storeMock(initialState as AppState);
 
     server.use(rest.post(
       'http://127.0.0.1:8000/api/auth/token/verify/',
@@ -278,7 +281,7 @@ describe('Test auth action creators', () => {
   });
 
   it('should logout user', async () => {
-    const store = storeMock(initialState);
+    const store = storeMock(initialState as AppState);
 
     server.use(rest.get(
       'http://127.0.0.1:8000/api/auth/logout/',
@@ -293,11 +296,15 @@ describe('Test auth action creators', () => {
     await store.dispatch<any>(logoutUser());
     await wait(TIMEOUT_MS);
     const actions = store.getActions();
-    expect(actions).toEqual([{type: 'auth/logoutSuccess', payload: undefined}]);
+    expect(actions).toEqual([
+        {type: 'auth/logoutSuccess', payload: undefined},
+        {type: 'dashboard/clearDashboardData', payload: undefined}
+      ]
+    );
   });
 
   it('should fail user logout', async () => {
-    const store = storeMock(initialState);
+    const store = storeMock(initialState as AppState);
 
     server.use(rest.get(
       'http://127.0.0.1:8000/api/auth/logout/',

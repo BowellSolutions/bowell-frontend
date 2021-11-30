@@ -1,26 +1,49 @@
 import {Badge, Box, Button, Flex, Icon, Td, Text, Tr, useColorModeValue,} from "@chakra-ui/react";
-import {FC} from "react";
+import {FC, useEffect, useState} from "react";
 import {FaTrashAlt} from "react-icons/fa";
 import {useDisclosure} from "@chakra-ui/hooks";
 import {MdExpandLess, MdExpandMore} from "react-icons/md";
+import {formatDate} from "../views/utils/format";
+import {ExaminationData, FileData} from "../../api/types";
+import {deleteFile, getFile} from "../../api/files";
+import {useAppSelector} from "../../redux/hooks";
+import {useDispatch} from "react-redux";
+import {loadRecordings} from "../../redux/actions/dashboard";
 
-interface FilesTableRowProps {
+interface RecordingsTableRowProps {
   fileId: number | string,
   name: string,
   date: string,
+  examination: ExaminationData | null,
 }
 
-const TablesTableRow: FC<FilesTableRowProps> = (
-  {fileId, name, date}
+const RecordingsTableRow: FC<RecordingsTableRowProps> = (
+  {fileId, name, date, examination}
 ) => {
-  const textColor = useColorModeValue("gray.500", "white");
-
   const {isOpen, onToggle} = useDisclosure();
+  const [fileDetails, setFileDetails] = useState<FileData | null>(null);
 
+  const textColor = useColorModeValue("gray.500", "white");
   const borderBottom = isOpen ? "0" : "1px";
 
-  const handleDelete = (): void => {
+  const dispatch = useDispatch();
+
+  const handleDetach = (): void => {
+    // detach recording from examination
+    deleteFile(fileId).then(() => {
+      dispatch(loadRecordings());
+    }).catch(() => {
+      // display some error, popup, alert etc.
+    });
   };
+
+  useEffect(() => {
+    if (isOpen && fileDetails == null) {
+      getFile(fileId).then(res => {
+        setFileDetails(res.data);
+      });
+    }
+  }, [isOpen, fileDetails, fileId]);
 
   return (
     <>
@@ -45,6 +68,7 @@ const TablesTableRow: FC<FilesTableRowProps> = (
             <Text
               fontSize="md"
               color={textColor}
+              textTransform="none"
             >
               {name}
             </Text>
@@ -57,25 +81,37 @@ const TablesTableRow: FC<FilesTableRowProps> = (
             color={textColor}
             pb=".5rem"
           >
-            {date}
+            {formatDate(date)}
           </Text>
         </Td>
 
         <Td borderBottom={borderBottom}>
-          <Button
-            p="0px"
-            bg="transparent"
-            mb={{sm: "10px", md: "0px"}}
-            me={{md: "12px"}}
-            onClick={handleDelete}
+          <Text
+            fontSize="md"
+            color={textColor}
+            pb=".5rem"
           >
-            <Flex color="red.500" cursor="pointer" align="center" p="12px">
-              <Icon as={FaTrashAlt} me="4px"/>
-              <Text fontSize="sm" fontWeight="semibold">
-                DELETE
-              </Text>
-            </Flex>
-          </Button>
+            {examination == null ? "---" : examination.id}
+          </Text>
+        </Td>
+
+        <Td borderBottom={borderBottom}>
+          {examination != null && (
+            <Button
+              p="0px"
+              bg="transparent"
+              mb={{sm: "10px", md: "0px"}}
+              me={{md: "12px"}}
+              onClick={handleDetach}
+            >
+              <Flex color="red.500" cursor="pointer" align="center" p="12px">
+                <Icon as={FaTrashAlt} me="4px"/>
+                <Text fontSize="sm" fontWeight="semibold">
+                  DETACH
+                </Text>
+              </Flex>
+            </Button>
+          )}
         </Td>
 
         <Td borderBottom={borderBottom}>
@@ -94,7 +130,25 @@ const TablesTableRow: FC<FilesTableRowProps> = (
       {isOpen && (
         <Tr>
           <Td colSpan={6} borderTop={0}>
-            {/* More details about file, associated examinations */}
+            {
+              // iterate over key-value pairs and return data in rows
+              fileDetails != null && Object.entries(fileDetails).map(
+                ([key, value], idx) => {
+                  // data already present in the table
+                  if (key === "id" || key === "uploaded_at") return null;
+                  else if (String(key).includes("date")) return (
+                    <Text as="p" key={`file-row-${key}`} textTransform="none">
+                      {`${key}: ${formatDate(value)}`}
+                    </Text>
+                  );
+                  return (
+                    <Text as="p" key={`file-row-${key}`} textTransform="none">
+                      {`${key}: ${value}`}
+                    </Text>
+                  );
+                }
+              )
+            }
           </Td>
         </Tr>
       )}
@@ -102,4 +156,4 @@ const TablesTableRow: FC<FilesTableRowProps> = (
   );
 };
 
-export default TablesTableRow;
+export default RecordingsTableRow;
