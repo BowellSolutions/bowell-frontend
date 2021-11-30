@@ -1,7 +1,7 @@
 module.exports = {
   setupFilesAfterEnv: ["./jest/jest.setup.js"],
   collectCoverageFrom: [
-    '**/*.{ts, jsx, tsx}',
+    '**/*.{ts,tsx,jsx}',
     '!**/*.d.ts',
     '!**/node_modules/**',
     '!**/cypress/**'

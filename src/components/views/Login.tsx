@@ -8,6 +8,7 @@ import {
   Input,
   Link,
   Text,
+  Image,
   useColorModeValue,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
@@ -65,7 +66,7 @@ const Login: FC = () => {
           alignItems="center"
           justifyContent="start"
           style={{userSelect: "none"}}
-          w={{base: "100%", md: "50%", lg: "42%"}}
+          w={{base: "100%", md: "80%", lg: "62%"}}
         >
           <Flex
             direction="column"
@@ -73,7 +74,7 @@ const Login: FC = () => {
             background={"transparent"}
             p="48px"
             mt={{md: "32px", lg: "64px"}}
-            borderRadius="15px"
+            borderRadius="15px 0 0 15px"
             bg={bgColor}
             boxShadow="0 20px 27px 0 rgb(0 0 0 / 5%)"
           >
@@ -124,7 +125,7 @@ const Login: FC = () => {
                 <Button
                   fontSize="12px"
                   type="submit"
-                  bg="teal.300"
+                  bg="teal.400"
                   w="100%"
                   h="45"
                   mb="20px"
@@ -132,10 +133,10 @@ const Login: FC = () => {
                   mt="20px"
                   sx={{
                     "&:hover": {
-                      bg: "teal.200",
+                      bg: "teal.300",
                     },
                     "&:active": {
-                      bg: "teal.400",
+                      bg: "teal.500",
                     }
                   }}
                   isLoading={loading}
@@ -165,24 +166,15 @@ const Login: FC = () => {
           </Flex>
         </Flex>
 
-        <Box
-          display={{base: "none", md: "block"}}
-          overflowX="hidden"
-          h="100%"
-          w="40vw"
-          position="absolute"
-          right="0px"
-        >
-          <Box
-            // bgImage={signInImage}
-            w="100%"
-            h="100%"
-            bgSize="cover"
-            bgPosition="50%"
-            position="absolute"
-            borderBottomLeftRadius="20px"
-          />
-        </Box>
+        <Flex
+          display={{sm: "none", md: "flex"}}
+          bgImage="/assets/doctors_2.jpeg"
+          bgPosition="center center"
+          bgSize="cover"
+          w="full"
+          mt={{md: "32px", lg: "64px"}}
+          borderRadius="0 15px 15px 0"
+        />
       </Flex>
     </Flex>
   );

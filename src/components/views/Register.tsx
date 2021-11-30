@@ -8,6 +8,9 @@ const Register: FC = () => {
   const textColor = useColorModeValue("gray.400", "white");
   const bgColor = useColorModeValue("white", "gray.700");
 
+  // to do, switch between patient and doctor registration
+  // sending request
+
   return (
     <Flex
       direction="column"
@@ -96,19 +99,22 @@ const Register: FC = () => {
 
             <Button
               type="submit"
-              bg="teal.300"
-              fontSize="10px"
-              color="white"
+              bg="teal.400"
+              fontSize="12px"
               fontWeight="bold"
+              color="white"
               w="100%"
               h="45"
               mb="24px"
-              _hover={{
-                bg: "teal.200",
+              sx={{
+                "&:hover": {
+                  bg: "teal.300",
+                },
+                "&:active": {
+                  bg: "teal.500",
+                }
               }}
-              _active={{
-                bg: "teal.400",
-              }}
+              loadingText="Submitting"
             >
               SIGN UP
             </Button>

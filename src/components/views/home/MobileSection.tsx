@@ -20,6 +20,7 @@ export default function MobileSection() {
       direction={{base: "column", md: "row"}}
       p={16}
       mx="auto"
+      id="mobile-section"
     >
       <Box
         w={{base: "full", md: 11 / 12, xl: 9 / 12}}
@@ -75,7 +76,7 @@ export default function MobileSection() {
         justifyContent="center"
         flexDirection={{sm: 'column', md: 'row'}}
       >
-        <Flex justifyContent="center" pb={{sm: 4, md: 0}}>
+        <Flex justifyContent="center" pb={{sm: 4, md: 0}} id="phone-container">
           <Image
             maxH="600px"
             h={{sm: "400px", md: "450px", lg: "600px"}}

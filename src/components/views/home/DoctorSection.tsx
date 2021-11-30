@@ -65,6 +65,7 @@ const DoctorSection: FC = () => {
       pt={8}
       pb={16}
       mx="auto"
+      id="doctor-section"
     >
       <Box
         w={{base: "full", md: 11 / 12, xl: 9 / 12}}

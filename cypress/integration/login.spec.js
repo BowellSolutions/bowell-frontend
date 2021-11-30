@@ -1,8 +1,9 @@
 /// <reference types="cypress" />
 
 describe('Test login page', () => {
+  beforeEach(() => cy.visit('/login'));
+
   it('submits login form and succeeds', () => {
-    cy.visit('/login');
     // verify should fail because user is not authenticated
     cy.intercept('/api/auth/token/verify/', {
       statusCode: 400,
@@ -30,6 +31,18 @@ describe('Test login page', () => {
     // successful authentication
     cy.intercept('/api/auth/token/verify/', 'success');
     // redirect to dashboard
-    cy.url({timeout: 10000}).should('eq', 'http://localhost:3000/dashboard');
+    cy.url({timeout: 20000}).should('eq', 'http://localhost:3000/dashboard');
+  });
+
+  it('tries to submit but fails validation', () => {
+    // to do
+  });
+
+  it('submits login form and fails', () => {
+    // to do
+  });
+
+  it('redirects logged user to dashboard', () => {
+    // to do
   });
 });

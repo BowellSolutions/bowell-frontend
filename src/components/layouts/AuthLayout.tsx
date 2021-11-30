@@ -1,6 +1,6 @@
-import React, {FC, ReactNode, useEffect, useRef} from "react";
+import {FC, ReactNode, useEffect, useRef} from "react";
 import Footer from "../footer/Footer";
-import {Box, Portal} from "@chakra-ui/react";
+import {Box, Portal, useColorModeValue} from "@chakra-ui/react";
 import AuthNavbar from "../navbar/AuthNavbar";
 import Head from "next/head";
 import {useDispatch} from "react-redux";
@@ -16,10 +16,13 @@ interface AuthLayoutProps {
 const AuthLayout: FC<AuthLayoutProps> = (
   {children, title, description, secondary}
 ) => {
+  const bgColor = useColorModeValue("teal.400", "");
+
   const dispatch = useDispatch();
 
   const wrapper = useRef(null);
   const navRef = useRef(null);
+
 
   useEffect(() => {
     // check if we are still authenticated
@@ -38,7 +41,7 @@ const AuthLayout: FC<AuthLayoutProps> = (
         <link rel="icon" href="/favicon.ico"/>
       </Head>
 
-      <Box ref={navRef} w="100%">
+      <Box ref={navRef} w="100%" minH="100vh" bg={bgColor}>
         <Portal
           containerRef={navRef}
         >
@@ -58,7 +61,7 @@ const AuthLayout: FC<AuthLayoutProps> = (
         </Box>
 
         <Box px="24px" mx="auto" width="1044px" maxW="100%">
-          <Footer/>
+          <Footer textColor="white" linkColor="teal.200"/>
         </Box>
       </Box>
     </>

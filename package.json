@@ -11,7 +11,9 @@
     "cypress": "cypress open",
     "cypress:headless": "cypress run",
     "e2e": "start-server-and-test dev http://localhost:3000 cypress",
-    "e2e:headless": "start-server-and-test dev http://localhost:3000 cypress:headless"
+    "e2e:prod": "yarn build && start-server-and-test start http://localhost:3000 cypress",
+    "e2e:headless": "start-server-and-test dev http://localhost:3000 cypress:headless",
+    "e2e:prod:headless": "yarn build && start-server-and-test start http://localhost:3000 cypress"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.16",
@@ -48,6 +50,7 @@
     "babel-jest": "^27.3.0",
     "cypress": "^8.6.0",
     "cypress-msw-interceptor": "^2.0.1",
+    "cypress-real-events": "^1.5.1",
     "eslint": "^7.32.0",
     "eslint-config-next": "11.1.2",
     "identity-obj-proxy": "^3.0.0",

@@ -26,7 +26,6 @@ import {BiReceipt} from "react-icons/bi";
 import NextLink from "next/link";
 import {useAppSelector} from "../../../redux/hooks";
 import {MdOutlineDashboard, MdOutlineMore} from "react-icons/md";
-import {useRouter} from "next/router";
 import {useDispatch} from "react-redux";
 import {logoutUser} from "../../../redux/actions/auth";
 
@@ -96,7 +95,7 @@ const Features: FC = () => {
           icon={
             <Icon as={MdOutlineDashboard} fontSize="1.5em"/>
           }
-          href="/dashboard"
+          href="/dashboard/"
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed tortor auctor.
         </Section>
@@ -106,7 +105,7 @@ const Features: FC = () => {
           icon={
             <Icon as={BiReceipt} fontSize="1.5em"/>
           }
-          href="/examinations"
+          href="/dashboard/examinations"
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </Section>
@@ -116,7 +115,7 @@ const Features: FC = () => {
           icon={
             <Icon as={BsVolumeUp} fontSize="1.5em"/>
           }
-          href="/recordings"
+          href="/dashboard/recordings"
         >
           Your customers&#039; data will be safe and secure.
         </Section>
@@ -126,13 +125,13 @@ const Features: FC = () => {
           icon={
             <Icon as={BsPerson} fontSize="1.5em"/>
           }
-          href="/profile"
+          href="/dashboard/profile"
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vehicula mauris non.
         </Section>
 
         <Section
-          title="More features"
+          title="More Features"
           icon={
             <Icon as={MdOutlineMore} fontSize="1.5em"/>
           }
@@ -157,7 +156,7 @@ export default function HeaderSection() {
   // to do buttons based on auth state
   const dispatch = useDispatch();
   const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated);
-  const logout = () => dispatch(logoutUser());
+  const logout = () => () => dispatch(logoutUser());
 
   const MobileNavContent = (
     <VStack
@@ -198,7 +197,7 @@ export default function HeaderSection() {
         </Button>
       </NextLink>
 
-      <NextLink href="/examinations" passHref>
+      <NextLink href="/dashboard/examinations" passHref>
         <Button
           w="full"
           variant="ghost"
@@ -208,7 +207,7 @@ export default function HeaderSection() {
         </Button>
       </NextLink>
 
-      <NextLink href="/recordings" passHref>
+      <NextLink href="/dashboard/recordings" passHref>
         <Button
           w="full"
           variant="ghost"
@@ -218,7 +217,7 @@ export default function HeaderSection() {
         </Button>
       </NextLink>
 
-      <NextLink href="/profile" passHref>
+      <NextLink href="/dashboard/profile" passHref>
         <Button
           w="full"
           variant="ghost"
@@ -232,9 +231,9 @@ export default function HeaderSection() {
 
   return (
     <>
-      <chakra.header h="full" bg={bg} w="full" px={{base: 2, sm: 4, md: 8, lg: 12}} py={4} className="h">
+      <chakra.header h="full" bg={bg} w="full" px={{base: 2, sm: 4, md: 8, lg: 12}} py={4} className="header">
         <Flex alignItems="center" justifyContent="space-between" mx="auto">
-          <Link display="flex" alignItems="center" href="/">
+          <Link display="flex" alignItems="center" href="/" id="header-logo">
             <Image w="32px" h="32px" me="10px" src="/logo.png" alt=""/>
 
             <Text mt="3px" className="logo">
@@ -275,11 +274,21 @@ export default function HeaderSection() {
             <HStack spacing={1}>
               {isAuthenticated ? (
                 <>
-                  <NextLink passHref href="/profile">
+                  <NextLink passHref href="/dashboard">
+                    <Button colorScheme="teal" variant="ghost" size="sm">
+                      Dashboard
+                    </Button>
+                  </NextLink>
+
+                  <NextLink passHref href="/dashboard/profile">
                     <Button colorScheme="teal" variant="ghost" size="sm">
                       Profile
                     </Button>
                   </NextLink>
+
+                  <Button colorScheme="teal" variant="ghost" size="sm" onClick={logout()}>
+                    Logout
+                  </Button>
                 </>
               ) : <>
                 <NextLink passHref href="/login">

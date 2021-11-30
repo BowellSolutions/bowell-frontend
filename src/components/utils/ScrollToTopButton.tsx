@@ -51,6 +51,7 @@ const ScrollToTopButton: FC = () => {
       opacity={Number(visible)}
       // @ts-ignore
       className={visible ? styles.active : styles.hidden}
+      id="scroll-to-top-button"
     >
       <Icon
         as={BsChevronUp}
