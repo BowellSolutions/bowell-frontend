@@ -1,14 +1,14 @@
-import {Badge, Box, Button, Flex, Icon, Td, Text, Tr, useColorModeValue,} from "@chakra-ui/react";
+import {Box, Button, Flex, Icon, Td, Text, Tr, useColorModeValue,} from "@chakra-ui/react";
 import {FC, useEffect, useState} from "react";
-import {FaTrashAlt, FaCheck} from "react-icons/fa";
+import {FaTrashAlt} from "react-icons/fa";
 import {useDisclosure} from "@chakra-ui/hooks";
 import {MdExpandLess, MdExpandMore} from "react-icons/md";
 import {formatDate} from "../views/utils/format";
 import {ExaminationData, FileData} from "../../api/types";
 import {deleteFile, getFile} from "../../api/files";
-import {useAppSelector} from "../../redux/hooks";
 import {useDispatch} from "react-redux";
 import {loadRecordings} from "../../redux/actions/dashboard";
+import AttachRecordingModal from "../dashboard/AttachRecordingModal";
 
 interface RecordingsTableRowProps {
   fileId: number | string,
@@ -116,19 +116,7 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
               </Flex>
             </Button>
           ) : (
-            <Button
-              p="0px"
-              bg="transparent"
-              mb={{sm: "10px", md: "0px"}}
-              me={{md: "12px"}}
-              onClick={handleAttach}
-            >
-              <Flex color="green.500" cursor="pointer" align="center" p="12px">
-                <Text fontSize="sm" fontWeight="semibold">
-                  ATTACH
-                </Text>
-              </Flex>
-            </Button>
+            <AttachRecordingModal recordingId={Number(fileId)}/>
           )}
         </Td>
 

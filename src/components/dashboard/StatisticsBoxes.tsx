@@ -4,6 +4,10 @@ import {Flex, Icon, SimpleGrid, Stat, StatLabel, StatNumber, useColorModeValue} 
 import IconBox from "../icons/IconBox";
 import {FC, useState} from "react";
 import {useAppSelector} from "../../redux/hooks";
+import {BiReceipt} from "react-icons/bi";
+import {BsFillPeopleFill, BsCalendarWeek} from "react-icons/bs";
+import {MdPendingActions} from "react-icons/md";
+
 
 const StatisticsBoxes: FC = () => {
   const iconTeal = useColorModeValue("teal.300", "teal.300");
@@ -40,7 +44,7 @@ const StatisticsBoxes: FC = () => {
               // @ts-ignore
               as="box" h="45px" w="45px" bg={iconTeal}
             >
-              <Icon h="24px" w="24px" color={iconBoxInside}/>
+              <Icon h="24px" w="24px" color={iconBoxInside} as={BsFillPeopleFill}/>
             </IconBox>
           </Flex>
         </CardBody>
@@ -66,7 +70,7 @@ const StatisticsBoxes: FC = () => {
               // @ts-ignore
               as="box" h="45px" w="45px" bg={iconTeal}
             >
-              <Icon h="24px" w="24px" color={iconBoxInside}/>
+              <Icon h="24px" w="24px" color={iconBoxInside} as={BiReceipt}/>
             </IconBox>
           </Flex>
         </CardBody>
@@ -92,7 +96,7 @@ const StatisticsBoxes: FC = () => {
               // @ts-ignore
               as="box" h="45px" w="45px" bg={iconTeal}
             >
-              <Icon h="24px" w="24px" color={iconBoxInside}/>
+              <Icon h="24px" w="24px" color={iconBoxInside} as={MdPendingActions}/>
             </IconBox>
           </Flex>
         </CardBody>
@@ -118,7 +122,7 @@ const StatisticsBoxes: FC = () => {
               // @ts-ignore
               as="box" h="45px" w="45px" bg={iconTeal}
             >
-              <Icon h="24px" w="24px" color={iconBoxInside}/>
+              <Icon h="22px" w="22px" color={iconBoxInside} as={BsCalendarWeek}/>
             </IconBox>
           </Flex>
         </CardBody>
