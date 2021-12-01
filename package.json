@@ -13,7 +13,7 @@
     "e2e": "start-server-and-test dev http://localhost:3000 cypress",
     "e2e:prod": "yarn build && start-server-and-test start http://localhost:3000 cypress",
     "e2e:headless": "start-server-and-test dev http://localhost:3000 cypress:headless",
-    "e2e:prod:headless": "yarn build && start-server-and-test start http://localhost:3000 cypress"
+    "e2e:prod:headless": "yarn build && start-server-and-test start http://localhost:3000 cypress:headless"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.16",
