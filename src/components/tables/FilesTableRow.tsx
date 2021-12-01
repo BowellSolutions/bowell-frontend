@@ -1,12 +1,11 @@
-import {Badge, Box, Button, Flex, Icon, Td, Text, Tr, useColorModeValue,} from "@chakra-ui/react";
+import {Box, Button, Flex, Icon, Td, Text, Tr, useColorModeValue,} from "@chakra-ui/react";
 import {FC, useEffect, useState} from "react";
-import {FaTrashAlt, FaCheck} from "react-icons/fa";
+import {FaTrashAlt} from "react-icons/fa";
 import {useDisclosure} from "@chakra-ui/hooks";
 import {MdExpandLess, MdExpandMore} from "react-icons/md";
 import {formatDate} from "../views/utils/format";
 import {ExaminationData, FileData} from "../../api/types";
 import {deleteFile, getFile} from "../../api/files";
-import {useAppSelector} from "../../redux/hooks";
 import {useDispatch} from "react-redux";
 import {loadRecordings} from "../../redux/actions/dashboard";
 import AttachRecordingModal from "../dashboard/AttachRecordingModal";
@@ -117,7 +116,7 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
               </Flex>
             </Button>
           ) : (
-            <AttachRecordingModal recordingId={fileId}/>
+            <AttachRecordingModal recordingId={Number(fileId)}/>
           )}
         </Td>
 
