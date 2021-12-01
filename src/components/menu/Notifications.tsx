@@ -7,23 +7,23 @@ import ItemContent from "./ItemContent";
 const items = [
   {
     time: "13 minutes ago",
-    info: "from Alicia",
-    boldInfo: "New Message",
-    aName: "Alicia",
+    boldInfo: "Recording (#3)",
+    info: "Analysis pending",
+    aName: "Wojtek",
     aSrc: ""
   },
   {
     time: "2 days ago",
-    info: "by Josh Henry",
-    boldInfo: "New Album",
-    aName: "Josh Henry",
+    boldInfo: "Recording (#5)",
+    info: "Analysis cancelled",
+    aName: "Hubert",
     aSrc: ""
   },
   {
     time: "3 days ago",
-    info: "Payment succesfully completed!",
-    boldInfo: "",
-    aName: "Kara",
+    boldInfo: "Recording (#2)",
+    info: "Analysis complete",
+    aName: "Gustaw",
     aSrc: ""
   },
 ];

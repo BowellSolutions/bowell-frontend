@@ -74,7 +74,7 @@ const Login: FC = () => {
             background={"transparent"}
             p="48px"
             mt={{md: "32px", lg: "64px"}}
-            borderRadius="15px 0 0 15px"
+            borderRadius={{sm: "15px", md: "15px 0 0 15px"}}
             bg={bgColor}
             boxShadow="0 20px 27px 0 rgb(0 0 0 / 5%)"
           >
