@@ -13,17 +13,22 @@ import {
 } from "@chakra-ui/react";
 import {useAppSelector} from "../../redux/hooks";
 import {createExamination} from "../../api/examinations";
+import {loadExaminations} from "../../redux/actions/dashboard";
+import {useDispatch} from "react-redux";
 
 interface ExaminationFormProps {
   onClose: () => void,
 }
 
-const ExaminationForm: FC<ExaminationFormProps> = () => {
+const ExaminationForm: FC<ExaminationFormProps> = ({onClose}) => {
   const [chosenPatient, setChosenPatient] = useState<string | null>(null);
   const [appointmentDate, setAppointmentDate] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const dispatch = useDispatch();
+
   const patients = useAppSelector(state => state.dashboard.patients);
   const doctor = useAppSelector(state => state.auth.user);
 
@@ -45,6 +50,11 @@ const ExaminationForm: FC<ExaminationFormProps> = () => {
       {doctor: doctor?.id, date: appointmentDate, patient: chosenPatient}
     ).then((res) => {
       setIsLoading(false);
+      dispatch(loadExaminations()); // better way would be to dispatch only single element
+      // to do display message
+      setTimeout(() => {
+        onClose();
+      }, 1000);
     }).catch(err => setError(JSON.stringify(err)));
   };
 

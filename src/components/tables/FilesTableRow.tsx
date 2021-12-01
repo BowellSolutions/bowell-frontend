@@ -9,6 +9,7 @@ import {deleteFile, getFile} from "../../api/files";
 import {useAppSelector} from "../../redux/hooks";
 import {useDispatch} from "react-redux";
 import {loadRecordings} from "../../redux/actions/dashboard";
+import AttachRecordingModal from "../dashboard/AttachRecordingModal";
 
 interface RecordingsTableRowProps {
   fileId: number | string,
@@ -116,19 +117,7 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
               </Flex>
             </Button>
           ) : (
-            <Button
-              p="0px"
-              bg="transparent"
-              mb={{sm: "10px", md: "0px"}}
-              me={{md: "12px"}}
-              onClick={handleAttach}
-            >
-              <Flex color="green.500" cursor="pointer" align="center" p="12px">
-                <Text fontSize="sm" fontWeight="semibold">
-                  ATTACH
-                </Text>
-              </Flex>
-            </Button>
+            <AttachRecordingModal recordingId={fileId}/>
           )}
         </Td>
 

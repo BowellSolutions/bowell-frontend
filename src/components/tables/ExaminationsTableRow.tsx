@@ -10,6 +10,7 @@ import {updateExamination} from "../../api/examinations";
 import {useDispatch} from "react-redux";
 import {loadExaminations, loadRecordings} from "../../redux/actions/dashboard";
 import { formatDate } from "components/views/utils/format";
+import EditExaminationModal from "../dashboard/EditExaminationModal";
 
 interface ExaminationsTableRowProps {
   examination: ExaminationData,
@@ -81,14 +82,7 @@ const ExaminationsTableRow: FC<ExaminationsTableRowProps> = ({examination}) => {
           align="center"
           p={{md: "24px"}}
         >
-          <Button p="0px" bg="transparent">
-            <Flex color={textColor} cursor="pointer" align="center" p="12px">
-              <Icon as={FaPencilAlt} me="4px"/>
-              <Text fontSize="sm" fontWeight="semibold">
-                Edit
-              </Text>
-            </Flex>
-          </Button>
+          <EditExaminationModal examinationId={examination.id}/>
         </Flex>
       </Flex>
 
