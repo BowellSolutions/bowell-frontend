@@ -58,24 +58,26 @@ const PatientSection: FC = () => {
 
   return (
     <Flex
-      direction={{base: "column", md: "row"}}
+      direction={{base: "column", xl: "row"}}
       bg={lighterDarkBg}
-      px={16}
-      pt={8}
-      pb={16}
+      px={{sm: 8, md: 12, lg: 16}}
+      pt={{base: 0, md: 8}}
+      pb={{sm: 4, md: 16}}
       mx="auto"
       id="patient-section"
     >
-      <Carousel slides={slides} currentSlide={currentSlide} setCurrentSlide={setCurrentSlide}/>
+      <Flex order={1} w="full">
+        <Carousel slides={slides} currentSlide={currentSlide} setCurrentSlide={setCurrentSlide}/>
+      </Flex>
 
-      <Box
+      <Flex
         w={{base: "full", md: 11 / 12, xl: 9 / 12}}
         mx="auto"
+        pt={{sm: 8, md: 8, lg: 0}}
         pl={{md: 20}}
         color="black"
-        order={{sm: 1, md: 2}}
-        display="flex"
         alignItems="center"
+        order={2}
       >
         <Box>
           <chakra.h2
@@ -105,7 +107,7 @@ const PatientSection: FC = () => {
             </chakra.p>
           ))}
         </Box>
-      </Box>
+      </Flex>
     </Flex>
   );
 };

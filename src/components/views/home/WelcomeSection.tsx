@@ -4,7 +4,12 @@ import NextLink from "next/link";
 
 export default function WelcomeSection() {
   return (
-    <Box px={8} py={24} mx="auto" mt={{sm: "0", md: "32px"}} id="welcome-section">
+    <Box
+      px={8} py={{sm: 16, md: 24}}
+      pb={{sm: 8, md: 12, lg: 24}}
+      mx="auto" mt={{base: "32px"}}
+      id="welcome-section"
+    >
       <Box
         w={{base: "full", md: 11 / 12, xl: 9 / 12}}
         mx="auto"
@@ -98,6 +103,7 @@ export default function WelcomeSection() {
         mt={20}
         textAlign="center"
         id="welcome-section-image"
+        mb={{base: 8, md: 0}}
       >
         <Image
           w="full"

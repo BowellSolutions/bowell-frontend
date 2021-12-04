@@ -1,5 +1,5 @@
-import React, {FC, useReducer, useState} from "react";
-import {Box, Button, chakra, Flex, Image, Stack, useColorModeValue} from "@chakra-ui/react";
+import React, {FC, useState} from "react";
+import {Box, chakra, Flex, useColorModeValue} from "@chakra-ui/react";
 import Carousel from "./Carousel";
 
 const slides = [
@@ -55,25 +55,25 @@ const DoctorSection: FC = () => {
 
   const headingColor = useColorModeValue("gray.700", "white");
   const textColor = useColorModeValue("gray.400", "gray.300");
-  const lighterDarkBg = useColorModeValue("", "gray.700")
+  const lighterDarkBg = useColorModeValue("", "gray.700");
 
   return (
     <Flex
-      direction={{base: "column", md: "row"}}
+      direction={{base: "column", xl: "row"}}
       bg={lighterDarkBg}
-      px={16}
+      px={{sm: 8, md: 12, lg: 16}}
       pt={8}
       pb={16}
       mx="auto"
       id="doctor-section"
     >
-      <Box
+      <Flex
         w={{base: "full", md: 11 / 12, xl: 9 / 12}}
         mx="auto"
         pr={{md: 20}}
         color="black"
-        display="flex"
         alignItems="center"
+        order={{base: 2, sm: 2, md: 1}}
       >
         <Box>
           <chakra.h2
@@ -103,9 +103,11 @@ const DoctorSection: FC = () => {
             </chakra.p>
           ))}
         </Box>
-      </Box>
+      </Flex>
 
-      <Carousel slides={slides} currentSlide={currentSlide} setCurrentSlide={setCurrentSlide}/>
+      <Flex order={{base: 1, sm: 1, md: 2}} w="full" pb={{base: 8, lg: 0}}>
+        <Carousel slides={slides} currentSlide={currentSlide} setCurrentSlide={setCurrentSlide}/>
+      </Flex>
     </Flex>
   );
 };
