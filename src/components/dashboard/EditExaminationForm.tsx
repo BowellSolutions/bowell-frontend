@@ -1,36 +1,60 @@
-import {FC, FormEvent, useState} from "react";
+import {ChangeEvent, FC, FormEvent, useState} from "react";
 import {Box, Button, Flex, FormControl, FormLabel, Heading, Input, Select, Textarea} from "@chakra-ui/react";
+import {ExaminationData} from "../../api/types";
+import {updateExamination} from "../../api/examinations";
+import {loadExaminations} from "../../redux/actions/dashboard";
+import {useDispatch} from "react-redux";
 
 interface EditExaminationFormProps {
   onClose: () => void,
-  examinationId: number,
+  examination: ExaminationData,
 }
 
 interface State {
-  height_cm: '',
-  mass_kg: '',
-  symptoms: '',
-  medication: '',
-  status: '',
-  overview: '',
+  height_cm?: number | null,
+  mass_kg?: number | null,
+  symptoms?: string | null,
+  medication?: string | null,
+  status?: string | null,
+  overview?: string | null,
 }
 
-const initialState: State = {
-  height_cm: '',
-  mass_kg: '',
-  symptoms: '',
-  medication: '',
-  status: '',
-  overview: '',
-}
 
-/* to do: connect state and api call */
+const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination}) => {
+  const initialState: State = {
+    height_cm: examination.height_cm,
+    mass_kg: examination.mass_kg,
+    symptoms: examination.symptoms,
+    medication: examination.medication,
+    status: examination.status,
+    overview: examination.overview,
+  };
 
-const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examinationId}) => {
+  const dispatch = useDispatch();
   const [state, setState] = useState<State>(initialState);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
+    setLoading(true);
+    updateExamination(examination.id, state).then((res) => {
+      setLoading(false);
+      setError(null);
+      dispatch(loadExaminations()); // replace with dispatching updated examination
+      setTimeout(() => {
+        onClose();
+      }, 1000);
+    }).catch((err) => {
+      setLoading(false);
+      setError(JSON.stringify(err));
+    });
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void => {
+    setState((prev) => {
+      return {...prev, [e.target.id]: e.target.value};
+    });
   };
 
   return (
@@ -38,6 +62,7 @@ const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination
       flexDirection="column"
       alignSelf="center"
       justifySelf="center"
+      id="edit-examination-form"
     >
       <Flex
         direction="column"
@@ -54,7 +79,7 @@ const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination
           fontSize="32px"
           mb="42px"
         >
-          Edit Examination #{examinationId}
+          Edit Examination #{examination.id}
         </Heading>
 
         <form onSubmit={handleSubmit}>
@@ -64,7 +89,7 @@ const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination
                 {"Patient's Height [cm]"}
               </FormLabel>
 
-              <Input type="number" onChange={() => {}}/>
+              <Input type="number" id="height_cm" value={state.height_cm ?? ""} onChange={handleInputChange}/>
             </Box>
 
             <Box pb="16px">
@@ -72,7 +97,7 @@ const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination
                 {"Patient's Mass [kg]"}
               </FormLabel>
 
-              <Input type="number" onChange={() => {}}/>
+              <Input type="number" id="mass_kg" value={state.mass_kg ?? ""} onChange={handleInputChange}/>
             </Box>
 
             <Box pb="16px">
@@ -80,10 +105,19 @@ const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination
                 {"Examination Status"}
               </FormLabel>
 
-              <Select onChange={() => {}}>
-                <option value={1}>forthcoming</option>
-                <option value={2}>completed</option>
-                <option value={3}>cancelled</option>
+              <Select
+                onChange={handleInputChange}
+                placeholder="Change examination status"
+                id="status"
+                value={state.status ?? ""}
+              >
+                <option value={"cancelled"}>cancelled</option>
+                <option value={"scheduled"}>scheduled</option>
+                <option value={"completed"}>completed</option>
+                <option value={"file_uploaded"}>file_uploaded</option>
+                <option value={"file_processing"}>file_processing</option>
+                <option value={"processing_failed"}>processing_failed</option>
+                <option value={"processing_succeeded"}>processing_succeeded</option>
               </Select>
             </Box>
 
@@ -92,7 +126,7 @@ const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination
                 {"Symptoms"}
               </FormLabel>
 
-              <Input type="text" onChange={() => {}}/>
+              <Input type="text" id="symptoms" value={state.symptoms ?? ""} onChange={handleInputChange}/>
             </Box>
 
             <Box pb="16px">
@@ -100,7 +134,7 @@ const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination
                 {"Medication"}
               </FormLabel>
 
-              <Input type="text" onChange={() => {}}/>
+              <Input type="text" id="medication" value={state.medication ?? ""} onChange={handleInputChange}/>
             </Box>
 
             <Box pb="16px">
@@ -108,14 +142,16 @@ const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination
                 {"Overview"}
               </FormLabel>
 
-              <Textarea onChange={() => {}}/>
+              <Textarea id="overview" value={state.overview ?? ""} onChange={handleInputChange}/>
             </Box>
 
             <Flex justify="center" mt="16px">
               <Button
                 type="submit"
-                loadingText="Sending..."
                 bgColor="teal.300"
+                loadingText="Sending..."
+                isLoading={loading}
+                isDisabled={loading}
               >
                 Submit
               </Button>

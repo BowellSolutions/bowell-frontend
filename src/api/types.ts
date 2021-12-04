@@ -84,6 +84,15 @@ export interface RecordingInExamination {
   name: string,
 }
 
+type ExaminationStatus =
+  "cancelled"
+  | "scheduled"
+  | "completed"
+  | "file_uploaded"
+  | "file_processing"
+  | "processing_failed"
+  | "processing_succeeded";
+
 export interface ExaminationData {
   id: number,
   patient: UserInfo,
@@ -92,7 +101,7 @@ export interface ExaminationData {
   mass_kg?: number,
   symptoms?: string,
   medication?: string,
-  status?: string,
+  status?: ExaminationStatus,
   recording: RecordingInExamination | null,
   date: Date | string,
   overview?: string,

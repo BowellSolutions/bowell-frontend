@@ -16,7 +16,6 @@ export const loadExaminations = (): AppThunk => async (dispatch, getState) => {
 
     if (res.status === 200) {
       const examinations = res.data;
-      console.log(examinations);
       const state = getState();
       // if examinations are the same as the ones from request
       // do not dispatch anything

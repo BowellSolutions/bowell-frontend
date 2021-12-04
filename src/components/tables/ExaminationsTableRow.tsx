@@ -82,7 +82,7 @@ const ExaminationsTableRow: FC<ExaminationsTableRowProps> = ({examination}) => {
           align="center"
           p={{md: "24px"}}
         >
-          <EditExaminationModal examinationId={examination.id}/>
+          <EditExaminationModal examination={examination}/>
         </Flex>
       </Flex>
 
