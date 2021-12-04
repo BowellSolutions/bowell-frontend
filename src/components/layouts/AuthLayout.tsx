@@ -37,6 +37,7 @@ const AuthLayout: FC<AuthLayoutProps> = (
     <>
       <Head>
         <meta name="description" content={description}/>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
         <title>{title}</title>
         <link rel="icon" href="/favicon.ico"/>
       </Head>
