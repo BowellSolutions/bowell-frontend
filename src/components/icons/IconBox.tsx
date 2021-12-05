@@ -1,7 +1,7 @@
-import {Flex} from "@chakra-ui/react";
+import {Flex, FlexProps} from "@chakra-ui/react";
 import {FC, ReactNode} from "react";
 
-interface IconBoxProps {
+interface IconBoxProps extends FlexProps {
   children: ReactNode,
 }
 

@@ -8,14 +8,20 @@ import {MdLogin} from "react-icons/md";
 import {IoIosRocket} from "react-icons/io";
 import ButtonActiveLink from "./ButtonActiveLink";
 import ButtonLink from "./ButtonLink";
+import SidebarButton from "./Button";
+import {logoutUser} from "../../redux/actions/auth";
+import {useDispatch} from "react-redux";
 
 
 const SidebarResponsiveLinks: FC = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const {type: userType} = useDashboardContext();
   const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated);
 
   const routesToMap = userType === "doctor" ? doctorsRoutes : patientsRoutes;
+
+  const logout = () => dispatch(logoutUser());
 
   return (
     <Box>
@@ -39,6 +45,10 @@ const SidebarResponsiveLinks: FC = () => {
           />
         );
       })}
+
+      {isAuthenticated && (
+        <SidebarButton icon={<Icon as={MdLogin}/>} name="Logout" onClick={() => logout()}/>
+      )}
 
       {!isAuthenticated && (
         <>

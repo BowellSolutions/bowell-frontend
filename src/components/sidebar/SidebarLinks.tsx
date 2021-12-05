@@ -49,16 +49,9 @@ const SidebarLinks: FC<SidebarLinksProps> = ({sidebarVariant, user}) => {
               boxShadow={sidebarActiveShadow}
               bg={activeBg}
               transition={variantChange}
-              mb={{
-                xl: "12px",
-              }}
-              mx={{
-                xl: "auto",
-              }}
-              ps={{
-                sm: "10px",
-                xl: "16px",
-              }}
+              mb={{xl: "12px",}}
+              mx={{xl: "auto",}}
+              ps={{sm: "10px", xl: "16px",}}
               py="12px"
               borderRadius="15px"
               w="100%"
@@ -73,7 +66,6 @@ const SidebarLinks: FC<SidebarLinksProps> = ({sidebarVariant, user}) => {
             >
               <Flex>
                 <IconBox
-                  // @ts-ignore
                   bg="teal.300"
                   color="white"
                   h="30px"
@@ -95,17 +87,10 @@ const SidebarLinks: FC<SidebarLinksProps> = ({sidebarVariant, user}) => {
               justifyContent="flex-start"
               alignItems="center"
               bg="transparent"
-              mb={{
-                xl: "12px",
-              }}
-              mx={{
-                xl: "auto",
-              }}
+              mb={{xl: "12px",}}
+              mx={{xl: "auto",}}
               py="12px"
-              ps={{
-                sm: "10px",
-                xl: "16px",
-              }}
+              ps={{sm: "10px", xl: "16px",}}
               borderRadius="15px"
               // @ts-ignore
               _hover="none"
@@ -121,7 +106,6 @@ const SidebarLinks: FC<SidebarLinksProps> = ({sidebarVariant, user}) => {
             >
               <Flex>
                 <IconBox
-                  // @ts-ignore
                   bg={inactiveBg}
                   color="teal.300"
                   h="30px"

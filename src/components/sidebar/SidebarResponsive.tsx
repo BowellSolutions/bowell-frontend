@@ -52,9 +52,8 @@ const SidebarResponsive: FC<SidebarResponsiveProps> = (
         ref={btnRef}
         colorScheme="teal"
         onClick={onOpen}
-        sx={{
-          cursor: 'pointer',
-        }}
+        cursor="pointer"
+        id="dashboard-hamburger-menu"
       />
 
       <Drawer

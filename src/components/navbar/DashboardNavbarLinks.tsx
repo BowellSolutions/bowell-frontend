@@ -32,7 +32,7 @@ const DashboardNavbarLinks: FC<DashboardNavbarLinksProps> = (
   const grayLinkColor = useColorModeValue("gray.500", "gray.200");
   const navbarLinkColor = secondary ? "white" : grayLinkColor;
 
-  const handleLogout = () => dispatch(logoutUser());
+  const logout = () => dispatch(logoutUser());
 
   const settingsRef = useRef(null);
 
@@ -46,13 +46,15 @@ const DashboardNavbarLinks: FC<DashboardNavbarLinksProps> = (
       <Flex flexGrow={1}/>
 
       <Button
-        ms="0px"
-        px="0px"
-        p={"8px"}
-        mr={{sm: "16px", md: "16px"}}
+        ms={0}
+        px={0}
+        p="8px"
+        mr={{base: 0, md: "16px"}}
+        d={{base: "none", md: "block"}}
         color={navbarLinkColor}
-        variant="outline"
-        onClick={handleLogout}
+        variant="ghost"
+        colorScheme="teal"
+        onClick={logout}
       >
         Logout
       </Button>

@@ -149,8 +149,8 @@ export default function HeaderSection() {
   const mobileNav = useDisclosure();
   const {toggleColorMode: toggleMode} = useColorMode();
   const bg = useColorModeValue("white", "gray.800");
-  const dropdownBg = useColorModeValue("white", "gray.700");
   const cl = useColorModeValue("gray.800", "white");
+  const dropdownBg = useColorModeValue("white", "gray.700");
   const text = useColorModeValue("dark", "light");
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
 
@@ -172,6 +172,7 @@ export default function HeaderSection() {
       rounded="sm"
       shadow="sm"
       zIndex={1000}
+      id="mobile-nav"
     >
       <CloseButton
         aria-label="Close menu"
@@ -337,7 +338,7 @@ export default function HeaderSection() {
             fontSize="lg"
             aria-label={`Switch to ${text} mode`}
             variant="ghost"
-            color="current"
+            color={cl}
             ml={{base: "0", md: "3"}}
             onClick={toggleMode}
             icon={<SwitchIcon/>}
@@ -347,10 +348,11 @@ export default function HeaderSection() {
             display={{sm: "flex", md: "none"}}
             aria-label="Open menu"
             fontSize="20px"
-            color={useColorModeValue("gray.800", "inherit")}
+            color={cl}
             variant="ghost"
             icon={<AiOutlineMenu/>}
             onClick={mobileNav.onOpen}
+            id="hamburger-menu"
           />
         </Box>
       </Flex>
