@@ -1,16 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
-  Link,
-  Text,
-  Image,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import {Button, Flex, FormControl, FormLabel, Heading, Input, Link, Text, useColorModeValue,} from "@chakra-ui/react";
 import NextLink from "next/link";
 import {ChangeEvent, FC, FormEvent, useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
@@ -42,9 +30,14 @@ const Login: FC = () => {
     }
   };
 
+  const isFormEmpty = username === "" || password === "";
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(loginUser(username, password));
+
+    if (!isFormEmpty) {
+      dispatch(loginUser(username, password));
+    }
   };
 
   useEffect(() => {
@@ -141,6 +134,7 @@ const Login: FC = () => {
                   }}
                   isLoading={loading}
                   loadingText="Submitting"
+                  isDisabled={isFormEmpty}
                 >
                   SIGN IN
                 </Button>

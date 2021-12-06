@@ -2,11 +2,11 @@ import {Box, chakra, Flex, Image, useColorModeValue} from "@chakra-ui/react";
 import React, {useState} from "react";
 
 const images = [
-  "/assets/phone.png",
-  "/assets/phone_1.png",
-  "/assets/phone_2.png",
-  "/assets/phone_3.png",
-  "/assets/phone_4.png",
+  "/assets/phone_view_1.png",
+  "/assets/phone_view_2.png",
+  "/assets/phone_view_3.png",
+  "/assets/phone_view_4.png",
+  "/assets/phone_view_5.png",
 ];
 
 export default function MobileSection() {
