@@ -6,6 +6,10 @@ import {FC} from "react";
 
 const CallToActionSection: FC = () => {
   const headingColor = useColorModeValue("gray.900", "gray.100");
+  const bgColor = useColorModeValue("", "gray.700");
+  const btnTextColor = useColorModeValue("white", "");
+  const btnBgColor = useColorModeValue("teal.600", "teal.500");
+  const btnHoverBgColor = useColorModeValue("teal.700", "teal.600");
 
   return (
     <Flex
@@ -18,7 +22,7 @@ const CallToActionSection: FC = () => {
       <Box
         w="full"
         bgGradient="linear(to-r, white, teal.300)"
-        bg={useColorModeValue("", "gray.700")}
+        bg={bgColor}
         shadow="xl"
         display="flex"
         flexDirection="column"
@@ -30,7 +34,7 @@ const CallToActionSection: FC = () => {
           columns={{base: 1, lg: 2, xl: 3}}
           spacing={4}
           mx="auto"
-          py={{base: 12, lg: 16}}
+          py={{base: 8, lg: 16}}
           px={{base: 4, lg: 8}}
           display={{lg: "flex"}}
         >
@@ -66,10 +70,10 @@ const CallToActionSection: FC = () => {
                     w="full"
                     rounded="md"
                     cursor="pointer"
-                    color={useColorModeValue("white", "")}
-                    bg={useColorModeValue("teal.600", "teal.500")}
+                    color={btnTextColor}
+                    bg={btnBgColor}
                     _hover={{
-                      bg: useColorModeValue("teal.700", "teal.600"),
+                      bg: btnHoverBgColor,
                     }}
                   >
                     Get Started

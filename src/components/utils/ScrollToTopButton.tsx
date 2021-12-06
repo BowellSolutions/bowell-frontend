@@ -49,6 +49,7 @@ const ScrollToTopButton: FC = () => {
       borderRadius="50px"
       boxShadow="0 2px 12px 0 rgb(0 0 0 / 16%)"
       opacity={Number(visible)}
+      zIndex={1000}
       // @ts-ignore
       className={visible ? styles.active : styles.hidden}
       id="scroll-to-top-button"

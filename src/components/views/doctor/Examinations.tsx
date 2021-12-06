@@ -23,13 +23,16 @@ const Examinations: FC = () => {
   return (
     <Flex direction="column" pt={{base: "120px", md: "75px"}}>
       <Card overflowX={{sm: "scroll", xl: "hidden"}}>
-        <CardHeader p="6px 0px 22px 0px">
-          <Flex alignItems="center" grow={1}>
+        <CardHeader p="6px 0px 22px 0px" flexDirection={{base: "column", md: "row"}}>
+          <Flex alignItems="center" width="80%" grow={1}>
             <Text fontSize="xl" color={textColor} fontWeight="bold">
               Examinations
             </Text>
           </Flex>
-          <ExaminationModal/>
+
+          <Flex pt={{base: "4px", md: 0}}>
+            <ExaminationModal/>
+          </Flex>
         </CardHeader>
 
         <CardBody>

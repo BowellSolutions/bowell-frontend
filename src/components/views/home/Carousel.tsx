@@ -1,5 +1,5 @@
 import {Box, Flex, HStack, Image, Text} from "@chakra-ui/react";
-import {Dispatch, FC, SetStateAction, useState} from "react";
+import {Dispatch, FC, SetStateAction} from "react";
 
 
 interface Slide {
@@ -54,11 +54,9 @@ const Carousel: FC<CarouselProps> = ({slides, currentSlide, setCurrentSlide}) =>
       w="full"
       alignItems="center"
       justifyContent="center"
-      shadow="2xl"
-      rounded="lg"
       className="carousel"
     >
-      <Flex w="full" overflow="hidden" pos="relative">
+      <Flex w="full" overflow="hidden" pos="relative" shadow="2xl" rounded="lg">
         <Flex w="full" {...carouselStyle}>
           {slides.map((slide, sid) => (
             <Image

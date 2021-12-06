@@ -42,7 +42,7 @@ describe('test homepage', () => {
     cy.url({timeout: 20_000}).should('eq', 'http://localhost:3000/register');
   });
 
-  it('clicks dashboard - logged in', () => {
+  it('clicks dashboard - logged in', {retries: {runMode: 3, openMode: 1}}, () => {
     cy.intercept('/api/auth/token/verify/', 'success').as('verifySuccess');
     cy.intercept('/api/users/me/', 'success').as('getUser');
 
@@ -53,7 +53,7 @@ describe('test homepage', () => {
     cy.url({timeout: 20_000}).should('eq', 'http://localhost:3000/dashboard');
   });
 
-  it('clicks profile - logged in', () => {
+  it('clicks profile - logged in', {retries: {runMode: 3, openMode: 1}}, () => {
     cy.intercept('/api/auth/token/verify/', 'success').as('verifySuccess');
     cy.intercept('/api/users/me/', 'success').as('getUser');
 
@@ -64,7 +64,7 @@ describe('test homepage', () => {
     cy.url({timeout: 20_000}).should('eq', 'http://localhost:3000/dashboard/profile');
   });
 
-  it('clicks logout - logged in', () => {
+  it('clicks logout - logged in', {retries: {runMode: 3, openMode: 1}}, () => {
     cy.intercept('/api/auth/token/verify/', 'success').as('verifySuccess');
     cy.intercept('/api/auth/logout/', 'success').as('logoutSuccess');
 
@@ -123,7 +123,7 @@ describe('test homepage', () => {
     cy.url({timeout: 20_000}).should('eq', 'http://localhost:3000/login');
   });
 
-  it('hovers on features, then click examinations - logged in', () => {
+  it('hovers on features, then click examinations - logged in', {retries: {runMode: 3, openMode: 1}}, () => {
     cy.intercept('/api/auth/token/verify/', 'success').as('verifySuccess');
     cy.intercept('/api/users/me/', 'success').as('getUser');
 
@@ -147,7 +147,7 @@ describe('test homepage', () => {
     cy.url({timeout: 20_000}).should('eq', 'http://localhost:3000/login');
   });
 
-  it('hovers on features, then click recordings - patient logged in', () => {
+  it('hovers on features, then click recordings - patient logged in', {retries: {runMode: 3, openMode: 1}}, () => {
     cy.intercept('/api/auth/token/verify/', 'success').as('verifySuccess');
     cy.intercept('/api/users/me/', 'success').as('getUser');
 
@@ -159,7 +159,7 @@ describe('test homepage', () => {
     cy.url({timeout: 20_000}).should('eq', 'http://localhost:3000/dashboard/recordings');
   });
 
-  it('hovers on features, then click recordings - doctor logged in', () => {
+  it('hovers on features, then click recordings - doctor logged in', {retries: {runMode: 3, openMode: 1}}, () => {
     cy.intercept('/api/auth/token/verify/', 'success').as('verifySuccess');
     cy.intercept('/api/users/me/', {statusCode: 200, body: {is_staff: true}}).as('getUser');
 
@@ -184,7 +184,7 @@ describe('test homepage', () => {
     cy.url({timeout: 20_000}).should('eq', 'http://localhost:3000/login');
   });
 
-  it('hovers on features, then clicks on profile - logged in', () => {
+  it('hovers on features, then clicks on profile - logged in', {retries: {runMode: 3, openMode: 1}}, () => {
     cy.intercept('/api/auth/token/verify/', 'success').as('verifySuccess');
     cy.intercept('/api/users/me/', 'success').as('getUser');
 
@@ -209,18 +209,18 @@ describe('test homepage', () => {
 
     cy.visit("/");
     cy.wait('@verifyFail', {timeout: 10_000});
-    cy.get("#welcome-section").find("a").contains("Go To Dashboard").click();
+    cy.get("#welcome-section").find("a").contains("Go To Dashboard").click({force: true});
     cy.wait('@verifyFail', {timeout: 10_000});
     cy.url({timeout: 20_000,}).should('eq', 'http://localhost:3000/login');
   });
 
-  it('clicks go to dashboard button - logged in', () => {
+  it('clicks go to dashboard button - logged in', {retries: {runMode: 3, openMode: 1}}, () => {
     cy.intercept('/api/auth/token/verify/', 'success').as('verifySuccess');
     cy.intercept('/api/users/me/', 'success').as('getUser');
 
     cy.visit("/");
     cy.wait('@verifySuccess', {timeout: 10_000});
-    cy.get("#welcome-section").find("a").contains("Go To Dashboard").click();
+    cy.get("#welcome-section").find("a").contains("Go To Dashboard").click({force: true});
     cy.wait('@verifySuccess', {timeout: 10_000});
     cy.url({timeout: 20_000,}).should('eq', 'http://localhost:3000/dashboard');
   });
@@ -267,7 +267,7 @@ describe('test homepage', () => {
     cy.url({timeout: 20_000,}).should('eq', 'http://localhost:3000/login');
   });
 
-  it('clicks get started button - logged in', () => {
+  it('clicks get started button - logged in', {retries: {runMode: 3, openMode: 1}}, () => {
     cy.intercept('/api/auth/token/verify/', 'success').as('verifySuccess');
     cy.intercept('/api/users/me/', 'success').as('getUser');
 

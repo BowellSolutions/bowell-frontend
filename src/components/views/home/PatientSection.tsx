@@ -4,7 +4,7 @@ import Carousel from "./Carousel";
 
 const slides = [
   {
-    img: "https://kutty.netlify.app/hero.jpg",
+    img: "/assets/hero_patient_slide.jpg",
     heading: "See your recent activities.",
     descriptions: [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam leo libero, molestie sit amet aliquet ' +
@@ -15,7 +15,7 @@ const slides = [
     ],
   },
   {
-    img: "https://kutty.netlify.app/hero.jpg",
+    img: "/assets/hero_patient_slide.jpg",
     heading: "Look at your appointments",
     descriptions: [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut placerat hendrerit odio, convallis feugiat elit ' +
@@ -24,26 +24,18 @@ const slides = [
     ]
   },
   {
-    img: "https://kutty.netlify.app/hero.jpg",
+    img: "/assets/hero_patient_slide.jpg",
     heading: "Sign up for a new appointment",
     descriptions: [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas diam dolor, dapibus sed augue non, ultricies laoreet ante. Fusce molestie tortor nisl, nec lacinia tortor dictum in. Suspendisse pellentesque, lacus at lobortis commodo, dui ipsum egestas nisl, vitae eleifend metus justo mollis nulla. Morbi vitae magna vel augue tristique posuere quis sed leo. Curabitur malesuada venenatis vulputate. Proin faucibus lectus.'
     ]
   },
   {
-    img: "https://kutty.netlify.app/hero.jpg",
-    heading: "Upload new recordings.",
-    descriptions: [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lobortis quam massa, eu pulvinar erat egestas a. Sed id nulla ligula. Nam id lorem et est tempor blandit sed nec nisl. Proin tristique lectus justo, non lobortis elit semper eu. In justo erat, tristique ut pharetra in, dictum finibus tellus. Nunc varius massa neque.'
-    ]
-  },
-  {
-    img: "https://kutty.netlify.app/hero.jpg",
+    img: "/assets/hero_patient_slide.jpg",
     heading: "View analysis' results",
     descriptions: [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eget arcu dictum, bibendum lacus at, semper mauris. Suspendisse imperdiet vestibulum lorem. Vivamus semper erat mi, quis faucibus sem porttitor a. Sed laoreet leo id nulla dignissim, sed luctus nulla ullamcorper.',
       'Integer scelerisque mi ac lorem lacinia, id aliquam purus laoreet. Aliquam nec metus vehicula.',
-
     ]
   },
 ];
@@ -58,24 +50,26 @@ const PatientSection: FC = () => {
 
   return (
     <Flex
-      direction={{base: "column", md: "row"}}
+      direction={{base: "column", xl: "row"}}
       bg={lighterDarkBg}
-      px={16}
-      pt={8}
-      pb={16}
+      px={{sm: 8, md: 12, lg: 16}}
+      pt={{base: 0, md: 8}}
+      pb={{sm: 4, md: 16}}
       mx="auto"
       id="patient-section"
     >
-      <Carousel slides={slides} currentSlide={currentSlide} setCurrentSlide={setCurrentSlide}/>
+      <Flex order={1} w="full">
+        <Carousel slides={slides} currentSlide={currentSlide} setCurrentSlide={setCurrentSlide}/>
+      </Flex>
 
-      <Box
+      <Flex
         w={{base: "full", md: 11 / 12, xl: 9 / 12}}
         mx="auto"
+        pt={{sm: 8, md: 8, lg: 0}}
         pl={{md: 20}}
         color="black"
-        order={{sm: 1, md: 2}}
-        display="flex"
         alignItems="center"
+        order={2}
       >
         <Box>
           <chakra.h2
@@ -105,7 +99,7 @@ const PatientSection: FC = () => {
             </chakra.p>
           ))}
         </Box>
-      </Box>
+      </Flex>
     </Flex>
   );
 };

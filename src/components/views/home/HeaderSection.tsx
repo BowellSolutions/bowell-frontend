@@ -17,15 +17,15 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import {AiFillHome, AiOutlineMenu,} from "react-icons/ai";
-import {BsFillPersonFill, BsFillVolumeUpFill, BsPerson, BsVolumeUp} from "react-icons/bs";
-import {FaMoon, FaSun,} from "react-icons/fa";
-import {IoIosArrowDown} from "react-icons/io";
+import {BsPersonFill, BsFillVolumeUpFill, BsPerson, BsVolumeUp} from "react-icons/bs";
+import {FaMoon, FaSun} from "react-icons/fa";
+import {IoIosArrowDown, IoIosRocket} from "react-icons/io";
 import {useDisclosure} from "@chakra-ui/hooks";
-import {FC, ReactNode} from "react";
+import {FC, ReactNode, useEffect, useState} from "react";
 import {BiReceipt} from "react-icons/bi";
 import NextLink from "next/link";
 import {useAppSelector} from "../../../redux/hooks";
-import {MdOutlineDashboard, MdOutlineMore} from "react-icons/md";
+import {MdLogin, MdOutlineDashboard, MdOutlineMore, MdLogout} from "react-icons/md";
 import {useDispatch} from "react-redux";
 import {logoutUser} from "../../../redux/actions/auth";
 
@@ -150,10 +150,10 @@ export default function HeaderSection() {
   const {toggleColorMode: toggleMode} = useColorMode();
   const bg = useColorModeValue("white", "gray.800");
   const cl = useColorModeValue("gray.800", "white");
+  const dropdownBg = useColorModeValue("white", "gray.700");
   const text = useColorModeValue("dark", "light");
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
 
-  // to do buttons based on auth state
   const dispatch = useDispatch();
   const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated);
   const logout = () => () => dispatch(logoutUser());
@@ -166,19 +166,20 @@ export default function HeaderSection() {
       right={0}
       display={mobileNav.isOpen ? "flex" : "none"}
       flexDirection="column"
-      p={2}
-      pb={4}
-      m={2}
-      bg={bg}
+      p={4}
+      bg={dropdownBg}
       spacing={3}
       rounded="sm"
       shadow="sm"
+      zIndex={1000}
+      id="mobile-nav"
     >
       <CloseButton
         aria-label="Close menu"
         justifySelf="self-start"
         onClick={mobileNav.onClose}
       />
+
       <NextLink href="/" passHref>
         <Button
           w="full"
@@ -217,119 +218,146 @@ export default function HeaderSection() {
         </Button>
       </NextLink>
 
-      <NextLink href="/dashboard/profile" passHref>
-        <Button
-          w="full"
-          variant="ghost"
-          leftIcon={<BsFillPersonFill/>}
-        >
-          Profile
-        </Button>
-      </NextLink>
+      {isAuthenticated ? (
+        <>
+          <NextLink passHref href="/dashboard/profile">
+            <Button w="full" variant="ghost" leftIcon={<BsPersonFill/>}>
+              Profile
+            </Button>
+          </NextLink>
+
+          <Button w="full" variant="ghost" leftIcon={<MdLogout/>} onClick={logout()}>
+            Logout
+          </Button>
+        </>
+      ) : <>
+        <NextLink passHref href="/login">
+          <Button w="full" variant="ghost" leftIcon={<MdLogin/>}>
+            Sign in
+          </Button>
+        </NextLink>
+
+        <NextLink passHref href="/register">
+          <Button w="full" variant="ghost" leftIcon={<IoIosRocket/>}>
+            Sign up
+          </Button>
+        </NextLink>
+      </>}
     </VStack>
   );
 
   return (
-    <>
-      <chakra.header h="full" bg={bg} w="full" px={{base: 2, sm: 4, md: 8, lg: 12}} py={4} className="header">
-        <Flex alignItems="center" justifyContent="space-between" mx="auto">
-          <Link display="flex" alignItems="center" href="/" id="header-logo">
-            <Image w="32px" h="32px" me="10px" src="/logo.png" alt=""/>
+    <chakra.header
+      w="full"
+      px={{base: 2, sm: 4, md: 8, lg: 12}}
+      py={4}
+      bg={bg}
+      top={0}
+      left={0}
+      right={0}
+      pos="fixed"
+      zIndex={1000}
+      className="header"
+      shadow="md"
+    >
+      <Flex alignItems="center" justifyContent="space-between" mx="auto">
+        <Link display="flex" alignItems="center" href="/" id="header-logo">
+          <Image w="32px" h="32px" me="10px" src="/logo.png" alt=""/>
 
-            <Text mt="3px" className="logo">
-              Bowell
-            </Text>
-          </Link>
+          <Text mt="3px" className="logo">
+            Bowell
+          </Text>
+        </Link>
 
-          <Spacer/>
+        <Spacer/>
 
-          <Box display="flex" alignItems="center">
-            <Box display={{base: "none", md: "inline-flex"}}>
-              <HStack spacing={1}>
-                <Box role="group">
-                  <Button
-                    bg={bg}
-                    color="gray.500"
-                    alignItems="center"
-                    fontSize="md"
-                    _hover={{color: cl}}
-                    _focus={{boxShadow: "none"}}
-                    rightIcon={<IoIosArrowDown/>}
-                  >
-                    Features
-                  </Button>
-                  <Box
-                    pos="absolute"
-                    left={0}
-                    w="full"
-                    display="none"
-                    _groupHover={{display: "block"}}
-                  >
-                    <Features/>
-                  </Box>
-                </Box>
-              </HStack>
-            </Box>
-
+        <Box display="flex" alignItems="center">
+          <Box display={{base: "none", md: "inline-flex"}}>
             <HStack spacing={1}>
-              {isAuthenticated ? (
-                <>
-                  <NextLink passHref href="/dashboard">
-                    <Button colorScheme="teal" variant="ghost" size="sm">
-                      Dashboard
-                    </Button>
-                  </NextLink>
-
-                  <NextLink passHref href="/dashboard/profile">
-                    <Button colorScheme="teal" variant="ghost" size="sm">
-                      Profile
-                    </Button>
-                  </NextLink>
-
-                  <Button colorScheme="teal" variant="ghost" size="sm" onClick={logout()}>
-                    Logout
-                  </Button>
-                </>
-              ) : <>
-                <NextLink passHref href="/login">
-                  <Button colorScheme="teal" variant="ghost" size="sm">
-                    Sign in
-                  </Button>
-                </NextLink>
-
-                <NextLink passHref href="/register">
-                  <Button colorScheme="teal" variant="solid" size="sm">
-                    Sign up
-                  </Button>
-                </NextLink>
-              </>}
+              <Box role="group">
+                <Button
+                  bg={bg}
+                  color="gray.500"
+                  alignItems="center"
+                  fontSize="md"
+                  _hover={{color: cl}}
+                  _focus={{boxShadow: "none"}}
+                  rightIcon={<IoIosArrowDown/>}
+                >
+                  Features
+                </Button>
+                <Box
+                  pos="absolute"
+                  left={0}
+                  w="full"
+                  display="none"
+                  _groupHover={{display: "block"}}
+                >
+                  <Features/>
+                </Box>
+              </Box>
             </HStack>
-
-            <IconButton
-              size="md"
-              fontSize="lg"
-              aria-label={`Switch to ${text} mode`}
-              variant="ghost"
-              color="current"
-              ml={{base: "0", md: "3"}}
-              onClick={toggleMode}
-              icon={<SwitchIcon/>}
-            />
-
-            <IconButton
-              display={{base: "flex", md: "none"}}
-              aria-label="Open menu"
-              fontSize="20px"
-              color={useColorModeValue("gray.800", "inherit")}
-              variant="ghost"
-              icon={<AiOutlineMenu/>}
-              onClick={mobileNav.onOpen}
-            />
           </Box>
-        </Flex>
 
-        {MobileNavContent}
-      </chakra.header>
-    </>
+          <HStack spacing={1} display={{base: "none", md: "flex"}}>
+            {isAuthenticated ? (
+              <>
+                <NextLink passHref href="/dashboard">
+                  <Button colorScheme="teal" variant="ghost" size="sm">
+                    Dashboard
+                  </Button>
+                </NextLink>
+
+                <NextLink passHref href="/dashboard/profile">
+                  <Button colorScheme="teal" variant="ghost" size="sm">
+                    Profile
+                  </Button>
+                </NextLink>
+
+                <Button colorScheme="teal" variant="ghost" size="sm" onClick={logout()}>
+                  Logout
+                </Button>
+              </>
+            ) : <>
+              <NextLink passHref href="/login">
+                <Button colorScheme="teal" variant="ghost" size="sm">
+                  Sign in
+                </Button>
+              </NextLink>
+
+              <NextLink passHref href="/register">
+                <Button colorScheme="teal" variant="solid" size="sm">
+                  Sign up
+                </Button>
+              </NextLink>
+            </>}
+          </HStack>
+
+          <IconButton
+            size="md"
+            fontSize="lg"
+            aria-label={`Switch to ${text} mode`}
+            variant="ghost"
+            color={cl}
+            ml={{base: "0", md: "3"}}
+            onClick={toggleMode}
+            icon={<SwitchIcon/>}
+          />
+
+          <IconButton
+            display={{sm: "flex", md: "none"}}
+            aria-label="Open menu"
+            fontSize="20px"
+            color={cl}
+            variant="ghost"
+            icon={<AiOutlineMenu/>}
+            onClick={mobileNav.onOpen}
+            id="hamburger-menu"
+          />
+        </Box>
+      </Flex>
+
+      {MobileNavContent}
+    </chakra.header>
   );
 }

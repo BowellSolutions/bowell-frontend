@@ -1,10 +1,15 @@
-import {Box, Button, chakra, Icon, Image, Stack, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Button, chakra, Flex, Icon, Image, Stack, Text, useColorModeValue} from "@chakra-ui/react";
 import NextLink from "next/link";
 
 
 export default function WelcomeSection() {
   return (
-    <Box px={8} py={24} mx="auto" mt={{sm: "0", md: "32px"}} id="welcome-section">
+    <Box
+      px={8} py={{sm: 16, md: 24}}
+      pb={{sm: 8, md: 12, lg: 24}}
+      mx="auto" mt={{base: "32px"}}
+      id="welcome-section"
+    >
       <Box
         w={{base: "full", md: 11 / 12, xl: 9 / 12}}
         mx="auto"
@@ -18,7 +23,7 @@ export default function WelcomeSection() {
           letterSpacing={{base: "normal", md: "tight"}}
           color={useColorModeValue("gray.900", 'gray.100')}
         >
-          All your{" "}
+          Lorem{" "}
 
           <Text
             display={{base: "block", lg: "inline"}}
@@ -27,9 +32,9 @@ export default function WelcomeSection() {
             bgGradient="linear(to-r, green.400,purple.500)"
             fontWeight="extrabold"
           >
-            customer feedback
+            consectetur adipiscing
           </Text>{" "}
-          in one single place.
+          at edit ipsum lorem.
         </chakra.h1>
 
         <chakra.p
@@ -92,21 +97,25 @@ export default function WelcomeSection() {
         </Stack>
       </Box>
 
-      <Box
+      <Flex
         w={{base: "full", md: 10 / 12}}
         mx="auto"
         mt={20}
         textAlign="center"
+        justifyContent="center"
         id="welcome-section-image"
+        mb={{base: 8, md: 0}}
       >
         <Image
           w="full"
+          maxW="1920px"
+          maxH="1080px"
           rounded="lg"
           shadow="2xl"
-          src="https://kutty.netlify.app/hero.jpg"
-          alt="Hellonext feedback boards software screenshot"
+          src="/assets/hero_dashboard_lightmode.jpg"
+          alt="Dashboard screenshot"
         />
-      </Box>
+      </Flex>
     </Box>
   );
 };

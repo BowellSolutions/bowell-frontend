@@ -4,13 +4,14 @@ import {Modal, ModalCloseButton, ModalContent, ModalOverlay} from "@chakra-ui/mo
 import {FaPencilAlt} from "react-icons/fa";
 import {useDisclosure} from "@chakra-ui/hooks";
 import EditExaminationForm from "./EditExaminationForm";
+import {ExaminationData} from "../../api/types";
 
 interface EditExaminationModalProps {
-  examinationId: number,
+  examination: ExaminationData,
 }
 
 
-const EditExaminationModal: FC<EditExaminationModalProps> = ({examinationId}) => {
+const EditExaminationModal: FC<EditExaminationModalProps> = ({examination}) => {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const textColor = useColorModeValue("gray.700", "white");
 
@@ -35,7 +36,7 @@ const EditExaminationModal: FC<EditExaminationModalProps> = ({examinationId}) =>
           <ModalCloseButton/>
 
           <EditExaminationForm
-            examinationId={examinationId}
+            examination={examination}
             onClose={onClose}
           />
         </ModalContent>

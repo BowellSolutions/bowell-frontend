@@ -1,10 +1,9 @@
-import {Box, useStyleConfig} from "@chakra-ui/react";
+import {Box, BoxProps, useStyleConfig} from "@chakra-ui/react";
 import {FC, ReactNode} from "react";
 
-interface CardBodyProps {
+interface CardBodyProps extends BoxProps {
   variant?: string,
   children: ReactNode,
-  [x: string]: any, // chakra-ui props - temporary solution
 }
 
 const CardBody: FC<CardBodyProps> = ({variant, children, ...rest}) => {

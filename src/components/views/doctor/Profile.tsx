@@ -320,7 +320,7 @@ const Profile: FC = () => {
 
           <CardBody px="5px">
             <Flex direction="column" w="100%">
-              {patients && patients.length > 0 && <Patients patients={patients}/>}
+              {patients && patients.length > 0 && <Patients patients={patients.filter(p => !p.is_staff)}/>}
             </Flex>
           </CardBody>
 

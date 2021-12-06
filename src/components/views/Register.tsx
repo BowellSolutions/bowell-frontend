@@ -17,6 +17,7 @@ const Register: FC = () => {
       alignSelf="center"
       justifySelf="center"
       overflow="hidden"
+      mx={{sm: "24px", lg: "auto"}}
     >
       <Flex
         direction="column"
@@ -34,8 +35,8 @@ const Register: FC = () => {
           maxW="445px"
           background={"transparent"}
           borderRadius="15px"
-          p="40px"
-          mx={{base: "100px", sm: "auto"}}
+          p={{base: "24px", md: "40px"}}
+          mx={{base: "auto", md: "100px"}}
           bg={bgColor}
           boxShadow="0 20px 27px 0 rgb(0 0 0 / 5%)"
           textAlign="center"

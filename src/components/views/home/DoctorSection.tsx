@@ -1,10 +1,10 @@
-import React, {FC, useReducer, useState} from "react";
-import {Box, Button, chakra, Flex, Image, Stack, useColorModeValue} from "@chakra-ui/react";
+import React, {FC, useState} from "react";
+import {Box, chakra, Flex, useColorModeValue} from "@chakra-ui/react";
 import Carousel from "./Carousel";
 
 const slides = [
   {
-    img: "https://kutty.netlify.app/hero.jpg",
+    img: "/assets/hero_doctor_slide1.jpg",
     heading: "See recent activities.",
     descriptions: [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam leo libero, molestie sit amet aliquet ' +
@@ -16,7 +16,7 @@ const slides = [
     ],
   },
   {
-    img: "https://kutty.netlify.app/hero.jpg",
+    img: "/assets/hero_doctor_slide2.jpg",
     heading: "Manage your patients.",
     descriptions: [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut placerat hendrerit odio, convallis feugiat elit ' +
@@ -25,26 +25,25 @@ const slides = [
     ]
   },
   {
-    img: "https://kutty.netlify.app/hero.jpg",
+    img: "/assets/hero_doctor_slide3.jpg",
     heading: "View appointments and examinations.",
     descriptions: [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas diam dolor, dapibus sed augue non, ultricies laoreet ante. Fusce molestie tortor nisl, nec lacinia tortor dictum in. Suspendisse pellentesque, lacus at lobortis commodo, dui ipsum egestas nisl, vitae eleifend metus justo mollis nulla. Morbi vitae magna vel augue tristique posuere quis sed leo. Curabitur malesuada venenatis vulputate. Proin faucibus lectus.'
     ]
   },
   {
-    img: "https://kutty.netlify.app/hero.jpg",
+    img: "/assets/hero_doctor_slide4.jpg",
     heading: "Upload new recordings.",
     descriptions: [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lobortis quam massa, eu pulvinar erat egestas a. Sed id nulla ligula. Nam id lorem et est tempor blandit sed nec nisl. Proin tristique lectus justo, non lobortis elit semper eu. In justo erat, tristique ut pharetra in, dictum finibus tellus. Nunc varius massa neque.'
     ]
   },
   {
-    img: "https://kutty.netlify.app/hero.jpg",
+    img: "/assets/hero_doctor_slide5.jpg",
     heading: "Activate recording analysis.",
     descriptions: [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eget arcu dictum, bibendum lacus at, semper mauris. Suspendisse imperdiet vestibulum lorem. Vivamus semper erat mi, quis faucibus sem porttitor a. Sed laoreet leo id nulla dignissim, sed luctus nulla ullamcorper.',
       'Integer scelerisque mi ac lorem lacinia, id aliquam purus laoreet. Aliquam nec metus vehicula.',
-
     ]
   },
 ];
@@ -55,25 +54,25 @@ const DoctorSection: FC = () => {
 
   const headingColor = useColorModeValue("gray.700", "white");
   const textColor = useColorModeValue("gray.400", "gray.300");
-  const lighterDarkBg = useColorModeValue("", "gray.700")
+  const lighterDarkBg = useColorModeValue("", "gray.700");
 
   return (
     <Flex
-      direction={{base: "column", md: "row"}}
+      direction={{base: "column", xl: "row"}}
       bg={lighterDarkBg}
-      px={16}
+      px={{sm: 8, md: 12, lg: 16}}
       pt={8}
       pb={16}
       mx="auto"
       id="doctor-section"
     >
-      <Box
+      <Flex
         w={{base: "full", md: 11 / 12, xl: 9 / 12}}
         mx="auto"
         pr={{md: 20}}
         color="black"
-        display="flex"
         alignItems="center"
+        order={{base: 2, sm: 2, md: 1}}
       >
         <Box>
           <chakra.h2
@@ -103,9 +102,11 @@ const DoctorSection: FC = () => {
             </chakra.p>
           ))}
         </Box>
-      </Box>
+      </Flex>
 
-      <Carousel slides={slides} currentSlide={currentSlide} setCurrentSlide={setCurrentSlide}/>
+      <Flex order={{base: 1, sm: 1, md: 2}} w="full" pb={{base: 8, lg: 0}}>
+        <Carousel slides={slides} currentSlide={currentSlide} setCurrentSlide={setCurrentSlide}/>
+      </Flex>
     </Flex>
   );
 };

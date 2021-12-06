@@ -2,11 +2,11 @@ import {Box, chakra, Flex, Image, useColorModeValue} from "@chakra-ui/react";
 import React, {useState} from "react";
 
 const images = [
-  "/assets/phone.png",
-  "/assets/phone_1.png",
-  "/assets/phone_2.png",
-  "/assets/phone_3.png",
-  "/assets/phone_4.png",
+  "/assets/phone_view_1.png",
+  "/assets/phone_view_2.png",
+  "/assets/phone_view_3.png",
+  "/assets/phone_view_4.png",
+  "/assets/phone_view_5.png",
 ];
 
 export default function MobileSection() {
@@ -18,7 +18,9 @@ export default function MobileSection() {
   return (
     <Flex
       direction={{base: "column", md: "row"}}
-      p={16}
+      pt={{sm: 8, md: 12, lg: 16}}
+      pb={{sm: 8, md: 16}}
+      px={{sm: 8, md: 16}}
       mx="auto"
       id="mobile-section"
     >
@@ -26,6 +28,7 @@ export default function MobileSection() {
         w={{base: "full", md: 11 / 12, xl: 9 / 12}}
         mx="auto"
         pr={{md: 20}}
+        pb={{sm: 8, md: 0}}
         color="black"
         display="flex"
         alignItems="center"

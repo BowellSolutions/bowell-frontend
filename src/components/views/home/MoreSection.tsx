@@ -4,22 +4,20 @@ import NextLink from "next/link";
 export default function MoreSection() {
   return (
     <Flex
-      px={20}
+      px={{sm: 8, md: 12, lg: 16}}
+      pt={{sm: 16, lg: 20}}
+      pb={{sm: 4, md: 20}}
       w="full"
       justifyContent="center"
       alignItems="center"
       id="more-section"
     >
-      <Box
-        px={8}
-        py={20}
-        mx="auto"
-      >
+      <Box mx="auto">
         <SimpleGrid
           alignItems="start"
-          columns={{base: 1, md: 2}}
-          mb={24}
-          spacingY={{base: 10, md: 32}}
+          columns={{base: 1, md: 1, lg: 2}}
+          mb={{base: 24, sm: 16}}
+          spacingY={{base: 10, md: 12}}
           spacingX={{base: 10, md: 24}}
         >
           <Box>
@@ -28,10 +26,9 @@ export default function MoreSection() {
               fontSize={{base: "2xl", md: "4xl"}}
               fontWeight="extrabold"
               letterSpacing="tight"
-              textAlign={{base: "center", md: "left"}}
+              textAlign={{base: "center", sm: "left", md: "left"}}
               color={useColorModeValue("gray.900", "gray.400")}
               lineHeight={{md: "shorter"}}
-              textShadow="2px 0 currentcolor"
             >
               Designed for solving real life problems
             </chakra.h2>
@@ -48,7 +45,6 @@ export default function MoreSection() {
             </chakra.p>
 
             <chakra.p
-              mb={5}
               textAlign={{base: "center", sm: "left"}}
               color={useColorModeValue("gray.600", "gray.400")}
               fontSize={{md: "lg"}}
@@ -60,6 +56,8 @@ export default function MoreSection() {
           </Box>
 
           <Image
+            mx={{base: 0, md: "auto"}}
+            maxW={{md: 800, lg: "none"}}
             w="full"
             h="full"
             src="/assets/examination_1.jpg"
@@ -69,10 +67,10 @@ export default function MoreSection() {
 
         <SimpleGrid
           alignItems="center"
-          columns={{base: 1, md: 2}}
+          columns={{base: 1, md: 1, lg: 2}}
           flexDirection="column-reverse"
-          mb={24}
-          spacingY={{base: 10, md: 32}}
+          mb={{base: 24, md: 16}}
+          spacingY={{base: 10, md: 12}}
           spacingX={{base: 10, md: 24}}
         >
           <Box order={{md: 2}}>
@@ -123,12 +121,13 @@ export default function MoreSection() {
                 Learn More
               </Button>
             </NextLink>
-
           </Box>
 
           <Image
+            mx={{base: 0, md: "auto"}}
             w="full"
             h="full"
+            maxW={{md: 800, lg: "none"}}
             src="/assets/doctors_1.jpg"
             alt=""
           />

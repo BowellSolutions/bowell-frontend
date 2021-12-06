@@ -20,7 +20,7 @@ const RecentPatients = () => {
           _hover={{shadow: 'md', transition: "box-shadow 0.3s"}}
         >
           <Flex justify="space-between" w="100%">
-            <Flex direction="column" maxWidth="70%">
+            <Flex direction="column" maxWidth={{md: "80%", xl: "85%"}}>
               <Text color={nameColor} fontSize="md" fontWeight="bold" mb="10px">
                 {patient.first_name} {patient.last_name}
               </Text>
@@ -44,7 +44,7 @@ const RecentPatients = () => {
             <Flex
               direction={{sm: "column", md: "row"}}
               align="center"
-              p={{md: "24px"}}
+              p={{md: "24px", lg: "12px"}}
             >
               <Avatar src="" alt="" h="32px" w="32px"/>
             </Flex>
