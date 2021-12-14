@@ -124,7 +124,7 @@ const ExaminationForm: FC<ExaminationFormProps> = ({onClose}) => {
                 disabled={isLoading}
                 isRequired
               >
-                {patients.filter(p => !p.is_staff).map((patient) => (
+                {patients.filter(p => p.type === "PATIENT").map((patient) => (
                   <option value={patient.id} key={`patient-option-${patient.id}`}>
                     {patient.first_name} {patient.last_name}
                   </option>

@@ -12,9 +12,8 @@ export interface UserData {
   is_active: boolean,
   is_staff: boolean,
   is_superuser: boolean,
+  type: string, // DOCTOR | PATIENT | STAFF
   date_joined: Date,
-  groups: any[],
-  user_permissions: any[],
 }
 
 export interface FileData {

@@ -161,7 +161,7 @@ describe('test homepage', () => {
 
   it('hovers on features, then click recordings - doctor logged in', {retries: {runMode: 3, openMode: 1}}, () => {
     cy.intercept('/api/auth/token/verify/', 'success').as('verifySuccess');
-    cy.intercept('/api/users/me/', {statusCode: 200, body: {is_staff: true}}).as('getUser');
+    cy.intercept('/api/users/me/', {statusCode: 200, body: {type: "DOCTOR"}}).as('getUser');
 
     cy.visit("/");
     cy.wait('@verifySuccess', {timeout: 10_000});

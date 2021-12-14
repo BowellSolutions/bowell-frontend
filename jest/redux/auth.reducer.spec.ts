@@ -107,9 +107,8 @@ describe("test auth reducer", () => {
       is_active: true,
       is_staff: true,
       is_superuser: true,
+      type: "DOCTOR",
       date_joined: new Date(),
-      groups: [],
-      user_permissions: [],
     };
 
     expect(AuthReducer(prevState, loadUserSuccess(user))).toEqual({

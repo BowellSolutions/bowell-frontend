@@ -20,14 +20,14 @@ import {clearDashboardData} from "../reducers/dashboard";
 
 
 export const loginUser =
-  (username: string, password: string): AppThunk =>
+  (email: string, password: string): AppThunk =>
     async (dispatch) => {
       // set loading to true
       dispatch(setAuthLoading());
 
       try {
         // send form data to backend
-        const res = await login(username, password);
+        const res = await login(email, password);
 
         // if successful, set isAuthenticated to true
         if (res.status === 200) {

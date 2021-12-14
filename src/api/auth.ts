@@ -2,9 +2,9 @@ import axiosClient from "./axiosClient";
 import type {Response} from "./types";
 import {UserData} from "./types";
 
-export const login = (username: string, password: string): Promise<Response<{}>> => {
+export const login = (email: string, password: string): Promise<Response<{}>> => {
   return axiosClient.post('/auth/token/', {
-    username,
+    email,
     password
   });
 };

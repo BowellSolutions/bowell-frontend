@@ -14,13 +14,13 @@ const Login: FC = () => {
   const dispatch = useDispatch();
   const loading = useAppSelector((state) => state.auth.loading);
 
-  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     switch (e.target.name) {
       case 'email':
-        setUsername(e.target.value);
+        setEmail(e.target.value);
         break;
       case 'password':
         setPassword(e.target.value);
@@ -30,13 +30,13 @@ const Login: FC = () => {
     }
   };
 
-  const isFormEmpty = username === "" || password === "";
+  const isFormEmpty = email === "" || password === "";
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!isFormEmpty) {
-      dispatch(loginUser(username, password));
+      dispatch(loginUser(email, password));
     }
   };
 

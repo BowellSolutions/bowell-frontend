@@ -11,7 +11,7 @@ const RecentPatients = () => {
 
   return (
     <SimpleGrid columns={{sm: 1, md: 2, lg: 1, xl: 2}} spacing={{sm: "8px", md: "12px", lg: "16px"}}>
-      {patients.length > 0 && patients.filter(p => !p.is_staff).map((patient) => (
+      {patients.length > 0 && patients.filter(p => p.type === "PATIENT").map((patient) => (
         <Box
           px="16px" py="12px"
           bg={bgColor} borderRadius="12px" w="100%"
