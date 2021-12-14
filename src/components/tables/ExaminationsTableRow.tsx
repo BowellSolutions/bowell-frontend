@@ -9,7 +9,7 @@ import FileUpload from "../dashboard/FileUpload";
 import {updateExamination} from "../../api/examinations";
 import {useDispatch} from "react-redux";
 import {loadExaminations, loadRecordings} from "../../redux/actions/dashboard";
-import { formatDate } from "components/views/utils/format";
+import {formatDate} from "components/views/utils/format";
 import EditExaminationModal from "../dashboard/EditExaminationModal";
 
 interface ExaminationsTableRowProps {
@@ -37,7 +37,7 @@ const ExaminationsTableRow: FC<ExaminationsTableRowProps> = ({examination}) => {
   return (
     <Flex
       px="24px" py="12px" bg={bgColor} my="8px" mx="8px"
-      borderRadius="12px" w="100%"  direction="column"
+      borderRadius="12px" w="100%" direction="column"
     >
       <Flex justify="space-between" w="100%">
         <Flex direction="column" maxWidth="70%">
@@ -86,7 +86,7 @@ const ExaminationsTableRow: FC<ExaminationsTableRowProps> = ({examination}) => {
         </Flex>
       </Flex>
 
-      <Flex direction="row" w="100%">
+      <Flex direction="column" w="100%">
         <Box>
           <Icon
             as={isOpen ? MdExpandLess : MdExpandMore}
@@ -125,13 +125,13 @@ const ExaminationsTableRow: FC<ExaminationsTableRowProps> = ({examination}) => {
                 />
               </Flex>
             ) : (
-              <>
+              <Flex flexDirection="column" w="100%">
                 <Text fontSize="lg" color={textColor}>
                   Attach File
                 </Text>
 
                 <FileUpload examinationId={examination.id}/>
-              </>
+              </Flex>
             )}
           </Flex>
         </Collapse>
