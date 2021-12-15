@@ -1,6 +1,6 @@
 import axiosClient from "./axiosClient";
 import type {Response} from "./types";
-import {UserData} from "./types";
+import {RegisterUserData, UserData} from "./types";
 
 export const login = (email: string, password: string): Promise<Response<{}>> => {
   return axiosClient.post('/auth/token/', {
@@ -8,6 +8,10 @@ export const login = (email: string, password: string): Promise<Response<{}>> =>
     password
   });
 };
+
+export const register = (data: RegisterUserData): Promise<Response<UserData>> => {
+  return axiosClient.post('/users/', {...data});
+}
 
 export const logout = (): Promise<Response<{}>> => axiosClient.get('/auth/logout/');
 

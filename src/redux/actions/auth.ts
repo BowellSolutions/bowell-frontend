@@ -1,4 +1,4 @@
-import {getCurrentUser, login, logout, refreshToken, verifyToken} from "../../api/auth";
+import {getCurrentUser, login, logout, refreshToken, register, verifyToken} from "../../api/auth";
 import {ACCESS_TOKEN_LIFETIME} from "../../config";
 import type {AppThunk} from "../store";
 import {
@@ -14,9 +14,10 @@ import {
   refreshSuccess,
   removeAuthLoading,
   resetRegisterSuccess,
-  setAuthLoading
+  setAuthLoading, setRegisterSuccess
 } from "../reducers/auth";
 import {clearDashboardData} from "../reducers/dashboard";
+import {RegisterUserData} from "../../api/types";
 
 
 export const loginUser =
@@ -118,6 +119,16 @@ export const logoutUser = (): AppThunk => async (dispatch) => {
   }
 };
 
-export const registerUser = (): AppThunk => async (dispatch) => {
-  // to do
+export const registerUser = (user_payload: RegisterUserData): AppThunk => async (
+  dispatch) => {
+  try {
+    const res = await register(user_payload);
+
+    if (res.status === 201) {
+      dispatch(setRegisterSuccess());
+    } else dispatch(resetRegisterSuccess());
+
+  } catch (err) {
+    dispatch(resetRegisterSuccess());
+  }
 };
