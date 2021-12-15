@@ -1,8 +1,7 @@
 import {FC} from "react";
 import {ExaminationData} from "../../api/types";
-import {Badge, Box, Button, Collapse, Flex, Icon, IconButton, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Collapse, Flex, Icon, IconButton, Text, useColorModeValue} from "@chakra-ui/react";
 import {useDisclosure} from "@chakra-ui/hooks";
-import {FaPencilAlt} from "react-icons/fa";
 import {MdExpandLess, MdExpandMore} from "react-icons/md";
 import {DeleteIcon} from "@chakra-ui/icons";
 import FileUpload from "../dashboard/FileUpload";
@@ -11,6 +10,7 @@ import {useDispatch} from "react-redux";
 import {loadExaminations, loadRecordings} from "../../redux/actions/dashboard";
 import {formatDate} from "components/views/utils/format";
 import EditExaminationModal from "../dashboard/EditExaminationModal";
+import NextLink from "next/link";
 
 interface ExaminationsTableRowProps {
   examination: ExaminationData,
@@ -41,9 +41,14 @@ const ExaminationsTableRow: FC<ExaminationsTableRowProps> = ({examination}) => {
     >
       <Flex justify="space-between" w="100%">
         <Flex direction="column" maxWidth="70%">
-          <Text color={nameColor} fontSize="md" fontWeight="bold" mb="10px">
-            {examination?.patient?.first_name} {examination?.patient?.last_name}
-          </Text>
+          <NextLink href={`/dashboard/examinations/${examination.id}`}>
+            <Text
+              color={nameColor} fontSize="md" fontWeight="bold" mb="10px" userSelect="none"
+              _hover={{textDecoration: "underline", cursor: "pointer"}}
+            >
+              {examination?.patient?.first_name} {examination?.patient?.last_name}
+            </Text>
+          </NextLink>
 
           <Text color="gray.400" fontSize="sm" fontWeight="semibold">
             Examination ID:{" "}
