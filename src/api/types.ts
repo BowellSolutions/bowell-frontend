@@ -12,9 +12,18 @@ export interface UserData {
   is_active: boolean,
   is_staff: boolean,
   is_superuser: boolean,
+  type: string, // DOCTOR | PATIENT | STAFF
+  birth_date: Date | null,
   date_joined: Date,
-  groups: any[],
-  user_permissions: any[],
+}
+
+export interface RegisterUserData {
+  first_name: string,
+  last_name: string,
+  email: string,
+  password: string,
+  type: string, // DOCTOR | PATIENT
+  birth_date: string | null, // null is here just to match register form's birthDate field type
 }
 
 export interface FileData {

@@ -23,6 +23,9 @@ export const authSlice = createSlice({
   initialState: initialState,
 
   reducers: {
+    setRegisterSuccess: (state) => {
+      state.register_success = true;
+    },
     resetRegisterSuccess: (state) => {
       state.register_success = false;
     },
@@ -78,6 +81,7 @@ export const authSlice = createSlice({
 
 
 export const {
+  setRegisterSuccess,
   resetRegisterSuccess,
   loginSuccess,
   loginFail,

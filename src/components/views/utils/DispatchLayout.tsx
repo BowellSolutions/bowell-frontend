@@ -18,9 +18,9 @@ const DispatchLayout: FC<DispatchLayoutProps> = (
   if (typeof window !== 'undefined' && !loading && !isAuthenticated)
     router.push('/login').then();
 
-  if (user && user.is_staff) {
+  if (user && user.type == "DOCTOR") {
     return doctor;
-  } else if (user && !user.is_staff) {
+  } else if (user && user.type == "PATIENT") {
     return patient;
   }
   return null;

@@ -17,7 +17,7 @@ describe('Test login page', () => {
         email: 'test@gmail.com',
         first_name: 'test',
         last_name: 'test',
-        is_staff: true,
+        type: 'DOCTOR',
       }
     }).as('getUser');
     // fill in the form and submit

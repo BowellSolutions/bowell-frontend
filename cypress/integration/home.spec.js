@@ -29,7 +29,7 @@ describe('test homepage', () => {
     cy.visit("/");
     cy.wait('@verifyFail', {timeout: 10_000});
     cy.get("button.chakra-button").contains("Sign in").click({force: true});
-    cy.wait('@verifyFail', {timeout: 10_000});
+    // cy.wait('@verifyFail', {timeout: 10_000});
     cy.url({timeout: 20_000}).should('eq', 'http://localhost:3000/login');
   });
 
@@ -38,7 +38,7 @@ describe('test homepage', () => {
     cy.visit("/");
     cy.wait('@verifyFail', {timeout: 10_000});
     cy.get("button.chakra-button").contains("Sign up").click({force: true});
-    cy.wait('@verifyFail', {timeout: 10_000});
+    // cy.wait('@verifyFail', {timeout: 10_000});
     cy.url({timeout: 20_000}).should('eq', 'http://localhost:3000/register');
   });
 
@@ -49,7 +49,7 @@ describe('test homepage', () => {
     cy.visit("/");
     cy.wait('@verifySuccess', {timeout: 10_000});
     cy.get(".header button").contains("Dashboard").click({force: true});
-    cy.wait('@verifySuccess', {timeout: 10_000});
+    // cy.wait('@verifySuccess', {timeout: 10_000});
     cy.url({timeout: 20_000}).should('eq', 'http://localhost:3000/dashboard');
   });
 
@@ -60,7 +60,7 @@ describe('test homepage', () => {
     cy.visit("/");
     cy.wait('@verifySuccess', {timeout: 10_000});
     cy.get(".header").find('button').contains("Profile").click({force: true});
-    cy.wait('@verifySuccess', {timeout: 10_000});
+    // cy.wait('@verifySuccess', {timeout: 10_000});
     cy.url({timeout: 20_000}).should('eq', 'http://localhost:3000/dashboard/profile');
   });
 
@@ -95,7 +95,7 @@ describe('test homepage', () => {
     cy.get("button.chakra-button").contains("Features").realHover()
       .next().find('a').contains('Dashboard').click({force: true});
     // expect redirect to login page because user is not authenticated
-    cy.wait('@verifyFail', {timeout: 10_000});
+    // cy.wait('@verifyFail', {timeout: 10_000});
     cy.url({timeout: 20_000}).should('eq', 'http://localhost:3000/login');
   });
 
@@ -107,7 +107,7 @@ describe('test homepage', () => {
     cy.wait("@verifySuccess", {timeout: 10_000});
     cy.get("button.chakra-button").contains("Features").realHover()
       .next().find('a').contains('Dashboard').click({force: true});
-    cy.wait("@verifySuccess", {timeout: 10_000});
+    // cy.wait("@verifySuccess", {timeout: 10_000});
     cy.url({timeout: 20_000}).should('eq', 'http://localhost:3000/dashboard');
   });
 
@@ -131,7 +131,7 @@ describe('test homepage', () => {
     cy.wait('@verifySuccess', {timeout: 10_000});
     cy.get("button.chakra-button").contains("Features").realHover()
       .next().get('a').contains('Examinations').click({force: true});
-    cy.wait('@verifySuccess', {timeout: 10_000});
+    // cy.wait('@verifySuccess', {timeout: 10_000});
     cy.url({timeout: 20_000}).should('eq', 'http://localhost:3000/dashboard/examinations');
   });
 
@@ -143,7 +143,7 @@ describe('test homepage', () => {
     cy.get("button.chakra-button").contains("Features").realHover()
       .next().get('a').contains('Recordings').click({force: true});
     // expect redirect to login page because user is not authenticated
-    cy.wait('@verifyFail', {timeout: 10_000});
+    // cy.wait('@verifyFail', {timeout: 10_000});
     cy.url({timeout: 20_000}).should('eq', 'http://localhost:3000/login');
   });
 
@@ -161,7 +161,7 @@ describe('test homepage', () => {
 
   it('hovers on features, then click recordings - doctor logged in', {retries: {runMode: 3, openMode: 1}}, () => {
     cy.intercept('/api/auth/token/verify/', 'success').as('verifySuccess');
-    cy.intercept('/api/users/me/', {statusCode: 200, body: {is_staff: true}}).as('getUser');
+    cy.intercept('/api/users/me/', {statusCode: 200, body: {type: "DOCTOR"}}).as('getUser');
 
     cy.visit("/");
     cy.wait('@verifySuccess', {timeout: 10_000});
@@ -192,7 +192,7 @@ describe('test homepage', () => {
     cy.wait('@verifySuccess', {timeout: 10_000});
     cy.get("button.chakra-button").contains("Features").realHover()
       .next().get('a').contains('Profile').click({force: true});
-    cy.wait('@verifySuccess', {timeout: 20_000});
+    // cy.wait('@verifySuccess', {timeout: 20_000});
     cy.url({timeout: 20_000}).should('eq', 'http://localhost:3000/dashboard/profile');
   });
 
@@ -221,7 +221,7 @@ describe('test homepage', () => {
     cy.visit("/");
     cy.wait('@verifySuccess', {timeout: 10_000});
     cy.get("#welcome-section").find("a").contains("Go To Dashboard").click({force: true});
-    cy.wait('@verifySuccess', {timeout: 10_000});
+    // cy.wait('@verifySuccess', {timeout: 10_000});
     cy.url({timeout: 20_000,}).should('eq', 'http://localhost:3000/dashboard');
   });
 
@@ -263,7 +263,7 @@ describe('test homepage', () => {
     cy.visit("/");
     cy.wait('@verifyFail', {timeout: 10_000});
     cy.get("#cta-section").find("a").contains("Get Started").click();
-    cy.wait('@verifyFail', {timeout: 10_000});
+    // cy.wait('@verifyFail', {timeout: 10_000});
     cy.url({timeout: 20_000,}).should('eq', 'http://localhost:3000/login');
   });
 
@@ -274,7 +274,7 @@ describe('test homepage', () => {
     cy.visit("/");
     cy.wait('@verifySuccess', {timeout: 10_000});
     cy.get("#cta-section").find("a").contains("Get Started").click();
-    cy.wait('@verifySuccess', {timeout: 10_000});
+    // cy.wait('@verifySuccess', {timeout: 10_000});
     cy.url({timeout: 20_000,}).should('eq', 'http://localhost:3000/dashboard');
   });
 

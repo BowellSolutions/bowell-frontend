@@ -37,10 +37,6 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
     });
   };
 
-  const handleAttach = (): void => {
-    // to do
-  };
-
   useEffect(() => {
     if (isOpen && fileDetails == null) {
       getFile(fileId).then(res => {

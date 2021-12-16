@@ -1,7 +1,7 @@
-import {Box, useStyleConfig} from "@chakra-ui/react";
+import {Box, BoxProps, useStyleConfig} from "@chakra-ui/react";
 import {FC, ReactNode} from "react";
 
-interface PanelContentProps {
+interface PanelContentProps extends BoxProps {
   variant?: string,
   children: ReactNode
 }

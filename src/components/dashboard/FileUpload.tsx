@@ -3,6 +3,8 @@ import {Box, Button, Flex, Heading, IconButton, Progress, Text, useColorModeValu
 import {uploadFile} from "../../api/files";
 import {useDropzone} from "react-dropzone";
 import {DeleteIcon} from "@chakra-ui/icons";
+import {useDispatch} from "react-redux";
+import {loadRecordings} from "../../redux/actions/dashboard";
 
 const MAX_SIZE = 1024 * 1024 * 1024;
 
@@ -18,6 +20,8 @@ export const FileUpload: FC<FileUploadProps> = ({examinationId}) => {
   const [selectedFile, setSelectedFile] = useState<AcceptedFile | null>(null);
   const [percentage, setPercentage] = useState<number>(0);
   const [error, setError] = useState<any>(null);
+
+  const dispatch = useDispatch();
 
   const dropzoneBgColorActive = useColorModeValue("gray.50", "transparent");
   const dropzoneBgColorAccept = useColorModeValue("gray.100", "gray.600");
@@ -51,6 +55,7 @@ export const FileUpload: FC<FileUploadProps> = ({examinationId}) => {
           if (res.status === 201) {
             setPercentage(0);
             setError(null);
+            dispatch(loadRecordings()); // reload recordings - later replace with individual object load
           }
         }
       ).catch(err => {

@@ -38,9 +38,8 @@ const mockedUser = {
   is_active: true,
   is_staff: false,
   is_superuser: false,
+  type: "PATIENT",
   date_joined: null,
-  groups: [],
-  user_permissions: [],
 };
 
 describe('Test auth action creators', () => {
