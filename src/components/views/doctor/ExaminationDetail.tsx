@@ -23,7 +23,7 @@ const DoctorExaminationDetail: FC<DoctorExaminationDetailProps> = ({examinationI
 
   useEffect(() => {
     if (examination && examination.recording && !recording) {
-      getFile(examinationID).then(res => {
+      getFile(examination.recording.id).then(res => {
         setRecording(res.data);
       });
     }
