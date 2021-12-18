@@ -1,4 +1,4 @@
-import {Box, Button, Flex, Icon, Td, Text, Tr, useColorModeValue,} from "@chakra-ui/react";
+import {Box, Button, Flex, Icon, Link, Td, Text, Tr, useColorModeValue,} from "@chakra-ui/react";
 import {FC, useEffect, useState} from "react";
 import {FaTrashAlt} from "react-icons/fa";
 import {useDisclosure} from "@chakra-ui/hooks";
@@ -9,6 +9,7 @@ import {deleteFile, getFile} from "../../api/files";
 import {useDispatch} from "react-redux";
 import {loadRecordings} from "../../redux/actions/dashboard";
 import AttachRecordingModal from "../dashboard/AttachRecordingModal";
+import NextLink from "next/link";
 
 interface RecordingsTableRowProps {
   fileId: number | string,
@@ -51,27 +52,32 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
         <Td minWidth={{sm: "50px"}} pl="0px" borderBottom={borderBottom}>
           <Flex align="center" py=".8rem" minWidth="100%" flexWrap="nowrap">
             <Flex direction="column">
-              <Text
-                fontSize="md"
-                fontWeight="bold"
-                color={textColor}
-                minWidth="100%"
-              >
-                {fileId}
-              </Text>
+              <NextLink href={`/dashboard/recordings/${fileId}`}>
+                <Text
+                  fontSize="md"
+                  fontWeight="bold"
+                  color={textColor}
+                  minWidth="100%"
+                  _hover={{textDecoration: "underline", cursor: "pointer"}}
+                >
+                  {fileId}
+                </Text></NextLink>
             </Flex>
           </Flex>
         </Td>
 
         <Td minWidth={{sm: "200px"}} borderBottom={borderBottom}>
           <Flex direction="column">
-            <Text
-              fontSize="md"
-              color={textColor}
-              textTransform="none"
-            >
-              {name}
-            </Text>
+            <NextLink href={`/dashboard/recordings/${fileId}`}>
+              <Text
+                fontSize="md"
+                color={textColor}
+                textTransform="none"
+                _hover={{textDecoration: "underline", cursor: "pointer"}}
+              >
+                {name}
+              </Text>
+            </NextLink>
           </Flex>
         </Td>
 
@@ -91,7 +97,13 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
             color={textColor}
             pb=".5rem"
           >
-            {examination == null ? "---" : examination.id}
+            {examination == null ? "---" : (
+              <NextLink href={`/dashboard/examinations/${examination.id}`}>
+                <Link fontWeight={600} _hover={{textDecoration: "underline"}}>
+                  {examination.id}
+                </Link>
+              </NextLink>
+            )}
           </Text>
         </Td>
 

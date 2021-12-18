@@ -1,7 +1,7 @@
 import {useAppSelector} from "../../redux/hooks";
 import {Avatar, Box, Flex, SimpleGrid, Text, useColorModeValue} from "@chakra-ui/react";
 import {formatDate} from "../views/utils/format";
-
+import NextLink from "next/link";
 
 const RecentPatients = () => {
   const patients = useAppSelector(state => state.dashboard.patients);
@@ -21,9 +21,14 @@ const RecentPatients = () => {
         >
           <Flex justify="space-between" w="100%">
             <Flex direction="column" maxWidth={{md: "80%", xl: "85%"}}>
-              <Text color={nameColor} fontSize="md" fontWeight="bold" mb="10px">
-                {patient.first_name} {patient.last_name}
-              </Text>
+              <NextLink href={`/dashboard/patients/${patient.id}`}>
+                <Text
+                  color={nameColor} fontSize="md" fontWeight="bold" mb="10px" userSelect="none"
+                  _hover={{textDecoration: "underline", cursor: "pointer"}}
+                >
+                  {patient.first_name} {patient.last_name}
+                </Text>
+              </NextLink>
 
               <Text color="gray.400" fontSize="sm" fontWeight="semibold">
                 Email:{" "}
@@ -46,7 +51,9 @@ const RecentPatients = () => {
               align="center"
               p={{md: "24px", lg: "12px"}}
             >
-              <Avatar src="" alt="" h="32px" w="32px"/>
+              <NextLink href={`/dashboard/patients/${patient.id}`}>
+                <Avatar src="" alt="" h="32px" w="32px" cursor="pointer"/>
+              </NextLink>
             </Flex>
           </Flex>
         </Box>

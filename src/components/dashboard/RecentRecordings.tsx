@@ -1,8 +1,8 @@
 import {FC} from "react";
-import {Avatar, Box, Flex, SimpleGrid, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Flex, SimpleGrid, Text, useColorModeValue} from "@chakra-ui/react";
 import {useAppSelector} from "../../redux/hooks";
-import {formatDate} from "../views/utils/format";
 import {FileData} from "../../api/types";
+import NextLink from "next/link";
 
 /*
   Checks if recording is assigned to any examination, and whether its status is completed
@@ -30,9 +30,14 @@ const RecentRecordings: FC = () => {
         >
           <Flex justify="space-between" w="100%">
             <Flex direction="column" maxWidth="100%">
-              <Text color={nameColor} fontSize="md" fontWeight="bold" mb="10px">
-                {recording.name}
-              </Text>
+              <NextLink href={`/dashboard/recordings/${recording.id}`}>
+                <Text
+                  color={nameColor} fontSize="md" fontWeight="bold" mb="10px"
+                  _hover={{textDecoration: "underline", cursor: "pointer"}}
+                >
+                  {recording.name}
+                </Text>
+              </NextLink>
 
               <Text color="gray.400" fontSize="sm" fontWeight="semibold">
                 Examination ID:{" "}
