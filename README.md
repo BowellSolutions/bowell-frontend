@@ -65,6 +65,17 @@ yarn e2e
 
 ### With Docker
 
+Add `.babelrc` file in root directory with this content:
+
+```json
+{
+  "presets": ["next/babel"]
+}
+```
+
+This will disable SWC, which does not work on Alpine, even after installing missing libraries
+(musl vs glibc issue).
+
 Make sure Docker Engine is running.
 
 While in root directory, build docker images and run them with docker-compose. This might take up to few minutes.

@@ -8,6 +8,7 @@ import {ExaminationData, UserData} from "../../../api/types";
 import {useDispatch} from "react-redux";
 import {loadExaminations, loadPatients} from "../../../redux/actions/dashboard";
 import NextLink from "next/link";
+import {formatDate} from "../utils/format";
 
 interface PatientsProps {
   patients: UserData[],
@@ -49,16 +50,18 @@ const Patients: FC<PatientsProps> = ({patients}) => {
             </Flex>
           </Flex>
 
-          <Button bg="transparent" variant="no-hover">
-            <Text
-              fontSize="sm"
-              fontWeight="600"
-              color="teal.300"
-              alignSelf="center"
-            >
-              VIEW
-            </Text>
-          </Button>
+          <NextLink href={`/dashboard/patients/${patient.id}`} passHref>
+            <Button bg="transparent" variant="no-hover">
+              <Text
+                fontSize="sm"
+                fontWeight="600"
+                color="teal.300"
+                alignSelf="center"
+              >
+                VIEW
+              </Text>
+            </Button>
+          </NextLink>
         </Flex>
       ))}
     </>
@@ -107,22 +110,25 @@ const Examinations: FC<ExaminationsProps> = ({examinations}) => {
             </Flex>
           </Flex>
 
-          <Button pr="4px" bg="transparent" variant="no-hover">
-            <Text
-              fontSize="sm"
-              fontWeight="600"
-              color="teal.300"
-              alignSelf="center"
-            >
-              VIEW
-            </Text>
-          </Button>
+          <NextLink passHref href={`/dashboard/examinations/${examination.id}`}>
+            <Button pr="4px" bg="transparent" variant="no-hover">
+              <Text
+                fontSize="sm"
+                fontWeight="600"
+                color="teal.300"
+                alignSelf="center"
+              >
+                VIEW
+              </Text>
+            </Button>
+          </NextLink>
         </Flex>
       ))}
     </>
   );
 };
 
+const ITEMS_LIMIT = 5;
 
 const Profile: FC = () => {
   const textColor = useColorModeValue("gray.700", "white");
@@ -138,7 +144,7 @@ const Profile: FC = () => {
 
   const dispatch = useDispatch();
   const user = useAppSelector(state => state.auth.user);
-  const patients = useAppSelector(state => state.dashboard.patients);
+  const patients = useAppSelector(state => state.dashboard.patients.filter(p => p.type === "PATIENT"));
   const examinations = useAppSelector(state => state.dashboard.examinations);
 
   useEffect(() => {
@@ -285,6 +291,34 @@ const Profile: FC = () => {
                   {user?.email}
                 </Text>
               </Flex>
+
+              <Flex align="center" mb="18px">
+                <Text
+                  fontSize="md"
+                  color={textColor}
+                  fontWeight="bold"
+                  me="10px"
+                >
+                  Birth Date:{" "}
+                </Text>
+                <Text fontSize="md" color="gray.500" fontWeight="400" textTransform="none">
+                  {user?.birth_date}
+                </Text>
+              </Flex>
+
+              <Flex align="center" mb="18px">
+                <Text
+                  fontSize="md"
+                  color={textColor}
+                  fontWeight="bold"
+                  me="10px"
+                >
+                  Join Date:{" "}
+                </Text>
+                <Text fontSize="md" color="gray.500" fontWeight="400" textTransform="none">
+                  {user != null && formatDate(user.date_joined)}
+                </Text>
+              </Flex>
             </Flex>
           </CardBody>
         </Card>
@@ -298,7 +332,7 @@ const Profile: FC = () => {
 
           <CardBody px="5px">
             <Flex direction="column" w="100%">
-              {examinations.length > 0 && <Examinations examinations={examinations}/>}
+              {examinations.length > 0 && <Examinations examinations={[...examinations].splice(0, ITEMS_LIMIT)}/>}
             </Flex>
           </CardBody>
 
@@ -320,7 +354,9 @@ const Profile: FC = () => {
 
           <CardBody px="5px">
             <Flex direction="column" w="100%">
-              {patients && patients.length > 0 && <Patients patients={patients.filter(p => p.type === "PATIENT")}/>}
+              {patients && patients.length > 0 && (
+                <Patients patients={[...patients].splice(0, ITEMS_LIMIT)}/>
+              )}
             </Flex>
           </CardBody>
 
