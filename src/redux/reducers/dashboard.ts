@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {HYDRATE} from "next-redux-wrapper";
 import {ExaminationData, FileData, UserData} from "../../api/types";
+import {addExamination, editExamination} from "../actions/dashboard";
 
 interface State {
   patients: UserData[],
@@ -27,21 +28,18 @@ export const dashboardSlice = createSlice({
       state.patients = action.payload;
     },
     getPatientsFail: (state) => {
-      //
     },
 
     getRecordingsSuccess: (state, action) => {
       state.recordings = action.payload;
     },
     getRecordingsFail: (state) => {
-      //
     },
 
     getExaminationsSuccess: (state, action) => {
       state.examinations = action.payload;
     },
     getExaminationsFail: (state) => {
-      //
     },
 
     clearDashboardData: state => {
@@ -52,14 +50,25 @@ export const dashboardSlice = createSlice({
     },
   },
 
-  extraReducers: {
-    [HYDRATE]: (state, action) => {
-      return {
-        ...state,
-        ...action.payload
+  extraReducers: (builder) => {
+    builder.addCase(addExamination.fulfilled, (state, action) => {
+      state.examinations = [...state.examinations, action.payload];
+    });
+
+    builder.addCase(editExamination.fulfilled, (state, action) => {
+      const index = state.examinations.findIndex(ex => ex.id === action.payload.id);
+      state.examinations[index] = {
+        ...state.examinations[index],
+        ...action.payload,
       };
-    }
-  }
+    });
+
+    builder.addCase(HYDRATE, (state, action) => {
+      const _action = action as any;
+      return {...state, ..._action.payload};
+    });
+  },
+
 });
 
 

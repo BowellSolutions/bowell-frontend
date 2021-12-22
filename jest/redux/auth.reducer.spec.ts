@@ -108,6 +108,7 @@ describe("test auth reducer", () => {
       is_staff: true,
       is_superuser: true,
       type: "DOCTOR",
+      birth_date: new Date(),
       date_joined: new Date(),
     };
 
