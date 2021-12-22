@@ -4,7 +4,6 @@ import CardBody from "../../card/CardBody";
 import CardHeader from "../../card/CardHeader";
 import PatientsTableRow from "../../tables/PatientsTableRow";
 import Card from "../../card/Card";
-import ExaminationModal from "../../dashboard/ExaminationModal";
 import {useAppSelector} from "../../../redux/hooks";
 import {useDispatch} from "react-redux";
 import {loadPatients} from "../../../redux/actions/dashboard";
@@ -14,7 +13,7 @@ const Patients: FC = () => {
   const textColor = useColorModeValue("gray.700", "white");
 
   const dispatch = useDispatch();
-  const patients = useAppSelector(state => state.dashboard.patients);
+  const patients = useAppSelector(state => state.dashboard.patients.filter(p => p.type === "PATIENT"));
   const user = useAppSelector(state => state.auth.user);
 
   useEffect(() => {
@@ -31,8 +30,6 @@ const Patients: FC = () => {
               Patients
             </Text>
           </Flex>
-
-          {/*<ExaminationModal/>*/}
         </CardHeader>
 
         <CardBody>
@@ -51,19 +48,17 @@ const Patients: FC = () => {
             </Thead>
 
             <Tbody>
-              {patients.filter(p => !p.is_staff && p.id !== user?.id).map((user) => {
-                return (
-                  <PatientsTableRow
-                    id={user.id}
-                    firstName={user.first_name}
-                    lastName={user.last_name}
-                    email={user.email}
-                    isActive={user.is_active}
-                    dateJoined={user.date_joined}
-                    key={`patient-row-${user.id}`}
-                  />
-                );
-              })}
+              {patients.filter(p => p.id !== user?.id).map((user) => (
+                <PatientsTableRow
+                  id={user.id}
+                  firstName={user.first_name}
+                  lastName={user.last_name}
+                  email={user.email}
+                  isActive={user.is_active}
+                  dateJoined={user.date_joined}
+                  key={`patient-row-${user.id}`}
+                />
+              ))}
             </Tbody>
           </Table>
         </CardBody>
