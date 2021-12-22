@@ -4,7 +4,7 @@ import CardBody from "../../card/CardBody";
 import CardHeader from "../../card/CardHeader";
 import Card from "../../card/Card";
 import FileUpload from "../../dashboard/FileUpload";
-import FilesTableRow from "../../tables/FilesTableRow";
+import RecordingsTableRow from "../../tables/RecordingsTableRow";
 import {useDispatch} from "react-redux";
 import {loadRecordings} from "../../../redux/actions/dashboard";
 import {useAppSelector} from "../../../redux/hooks";
@@ -24,9 +24,7 @@ const Recordings: FC = () => {
     dispatch(loadRecordings());
   }, [dispatch]);
 
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelected(e.target.value);
-  };
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => setSelected(e.target.value);
 
   return (
     <Flex direction="column" pt={{base: "120px", md: "75px"}}>
@@ -55,7 +53,7 @@ const Recordings: FC = () => {
             <Tbody>
               {recordings.length > 0 && recordings.map((file) => {
                 return (
-                  <FilesTableRow
+                  <RecordingsTableRow
                     fileId={file.id}
                     name={file.name}
                     date={String(file.uploaded_at)}

@@ -10,6 +10,7 @@ import {useDispatch} from "react-redux";
 import {loadRecordings} from "../../redux/actions/dashboard";
 import AttachRecordingModal from "../dashboard/AttachRecordingModal";
 import NextLink from "next/link";
+import ConfirmDetachModal from "../dashboard/ConfirmDetachModal";
 
 interface RecordingsTableRowProps {
   fileId: number | string,
@@ -26,18 +27,7 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
 
   const textColor = useColorModeValue("gray.500", "white");
   const borderBottom = isOpen ? "0" : "1px";
-
-  const dispatch = useDispatch();
-
-  const handleDetach = (): void => {
-    // detach recording from examination
-    deleteFile(fileId).then(() => {
-      dispatch(loadRecordings());
-    }).catch(() => {
-      // display some error, popup, alert etc.
-    });
-  };
-
+  
   useEffect(() => {
     if (isOpen && fileDetails == null) {
       getFile(fileId).then(res => {
@@ -109,20 +99,7 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
 
         <Td borderBottom={borderBottom}>
           {examination != null ? (
-            <Button
-              p="0px"
-              bg="transparent"
-              mb={{sm: "10px", md: "0px"}}
-              me={{md: "12px"}}
-              onClick={handleDetach}
-            >
-              <Flex color="red.500" cursor="pointer" align="center" p="12px">
-                <Icon as={FaTrashAlt} me="4px"/>
-                <Text fontSize="sm" fontWeight="semibold">
-                  DETACH
-                </Text>
-              </Flex>
-            </Button>
+            <ConfirmDetachModal recordingId={Number(fileId)}/>
           ) : (
             <AttachRecordingModal recordingId={Number(fileId)}/>
           )}
