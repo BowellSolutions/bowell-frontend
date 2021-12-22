@@ -17,6 +17,11 @@ export interface UserData {
   date_joined: Date,
 }
 
+export interface LoginUserData {
+  email: string,
+  password: string,
+}
+
 export interface RegisterUserData {
   first_name: string,
   last_name: string,
@@ -113,5 +118,23 @@ export interface ExaminationData {
   status?: ExaminationStatus,
   recording: RecordingInExamination | null,
   date: Date | string,
+  overview?: string,
+}
+
+export interface CreateExaminationData {
+  doctor: number,
+  patient: number,
+  date: Date | string,
+}
+
+export interface UpdateExaminationData {
+  id: number,
+  height_cm?: number,
+  mass_kg?: number,
+  symptoms?: string,
+  medication?: string,
+  status?: ExaminationStatus,
+  recording?: number | null,
+  date?: Date | string,
   overview?: string,
 }

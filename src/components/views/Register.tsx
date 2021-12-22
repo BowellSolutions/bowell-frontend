@@ -1,24 +1,57 @@
 import {
-  Button, Divider,
+  Button,
+  Divider,
   Flex,
-  FormControl, FormHelperText,
+  FormControl,
+  FormHelperText,
   FormLabel,
   Heading,
   Input,
-  Link, Radio, RadioGroup,
-  Select, Stack,
+  Link,
+  Radio,
   Text,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
-import {ChangeEvent, FC, FormEvent, useEffect, useState} from "react";
+import {FC, useState} from "react";
 import NextLink from "next/link";
-import {useAppSelector} from "../../redux/hooks";
-import {useDispatch} from "react-redux";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {useRouter} from "next/router";
 import {resetRegisterSuccess} from "../../redux/reducers/auth";
-import {loginUser, registerUser} from "../../redux/actions/auth";
-import {use} from "msw/lib/types/utils/internal/requestHandlerUtils";
-import {Separator} from "../utils/Separator";
+import {registerUser} from "../../redux/actions/auth";
+import {Formik} from "formik";
+import * as Yup from "yup";
+import {RadioGroupControl} from "formik-chakra-ui";
+
+const today = new Date();
+
+const validationSchema = Yup.object({
+  user_type: Yup.string().matches(/DOCTOR|PATIENT/).required('user type field is required'),
+  email: Yup.string().email('invalid email address').required('email field is required'),
+  password: Yup.string().min(6).required('password field is required'),
+  first_name: Yup.string().required('first name field is required'),
+  last_name: Yup.string().required('last name field is required'),
+  birth_date: Yup.date().transform(v => new Date(v)).max(today, 'birth date has to be in the past')
+    .typeError("invalid date").required('birth date field is required'),
+});
+
+interface Values {
+  user_type: string,
+  first_name: string,
+  last_name: string,
+  email: string,
+  password: string,
+  birth_date: string | null,
+}
+
+const initialValues: Values = {
+  user_type: 'PATIENT',
+  first_name: '',
+  last_name: '',
+  email: '',
+  password: '',
+  birth_date: null,
+};
 
 
 const Register: FC = () => {
@@ -28,62 +61,76 @@ const Register: FC = () => {
 
   const router = useRouter();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const registerSuccess = useAppSelector(state => state.auth.register_success);
 
-  const [userType, setUserType] = useState<string>("PATIENT");
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [birthDate, setBirthDate] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const toast = useToast();
 
   if (typeof window !== "undefined" && registerSuccess) {
-    router.push('/login').then(() => dispatch(resetRegisterSuccess()));
     // this dispatch might not be necessary since its fired in Login on mount anyway
+    router.push('/login').then(() => dispatch(resetRegisterSuccess()));
   }
 
-  const isFormFilled = firstName && lastName && email && password && birthDate;
+  const onSubmit = (values: Values) => {
+    setIsLoading(true);
+    dispatch(
+      registerUser({
+        first_name: values.first_name,
+        last_name: values.last_name,
+        type: values.user_type,
+        birth_date: values.birth_date,
+        email: values.email,
+        password: values.password,
+      })
+    ).unwrap().then((user) => {
+      if (user.type === "PATIENT") {
+        if (!toast.isActive("success-toast-register")) {
+          toast({
+            id: "success-toast-register",
+            description: "Registration successful! You can now log in.",
+            status: "success",
+            duration: 4000,
+            isClosable: true,
+          });
+        }
+      } else {
+        const ok_msg = "Successfully created new staff member account!";
+        const info_msg = "Your account has to be activated by admins first!";
 
-  const isDateTimeInvalid = () => {
-    return !!(birthDate && new Date().getTime() <= new Date(birthDate as string).getTime());
-  };
+        if (!toast.isActive("success-toast-register")) {
+          toast({
+            id: "success-toast-register",
+            description: ok_msg,
+            status: "success",
+            duration: 6000,
+            isClosable: true,
+          });
+        }
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    switch (e.target.name) {
-      case 'first_name':
-        setFirstName(e.target.value);
-        break;
-      case 'last_name':
-        setLastName(e.target.value);
-        break;
-      case 'email':
-        setEmail(e.target.value);
-        break;
-      case 'password':
-        setPassword(e.target.value);
-        break;
-      case 'birth_date':
-        setBirthDate(e.target.value);
-        break;
-      default:
-        break;
-    }
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (isFormFilled) {
-      dispatch(registerUser({
-        first_name: firstName,
-        last_name: lastName,
-        type: userType,
-        birth_date: birthDate,
-        email,
-        password,
-      }));
-    }
+        if (!toast.isActive("info-toast-register-doctor")) {
+          toast({
+            id: "info-toast-register-doctor",
+            description: info_msg,
+            status: "info",
+            duration: 8000,
+            isClosable: true,
+          });
+        }
+      }
+    }).catch((err) => {
+      // to do better error handling
+      if (!toast.isActive("error-toast")) {
+        toast({
+          id: "error-toast",
+          description: "Registration failed!",
+          status: 'error',
+          duration: 4000,
+          isClosable: true,
+        });
+      }
+    }).finally(() => setIsLoading(false));
   };
 
   return (
@@ -120,11 +167,27 @@ const Register: FC = () => {
             Join Us
           </Heading>
 
-          <form onSubmit={handleSubmit}>
-            <FormControl>
-              <RadioGroup mb="24px" onChange={setUserType} value={userType} isRequired>
-                <Stack spacing={5} direction="row" justifyContent="center">
+          <Formik
+            onSubmit={onSubmit}
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+          >
+            {({
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+              }) => (
+              <form onSubmit={handleSubmit} autoComplete="off" id="register-form">
+                <RadioGroupControl
+                  id="radio-group-user-type"
+                  name="user_type"
+                  stackProps={{justify: "center"}}
+                >
                   <Radio
+                    id="radio-btn-patient"
                     size="md"
                     value="PATIENT"
                     colorScheme="green"
@@ -133,123 +196,160 @@ const Register: FC = () => {
                   </Radio>
 
                   <Radio
+                    id="radio-btn-doctor"
                     size="md"
                     value="DOCTOR"
                     colorScheme="blue"
                   >
                     Doctor
                   </Radio>
-                </Stack>
-              </RadioGroup>
+                </RadioGroupControl>
 
-              <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
-                Email*
-              </FormLabel>
-              <Input
-                fontSize="sm"
-                ms="4px"
-                borderRadius="15px"
-                name="email"
-                type="email"
-                placeholder="Your email address"
-                mb="24px"
-                size="lg"
-                onChange={handleInputChange}
-                isRequired
-              />
+                <FormControl textAlign="left">
+                  <FormLabel ms="4px" fontSize="sm" fontWeight="normal" mt="24px">
+                    Email*
+                  </FormLabel>
+                  <Input
+                    id="input-email"
+                    fontSize="sm"
+                    ms="4px"
+                    borderRadius="15px"
+                    name="email"
+                    type="email"
+                    placeholder="Your email address"
+                    size="lg"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isInvalid={Boolean(touched.email && errors.email)}
+                    isRequired
+                  />
+                  {touched.email && errors.email && (
+                    <FormHelperText>
+                      {errors.email}
+                    </FormHelperText>
+                  )}
 
-              <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
-                Password*
-              </FormLabel>
-              <Input
-                fontSize="sm"
-                ms="4px"
-                borderRadius="15px"
-                name="password"
-                type="password"
-                placeholder="Your password"
-                mb="24px"
-                size="lg"
-                onChange={handleInputChange}
-                isRequired
-              />
+                  <FormLabel ms="4px" fontSize="sm" fontWeight="normal" mt="24px">
+                    Password*
+                  </FormLabel>
+                  <Input
+                    id="input-password"
+                    fontSize="sm"
+                    ms="4px"
+                    borderRadius="15px"
+                    name="password"
+                    type="password"
+                    placeholder="Your password"
+                    size="lg"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isInvalid={Boolean(touched.password && errors.password)}
+                    isRequired
+                  />
+                  {touched.password && errors.password && (
+                    <FormHelperText>
+                      {errors.password}
+                    </FormHelperText>
+                  )}
 
-              <Divider ms="4px" mb="24px"/>
+                  <Divider ms="4px" my="12px"/>
 
-              <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
-                First Name*
-              </FormLabel>
-              <Input
-                fontSize="sm"
-                ms="4px"
-                borderRadius="15px"
-                name="first_name"
-                type="text"
-                placeholder="Your first name"
-                mb="24px"
-                size="lg"
-                onChange={handleInputChange}
-                isRequired
-              />
+                  <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
+                    First Name*
+                  </FormLabel>
+                  <Input
+                    id="input-first-name"
+                    fontSize="sm"
+                    ms="4px"
+                    borderRadius="15px"
+                    name="first_name"
+                    type="text"
+                    placeholder="Your first name"
+                    size="lg"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isInvalid={Boolean(touched.first_name && errors.first_name)}
+                    isRequired
+                  />
+                  {touched.first_name && errors.first_name && (
+                    <FormHelperText>
+                      {errors.first_name}
+                    </FormHelperText>
+                  )}
 
-              <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
-                Last Name*
-              </FormLabel>
-              <Input
-                fontSize="sm"
-                ms="4px"
-                borderRadius="15px"
-                name="last_name"
-                type="text"
-                placeholder="Your last name"
-                mb="24px"
-                size="lg"
-                onChange={handleInputChange}
-                isRequired
-              />
+                  <FormLabel ms="4px" fontSize="sm" fontWeight="normal" mt="24px">
+                    Last Name*
+                  </FormLabel>
+                  <Input
+                    id="input-last-name"
+                    fontSize="sm"
+                    ms="4px"
+                    borderRadius="15px"
+                    name="last_name"
+                    type="text"
+                    placeholder="Your last name"
+                    size="lg"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isInvalid={Boolean(touched.last_name && errors.last_name)}
+                    isRequired
+                  />
+                  {touched.last_name && errors.last_name && (
+                    <FormHelperText>
+                      {errors.last_name}
+                    </FormHelperText>
+                  )}
 
-              <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
-                Birth Date*
-              </FormLabel>
-              <Input
-                name="birth_date"
-                type="date"
-                isRequired
-                isInvalid={isDateTimeInvalid()}
-                onChange={handleInputChange}
-                mb="24px"
-              />
+                  <FormLabel ms="4px" fontSize="sm" fontWeight="normal" mt="24px">
+                    Birth Date*
+                  </FormLabel>
+                  <Input
+                    id="input-birth-date"
+                    name="birth_date"
+                    type="date"
+                    max={today.toISOString().split("T")[0]}
+                    isRequired
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isInvalid={Boolean(touched.birth_date && errors.birth_date)}
+                  />
+                  {touched.birth_date && errors.birth_date && (
+                    <FormHelperText>
+                      {errors.birth_date}
+                    </FormHelperText>
+                  )}
 
-              {isDateTimeInvalid() && (
-                <FormHelperText>
-                  Invalid date
-                </FormHelperText>
-              )}
-
-              <Button
-                type="submit"
-                bg="teal.400"
-                fontSize="12px"
-                fontWeight="bold"
-                color="white"
-                w="100%"
-                h="45"
-                mb="24px"
-                sx={{
-                  "&:hover": {
-                    bg: "teal.300",
-                  },
-                  "&:active": {
-                    bg: "teal.500",
-                  }
-                }}
-                loadingText="Submitting"
-                isDisabled={!isFormFilled}
-              >
-                SIGN UP
-              </Button>
-            </FormControl>
-          </form>
+                  <Button
+                    id="btn-submit-register"
+                    type="submit"
+                    bg="teal.400"
+                    fontSize="12px"
+                    fontWeight="bold"
+                    color="white"
+                    w="100%"
+                    h="45"
+                    mt="24px"
+                    mb="24px"
+                    sx={{
+                      "&:hover": {
+                        bg: "teal.300",
+                      },
+                      "&:active": {
+                        bg: "teal.500",
+                      }
+                    }}
+                    loadingText="Submitting"
+                    isLoading={isLoading}
+                    isDisabled={
+                      !(values.first_name && values.last_name && values.email && values.password && values.birth_date)
+                    }
+                  >
+                    SIGN UP
+                  </Button>
+                </FormControl>
+              </form>
+            )}
+          </Formik>
 
           <Flex
             flexDirection="column"

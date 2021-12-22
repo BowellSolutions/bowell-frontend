@@ -1,49 +1,79 @@
-import {Button, Flex, FormControl, FormLabel, Heading, Input, Link, Text, useColorModeValue,} from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Heading,
+  Input,
+  Link,
+  Text,
+  useColorModeValue,
+  useToast,
+} from "@chakra-ui/react";
 import NextLink from "next/link";
-import {ChangeEvent, FC, FormEvent, useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
-import {useAppSelector} from "../../redux/hooks";
+import {FC, useEffect} from "react";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {loginUser, resetRegister} from "../../redux/actions/auth";
-
+import {useFormik} from "formik";
+import * as Yup from "yup";
 
 const Login: FC = () => {
   const titleColor = useColorModeValue("teal.300", "teal.200");
   const textColor = useColorModeValue("gray.400", "white");
   const bgColor = useColorModeValue("white", "gray.700");
 
-  const dispatch = useDispatch();
-  const loading = useAppSelector((state) => state.auth.loading);
+  const dispatch = useAppDispatch();
+  const {loading, register_success} = useAppSelector((state) => state.auth);
 
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const toast = useToast();
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    switch (e.target.name) {
-      case 'email':
-        setEmail(e.target.value);
-        break;
-      case 'password':
-        setPassword(e.target.value);
-        break;
-      default:
-        break;
+  const {values, errors, handleChange, handleBlur, handleSubmit, touched} = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email('invalid email address').required('email field is required'),
+      password: Yup.string().min(6).required('password field is required')
+    }),
+    onSubmit: (values) => {
+      dispatch(
+        loginUser({email: values.email, password: values.password})
+      ).unwrap().then((res) => {
+          if (!toast.isActive("success-toast")) {
+            toast({
+              id: "success-toast",
+              description: "Successfully logged in! Redirecting to dashboard...",
+              status: "success",
+              duration: 3500,
+              isClosable: true,
+            });
+          }
+        }
+      ).catch(err => {
+        // to do better error handling
+        const message = err?.detail ? err.detail : "Login failed! Try again...";
+
+        if (!toast.isActive("error-toast")) {
+          toast({
+            id: "error-toast",
+            description: message,
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+        }
+      });
     }
-  };
+  });
 
-  const isFormEmpty = email === "" || password === "";
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!isFormEmpty) {
-      dispatch(loginUser(email, password));
-    }
-  };
+  const isFormEmpty = values.email === "" || values.password === "";
 
   useEffect(() => {
     // reset register_success on mount
-    if (dispatch != null) dispatch(resetRegister());
-  }, [dispatch]);
+    if (dispatch != null && register_success) dispatch(resetRegister());
+  }, [dispatch, register_success]);
 
   return (
     <Flex position="relative" mb="40px">
@@ -91,29 +121,45 @@ const Login: FC = () => {
                   Email*
                 </FormLabel>
                 <Input
+                  id="input-email"
                   borderRadius="15px"
-                  mb="24px"
                   fontSize="sm"
                   name="email"
                   type="text"
-                  placeholder="Your email adress"
+                  placeholder="Your email address"
                   size="lg"
-                  onChange={handleInputChange}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  isInvalid={Boolean(touched.email && errors.email)}
                 />
+                {touched.email && errors.email && (
+                  <FormHelperText>
+                    {errors.email}
+                  </FormHelperText>
+                )}
 
-                <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
+                <FormLabel ms="4px" fontSize="sm" fontWeight="normal" mt="24px">
                   Password*
                 </FormLabel>
                 <Input
+                  id="input-password"
                   borderRadius="15px"
-                  mb="36px"
                   fontSize="sm"
                   type="password"
                   name="password"
                   placeholder="Your password"
                   size="lg"
-                  onChange={handleInputChange}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  isInvalid={Boolean(touched.password && errors.password)}
                 />
+                {touched.password && errors.password && (
+                  <FormHelperText>
+                    {errors.password}
+                  </FormHelperText>
+                )}
+
+                <Flex mt="36px"/>
 
                 <Button
                   fontSize="12px"
