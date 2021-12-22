@@ -2,6 +2,7 @@ import {NextPage} from "next";
 import Dashboard from "../../components/views/doctor/Dashboard";
 import DispatchLayout from "../../components/views/utils/DispatchLayout";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
+import PatientDashboard from "../../components/views/patient/Dashboard";
 
 const DashboardHome: NextPage = () => {
   return (
@@ -24,7 +25,7 @@ const DashboardHome: NextPage = () => {
           brandText="Dashboard"
           type="patient"
         >
-          <></>
+          <PatientDashboard/>
         </DashboardLayout>
       }/>
   );
