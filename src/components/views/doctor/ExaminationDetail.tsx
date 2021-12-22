@@ -33,7 +33,7 @@ const DoctorExaminationDetail: FC<DoctorExaminationDetailProps> = ({examinationI
 
   return (
     <Flex pt={{base: "120px", md: "75px"}}>
-      <SimpleGrid columns={{base: 1, md: 2}} spacing={4} w="100%">
+      <SimpleGrid columns={{base: 1, xl: 2}} spacing={4} w="100%">
         <Flex direction="column">
           <Card m={{base: "0 0 8px 0", md: "0 8px 8px 8px"}}>
             <CardHeader>
@@ -114,14 +114,14 @@ const DoctorExaminationDetail: FC<DoctorExaminationDetailProps> = ({examinationI
 
           {/* Later change it to something else */}
           {examination.status === "completed" && (
-            <Card w="100%" h="100%" m={{base: "8px 0", md: "8px"}}>
+            <Card w="100%" m={{base: "8px 0", md: "8px"}}>
               <CardHeader mb="16px">
                 <Text fontSize="lg" fontWeight="bold" mb="10px" userSelect="none">
                   Probability vs time graph
                 </Text>
               </CardHeader>
 
-              <ResponsiveContainer width="100%" height="100%">
+              <ResponsiveContainer width="100%" height="100%" maxHeight={600}>
                 <LineChart
                   width={500}
                   height={300}
@@ -141,7 +141,7 @@ const DoctorExaminationDetail: FC<DoctorExaminationDetailProps> = ({examinationI
                     <Label value="Probability of a having bowel sound" offset={5} position="left" angle={-90}/>
                   </YAxis>
                   <Tooltip/>
-                  <Line type="monotone" dataKey="y" stroke="#319795"/>
+                  <Line type="monotone" dataKey="y" stroke="#319795" dot={false}/>
                 </LineChart>
               </ResponsiveContainer>
             </Card>
@@ -156,6 +156,7 @@ const DoctorExaminationDetail: FC<DoctorExaminationDetailProps> = ({examinationI
           </CardHeader>
 
           <CardBody flexDirection="column">
+            {/* Display analysis results only if examination has a recording attached to itself */}
             {examination?.recording && recording != null && Object.entries(recording).map(
               ([key, value], idx) => {
                 // data already present in the table
