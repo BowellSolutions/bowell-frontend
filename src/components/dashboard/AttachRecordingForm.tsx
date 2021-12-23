@@ -1,9 +1,7 @@
 import {ChangeEvent, FC, FormEvent, useState} from "react";
-import {Box, Button, Flex, FormControl, FormLabel, Heading, Select} from "@chakra-ui/react";
-import {useAppSelector} from "../../redux/hooks";
-import {updateExamination} from "../../api/examinations";
-import {loadRecordings} from "../../redux/actions/dashboard";
-import {useDispatch} from "react-redux";
+import {Box, Button, Flex, FormControl, FormLabel, Heading, Select, useToast} from "@chakra-ui/react";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
+import {editExamination, loadRecordings} from "../../redux/actions/dashboard";
 
 interface AttachRecordingFormProps {
   onClose: () => void,
@@ -12,32 +10,47 @@ interface AttachRecordingFormProps {
 
 const AttachRecordingForm: FC<AttachRecordingFormProps> = ({onClose, recordingId}) => {
   const [selectedExamination, setSelectedExamination] = useState<string>("");
-  const [error, setError] = useState<string | null>(null);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const examinations = useAppSelector(state => state.dashboard.examinations);
+
+  const toast = useToast();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     if (selectedExamination) {
-      updateExamination(Number(selectedExamination), {
-        recording: recordingId,
-      }).then((res) => {
-        setError(null);
+      dispatch(
+        editExamination({id: Number(selectedExamination), recording: recordingId})
+      ).unwrap().then(() => {
         dispatch(loadRecordings());
+        if (!toast.isActive("success-toast-attach")) {
+          toast({
+            id: "success-toast-attach",
+            description: "Successfully attached recording!",
+            status: "success",
+            duration: 2500,
+            isClosable: true,
+          });
+        }
         setTimeout(() => {
           onClose();
         }, 1000);
       }).catch((err) => {
-        setError(JSON.stringify(err));
+        if (!toast.isActive("error-toast-attach")) {
+          toast({
+            id: "error-toast-attach",
+            description: "Failed to attach the recording!",
+            status: "error",
+            duration: 2500,
+            isClosable: true,
+          });
+        }
       });
     }
   };
 
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedExamination(e.target.value);
-  };
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => setSelectedExamination(e.target.value);
 
   return (
     <Flex

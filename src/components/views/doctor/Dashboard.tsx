@@ -56,7 +56,7 @@ const DoctorDashboard: FC = () => {
           <Card mt="24px">
             <CardHeader mb="12px">
               <Text color={textColor} fontSize="lg" fontWeight="bold">
-                Recent Processed Recordings
+                Recently Processed Recordings
               </Text>
             </CardHeader>
 

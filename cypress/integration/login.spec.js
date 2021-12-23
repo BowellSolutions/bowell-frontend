@@ -22,7 +22,7 @@ describe('Test login page', () => {
     }).as('getUser');
     // fill in the form and submit
     cy.get('form').within(() => {
-      cy.get('input[name="email"]').type('test');
+      cy.get('input[name="email"]').type('test@gmail.com');
       cy.get('input[name="password"]').type('password');
       cy.get('button').click();
     });

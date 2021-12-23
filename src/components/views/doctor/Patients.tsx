@@ -1,24 +1,48 @@
-import {FC, useEffect} from "react";
-import {Flex, Table, Tbody, Text, Th, Thead, Tr, useColorModeValue} from "@chakra-ui/react";
+import {FC, useEffect, useState} from "react";
+import {
+  Flex,
+  Icon,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Table,
+  Tbody,
+  Text,
+  Th,
+  Thead,
+  Tr,
+  useColorModeValue
+} from "@chakra-ui/react";
+import {AiOutlineSearch} from "react-icons/ai";
 import CardBody from "../../card/CardBody";
 import CardHeader from "../../card/CardHeader";
 import PatientsTableRow from "../../tables/PatientsTableRow";
 import Card from "../../card/Card";
-import ExaminationModal from "../../dashboard/ExaminationModal";
 import {useAppSelector} from "../../../redux/hooks";
 import {useDispatch} from "react-redux";
 import {loadPatients} from "../../../redux/actions/dashboard";
+import useTableFilter from "../../../hooks/useTableFilter";
 
 
 const Patients: FC = () => {
   const textColor = useColorModeValue("gray.700", "white");
 
   const dispatch = useDispatch();
-  const patients = useAppSelector(state => state.dashboard.patients);
+  const patients = useAppSelector(
+    state => state.dashboard.patients.filter(p => p.type === "PATIENT" && p.id !== user?.id)
+  );
   const user = useAppSelector(state => state.auth.user);
 
+  const [query, setQuery] = useState<string>(""); // rows will be filtered by this query
+
+  const filteredPatients = useTableFilter(
+    patients,
+    ["id", "first_name", "last_name", "email"],
+    query
+  );
+
   useEffect(() => {
-    // try to load patients on each load because they could have changed
+    // load patients on each load because they could have changed
     dispatch(loadPatients());
   }, [dispatch]);
 
@@ -32,7 +56,22 @@ const Patients: FC = () => {
             </Text>
           </Flex>
 
-          {/*<ExaminationModal/>*/}
+          <Flex>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none">
+                <Icon as={AiOutlineSearch}/>
+              </InputLeftElement>
+
+              <Input
+                id="patients-search-field"
+                name="search"
+                type="search"
+                size="md"
+                placeholder="Search"
+                onChange={(e) => setQuery(e.target.value)}
+              />
+            </InputGroup>
+          </Flex>
         </CardHeader>
 
         <CardBody>
@@ -51,19 +90,17 @@ const Patients: FC = () => {
             </Thead>
 
             <Tbody>
-              {patients.filter(p => !p.is_staff && p.id !== user?.id).map((user) => {
-                return (
-                  <PatientsTableRow
-                    id={user.id}
-                    firstName={user.first_name}
-                    lastName={user.last_name}
-                    email={user.email}
-                    isActive={user.is_active}
-                    dateJoined={user.date_joined}
-                    key={`patient-row-${user.id}`}
-                  />
-                );
-              })}
+              {filteredPatients.map((user) => (
+                <PatientsTableRow
+                  id={user.id}
+                  firstName={user.first_name}
+                  lastName={user.last_name}
+                  email={user.email}
+                  isActive={user.is_active}
+                  dateJoined={user.date_joined}
+                  key={`patient-row-${user.id}`}
+                />
+              ))}
             </Tbody>
           </Table>
         </CardBody>

@@ -22,6 +22,8 @@
     "@emotion/styled": "^11",
     "@reduxjs/toolkit": "^1.6.2",
     "axios": "^0.23.0",
+    "formik": "^2.2.9",
+    "formik-chakra-ui": "^1.6.0",
     "framer-motion": "^4",
     "next": "^12.0.2",
     "next-redux-wrapper": "^7.0.5",
@@ -36,7 +38,8 @@
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.0",
-    "sass": "^1.43.2"
+    "sass": "^1.43.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@testing-library/cypress": "^8.0.1",

@@ -7,8 +7,10 @@ import {
   getRecordingsSuccess
 } from "../reducers/dashboard";
 import {getFiles} from "../../api/files";
-import {getExaminations} from "../../api/examinations";
+import {createExamination, getExaminations, updateExamination} from "../../api/examinations";
 import {getPatients} from "../../api/patients";
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {CreateExaminationData, ExaminationData, UpdateExaminationData} from "../../api/types";
 
 export const loadExaminations = (): AppThunk => async (dispatch, getState) => {
   try {
@@ -30,6 +32,23 @@ export const loadExaminations = (): AppThunk => async (dispatch, getState) => {
     dispatch(getExaminationsFail());
   }
 };
+
+export const addExamination = createAsyncThunk<ExaminationData, CreateExaminationData>(
+  "dashboard/addExamination",
+  async (payload: CreateExaminationData) => {
+    const res = await createExamination(payload);
+    return res.data;
+  }
+);
+
+export const editExamination = createAsyncThunk<ExaminationData, UpdateExaminationData>(
+  'dashboard/editExamination',
+  async (examinationData: UpdateExaminationData) => {
+    const {id, ...payload} = examinationData;
+    const res = await updateExamination(id, payload);
+    return res.data;
+  }
+);
 
 export const loadRecordings = (): AppThunk => async (dispatch, getState) => {
   try {

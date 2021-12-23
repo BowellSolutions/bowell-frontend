@@ -8,7 +8,7 @@ module.exports = {
     };
     return config;
   },
-  swcMinify: true,
+  swcMinify: false,
   publicRuntimeConfig: {
     // Will be available on both server and client
     API_URL: process.env.API_URL ?? "http://127.0.0.1:8000/api",
