@@ -8,7 +8,6 @@ module.exports = {
     };
     return config;
   },
-  trailingSlash: true,
   swcMinify: false,
   publicRuntimeConfig: {
     // Will be available on both server and client
