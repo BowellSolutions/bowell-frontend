@@ -30,7 +30,7 @@ const RecentRecordings: FC = () => {
         >
           <Flex justify="space-between" w="100%">
             <Flex direction="column" maxWidth="100%">
-              <NextLink href={`/dashboard/recordings/${recording.id}`}>
+              <NextLink href={`/dashboard/recordings/[id]`} as={`/dashboard/recordings/${recording.id}`}>
                 <Text
                   color={nameColor} fontSize="md" fontWeight="bold" mb="10px"
                   _hover={{textDecoration: "underline", cursor: "pointer"}}
