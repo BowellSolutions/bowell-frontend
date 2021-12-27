@@ -42,7 +42,7 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
         <Td minWidth={{sm: "50px"}} pl="0px" borderBottom={borderBottom}>
           <Flex align="center" py=".8rem" minWidth="100%" flexWrap="nowrap">
             <Flex direction="column">
-              <NextLink href={`/dashboard/recordings/${fileId}`}>
+              <NextLink href={`/dashboard/recordings/${encodeURIComponent(fileId)}`}>
                 <Text
                   fontSize="md"
                   fontWeight="bold"
@@ -58,7 +58,7 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
 
         <Td minWidth={{sm: "200px"}} borderBottom={borderBottom}>
           <Flex direction="column">
-            <NextLink href={`/dashboard/recordings/${fileId}`}>
+            <NextLink href={`/dashboard/recordings/${encodeURIComponent(fileId)}`}>
               <Text
                 fontSize="md"
                 color={textColor}
@@ -88,7 +88,7 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
             pb=".5rem"
           >
             {examination == null ? "---" : (
-              <NextLink href={`/dashboard/examinations/${examination.id}`}>
+              <NextLink href={`/dashboard/examinations/${encodeURIComponent(examination.id)}`}>
                 <Link fontWeight={600} _hover={{textDecoration: "underline"}}>
                   {examination.id}
                 </Link>
