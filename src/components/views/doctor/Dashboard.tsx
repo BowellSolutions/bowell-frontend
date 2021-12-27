@@ -4,7 +4,6 @@ import CardHeader from "../../card/CardHeader";
 import Card from "../../card/Card";
 import RecentExaminations from "../../dashboard/RecentExaminations";
 import StatisticsBoxes from "../../dashboard/StatisticsBoxes";
-import {useAppSelector} from "../../../redux/hooks";
 import {useDispatch} from "react-redux";
 import {loadExaminations, loadPatients, loadRecordings} from "../../../redux/actions/dashboard";
 import RecentRecordings from "../../dashboard/RecentRecordings";
@@ -15,27 +14,13 @@ const DoctorDashboard: FC = () => {
   const textColor = useColorModeValue("gray.700", "white");
 
   const dispatch = useDispatch();
-  const patients = useAppSelector(state => state.dashboard.patients);
-  const recordings = useAppSelector(state => state.dashboard.recordings);
-  const examinations = useAppSelector(state => state.dashboard.examinations);
 
   useEffect(() => {
-    if (!patients.length) {
-      dispatch(loadPatients());
-    }
-  }, [dispatch, patients]);
-
-  useEffect(() => {
-    if (!recordings.length) {
-      dispatch(loadRecordings());
-    }
-  }, [dispatch, recordings]);
-
-  useEffect(() => {
-    if (!examinations.length) {
-      dispatch(loadExaminations());
-    }
-  }, [dispatch, examinations]);
+    // load patients, examinations, recordings on page load
+    dispatch(loadPatients());
+    dispatch(loadRecordings());
+    dispatch(loadExaminations());
+  }, []);
 
   return (
     <Flex flexDirection="column" pt={{base: "120px", md: "75px"}}>

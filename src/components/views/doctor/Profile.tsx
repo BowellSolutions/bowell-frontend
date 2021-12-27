@@ -50,7 +50,7 @@ const Patients: FC<PatientsProps> = ({patients}) => {
             </Flex>
           </Flex>
 
-          <NextLink href={`/dashboard/patients/[id]`} as={`/dashboard/patients/${patient.id}`} passHref>
+          <NextLink href={`/dashboard/patients/${encodeURIComponent(patient.id)}`} passHref>
             <Button bg="transparent" variant="no-hover">
               <Text
                 fontSize="sm"
@@ -110,7 +110,7 @@ const Examinations: FC<ExaminationsProps> = ({examinations}) => {
             </Flex>
           </Flex>
 
-          <NextLink passHref href={`/dashboard/examinations/[id]`} as={`/dashboard/examinations/${examination.id}`}>
+          <NextLink passHref href={`/dashboard/examinations/${encodeURIComponent(examination.id)}`}>
             <Button pr="4px" bg="transparent" variant="no-hover">
               <Text
                 fontSize="sm"
@@ -148,18 +148,9 @@ const Profile: FC = () => {
   const examinations = useAppSelector(state => state.dashboard.examinations);
 
   useEffect(() => {
-    // load patients if they are missing
-    if (!patients.length) {
-      dispatch(loadPatients());
-    }
-  }, [patients, dispatch]);
-
-  useEffect(() => {
-    // load examinations if they are missing
-    if (!examinations.length) {
-      dispatch(loadExaminations());
-    }
-  }, [examinations, dispatch]);
+    dispatch(loadPatients());
+    dispatch(loadExaminations());
+  }, []);
 
   return (
     <Flex direction="column">

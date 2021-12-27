@@ -121,7 +121,7 @@ const DoctorExaminationDetail: FC<DoctorExaminationDetailProps> = ({examinationI
                 </Text>
               </CardHeader>
 
-              <ResponsiveContainer width="100%" height="100%" maxHeight={600}>
+              <ResponsiveContainer width="100%" height="100%" minHeight={550} maxHeight={600}>
                 <LineChart
                   width={500}
                   height={300}
