@@ -21,7 +21,7 @@ const RecentPatients = () => {
         >
           <Flex justify="space-between" w="100%">
             <Flex direction="column" maxWidth={{md: "80%", xl: "85%"}}>
-              <NextLink href={`/dashboard/patients/[id]`} as={`/dashboard/patients/${patient.id}`}>
+              <NextLink href={`/dashboard/patients/${encodeURIComponent(patient.id)}`}>
                 <Text
                   color={nameColor} fontSize="md" fontWeight="bold" mb="10px" userSelect="none"
                   _hover={{textDecoration: "underline", cursor: "pointer"}}
@@ -51,7 +51,7 @@ const RecentPatients = () => {
               align="center"
               p={{md: "24px", lg: "12px"}}
             >
-              <NextLink href={`/dashboard/patients/[id]`} as={`/dashboard/patients/${patient.id}`}>
+              <NextLink href={`/dashboard/patients/${encodeURIComponent(patient.id)}`} passHref>
                 <Avatar src="" alt="" h="32px" w="32px" cursor="pointer"/>
               </NextLink>
             </Flex>

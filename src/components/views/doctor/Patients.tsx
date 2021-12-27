@@ -44,7 +44,7 @@ const Patients: FC = () => {
   useEffect(() => {
     // load patients on each load because they could have changed
     dispatch(loadPatients());
-  }, [dispatch]);
+  }, []);
 
   return (
     <Flex direction="column" pt={{base: "120px", md: "75px"}}>

@@ -18,7 +18,7 @@ const Examinations: FC = () => {
   useEffect(() => {
     // try to get examinations on first load
     dispatch(loadExaminations());
-  }, [dispatch]);
+  }, []);
 
   return (
     <Flex direction="column" pt={{base: "120px", md: "75px"}}>

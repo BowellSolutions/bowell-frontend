@@ -41,7 +41,7 @@ const ExaminationsTableRow: FC<ExaminationsTableRowProps> = ({examination}) => {
     >
       <Flex justify="space-between" w="100%">
         <Flex direction="column" maxWidth="70%">
-          <NextLink href={`/dashboard/examinations/[id]`} as={`/dashboard/examinations/${examination.id}`}>
+          <NextLink href={`/dashboard/examinations/${encodeURIComponent(examination.id)}`}>
             <Text
               color={nameColor} fontSize="md" fontWeight="bold" mb="10px" userSelect="none"
               _hover={{textDecoration: "underline", cursor: "pointer"}}
