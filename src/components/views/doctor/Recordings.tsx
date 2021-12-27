@@ -22,7 +22,7 @@ const Recordings: FC = () => {
 
   useEffect(() => {
     dispatch(loadRecordings());
-  }, [dispatch]);
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => setSelected(e.target.value);
 
