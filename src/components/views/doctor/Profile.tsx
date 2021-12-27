@@ -50,7 +50,7 @@ const Patients: FC<PatientsProps> = ({patients}) => {
             </Flex>
           </Flex>
 
-          <NextLink href={`/dashboard/patients/${patient.id}`} passHref>
+          <NextLink href={`/dashboard/patients/[id]`} as={`/dashboard/patients/${patient.id}`} passHref>
             <Button bg="transparent" variant="no-hover">
               <Text
                 fontSize="sm"
@@ -110,7 +110,7 @@ const Examinations: FC<ExaminationsProps> = ({examinations}) => {
             </Flex>
           </Flex>
 
-          <NextLink passHref href={`/dashboard/examinations/${examination.id}`}>
+          <NextLink passHref href={`/dashboard/examinations/[id]`} as={`/dashboard/examinations/${examination.id}`}>
             <Button pr="4px" bg="transparent" variant="no-hover">
               <Text
                 fontSize="sm"
