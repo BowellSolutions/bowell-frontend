@@ -100,6 +100,8 @@ const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination
       flexDirection="column"
       alignSelf="center"
       justifySelf="center"
+      maxH="calc(100vh - 10px)"
+      overflowY="scroll"
       id="edit-examination-form"
     >
       <Flex
@@ -107,22 +109,22 @@ const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination
         w={{base: "445px",}}
         background={"transparent"}
         borderRadius="15px"
-        p="40px"
+        p={{base: "28px 32px", md: "40px"}}
         boxShadow="0 20px 27px 0 rgb(0 0 0 / 5%)"
       >
         <Heading
           textAlign="center"
           color="teal.300"
           size="xl"
-          fontSize="32px"
-          mb="42px"
+          fontSize={{base: "28px", md: "32px"}}
+          mb={{base: "24px", md: "42px"}}
         >
           Edit Examination #{examination.id}
         </Heading>
 
         <form onSubmit={handleSubmit}>
           <FormControl>
-            <Box pb="16px">
+            <Box pb={{base: "8px", md: "16px"}}>
               <FormLabel htmlFor="height_cm">
                 {"Patient's Height [cm]"}
               </FormLabel>
@@ -140,7 +142,7 @@ const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination
               )}
             </Box>
 
-            <Box pb="16px">
+            <Box pb={{base: "8px", md: "16px"}}>
               <FormLabel htmlFor="mass_kg">
                 {"Patient's Mass [kg]"}
               </FormLabel>
@@ -157,7 +159,7 @@ const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination
               )}
             </Box>
 
-            <Box pb="16px">
+            <Box pb={{base: "8px", md: "16px"}}>
               <FormLabel htmlFor="status">
                 {"Examination Status"}
               </FormLabel>
@@ -184,7 +186,7 @@ const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination
               )}
             </Box>
 
-            <Box pb="16px">
+            <Box pb={{base: "8px", md: "16px"}}>
               <FormLabel htmlFor="symptoms">
                 {"Symptoms"}
               </FormLabel>
@@ -201,7 +203,7 @@ const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination
               )}
             </Box>
 
-            <Box pb="16px">
+            <Box pb={{base: "8px", md: "16px"}}>
               <FormLabel htmlFor="medication">
                 {"Medication"}
               </FormLabel>
@@ -218,7 +220,7 @@ const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination
               )}
             </Box>
 
-            <Box pb="16px">
+            <Box pb={{base: "8px", md: "16px"}}>
               <FormLabel htmlFor="overview">
                 {"Overview"}
               </FormLabel>
@@ -235,7 +237,7 @@ const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination
               )}
             </Box>
 
-            <Flex justify="center" mt="16px">
+            <Flex justify="center" mt={{base: "8px", md: "16px"}}>
               <Button
                 type="submit"
                 bgColor="teal.300"

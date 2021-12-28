@@ -87,13 +87,15 @@ const ExaminationForm: FC<ExaminationFormProps> = ({onClose}) => {
       flexDirection="column"
       alignSelf="center"
       justifySelf="center"
+      maxH="calc(100vh - 10px)"
+      overflowY="scroll"
     >
       <Flex
         direction="column"
         w={{base: "445px",}}
         background={"transparent"}
         borderRadius="15px"
-        p="40px"
+        p={{base: "28px 32px", md: "40px"}}
         bg={bgColor}
         boxShadow="0 20px 27px 0 rgb(0 0 0 / 5%)"
       >
@@ -102,7 +104,7 @@ const ExaminationForm: FC<ExaminationFormProps> = ({onClose}) => {
           color="teal.300"
           size="xl"
           fontSize="32px"
-          mb="42px"
+          mb={{base: "24px", md: "42px"}}
         >
           New Appointment
         </Heading>
@@ -163,7 +165,7 @@ const ExaminationForm: FC<ExaminationFormProps> = ({onClose}) => {
               )}
             </Box>
 
-            <Flex justify="center" mt="16px">
+            <Flex justify="center" mt={{base: "8px", md: "16px"}}>
               <Button
                 type="submit"
                 isLoading={isLoading}

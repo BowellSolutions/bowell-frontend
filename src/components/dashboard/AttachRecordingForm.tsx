@@ -57,6 +57,8 @@ const AttachRecordingForm: FC<AttachRecordingFormProps> = ({onClose, recordingId
       flexDirection="column"
       alignSelf="center"
       justifySelf="center"
+      maxH="calc(100vh - 10px)"
+      overflowY="scroll"
     >
       <Flex
         direction="column"
