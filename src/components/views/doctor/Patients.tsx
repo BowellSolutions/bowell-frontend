@@ -44,11 +44,12 @@ const Patients: FC = () => {
   useEffect(() => {
     // load patients on each load because they could have changed
     dispatch(loadPatients());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Flex direction="column" pt={{base: "120px", md: "75px"}}>
-      <Card overflowX={{sm: "scroll", xl: "hidden"}}>
+      <Card overflowX={{sm: "scroll", xl: "hidden"}} px={{base: "12px", md: "24px"}}>
         <CardHeader p="6px 0px 22px 0px">
           <Flex alignItems="center" grow={1}>
             <Text fontSize="xl" color={textColor} fontWeight="bold">
@@ -56,7 +57,7 @@ const Patients: FC = () => {
             </Text>
           </Flex>
 
-          <Flex>
+          <Flex ml={{base: "12px", md: 0}} maxW={{base: "70%", md: "none"}}>
             <InputGroup>
               <InputLeftElement pointerEvents="none">
                 <Icon as={AiOutlineSearch}/>
