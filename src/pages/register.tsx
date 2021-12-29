@@ -28,7 +28,7 @@ const RegisterPage: NextPage = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async (context) => {
-      await store.dispatch<any>(checkAuth(context.req.headers.cookies));
+      await store.dispatch<any>(checkAuth(context.req.cookies.access));
 
       return {
         props: {}
