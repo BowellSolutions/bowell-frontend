@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useState} from "react";
 import {
   Flex,
   Icon,
@@ -19,19 +19,16 @@ import CardHeader from "../../card/CardHeader";
 import PatientsTableRow from "../../tables/PatientsTableRow";
 import Card from "../../card/Card";
 import {useAppSelector} from "../../../redux/hooks";
-import {useDispatch} from "react-redux";
-import {loadPatients} from "../../../redux/actions/dashboard";
 import useTableFilter from "../../../hooks/useTableFilter";
 
 
 const Patients: FC = () => {
   const textColor = useColorModeValue("gray.700", "white");
 
-  const dispatch = useDispatch();
+  const user = useAppSelector(state => state.auth.user);
   const patients = useAppSelector(
     state => state.dashboard.patients.filter(p => p.type === "PATIENT" && p.id !== user?.id)
   );
-  const user = useAppSelector(state => state.auth.user);
 
   const [query, setQuery] = useState<string>(""); // rows will be filtered by this query
 
@@ -40,12 +37,6 @@ const Patients: FC = () => {
     ["id", "first_name", "last_name", "email"],
     query
   );
-
-  useEffect(() => {
-    // load patients on each load because they could have changed
-    dispatch(loadPatients());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <Flex direction="column" pt={{base: "120px", md: "75px"}}>

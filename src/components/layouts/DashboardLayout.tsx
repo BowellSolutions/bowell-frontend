@@ -41,11 +41,10 @@ const DashboardLayout: FC<DashboardLayoutProps> = (
   const mainPanel = useRef(null);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    // check if we are still authenticated
-    if (dispatch != null) dispatch(checkAuthStatus());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   // check if we are still authenticated
+  //   if (dispatch != null) dispatch(checkAuthStatus());
+  // }, [dispatch]);
 
   return (
     <>

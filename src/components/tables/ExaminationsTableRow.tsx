@@ -7,7 +7,7 @@ import {DeleteIcon} from "@chakra-ui/icons";
 import FileUpload from "../dashboard/FileUpload";
 import {updateExamination} from "../../api/examinations";
 import {useDispatch} from "react-redux";
-import {loadExaminations, loadRecordings} from "../../redux/actions/dashboard";
+import {retrieveExaminations, retrieveRecordings} from "../../redux/actions/dashboard";
 import {formatDate} from "components/views/utils/format";
 import EditExaminationModal from "../dashboard/EditExaminationModal";
 import NextLink from "next/link";
@@ -28,8 +28,8 @@ const ExaminationsTableRow: FC<ExaminationsTableRowProps> = ({examination}) => {
   const handleDetachFile = () => {
     if (examination.recording != null) {
       updateExamination(examination.id, {recording: null}).then((res) => {
-        dispatch(loadExaminations());
-        dispatch(loadRecordings());
+        dispatch(retrieveExaminations(undefined));
+        dispatch(retrieveRecordings(undefined));
       });
     }
   };

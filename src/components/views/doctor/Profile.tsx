@@ -1,4 +1,4 @@
-import {FC, useEffect} from "react";
+import {FC} from "react";
 import {Avatar, Box, Button, Flex, Grid, Text, useColorModeValue} from "@chakra-ui/react";
 import CardBody from "../../card/CardBody";
 import CardHeader from "../../card/CardHeader";
@@ -6,7 +6,6 @@ import Card from "../../card/Card";
 import {useAppSelector} from "../../../redux/hooks";
 import {ExaminationData, UserData} from "../../../api/types";
 import {useDispatch} from "react-redux";
-import {loadExaminations, loadPatients} from "../../../redux/actions/dashboard";
 import NextLink from "next/link";
 import {formatDate} from "../utils/format";
 
@@ -147,10 +146,10 @@ const Profile: FC = () => {
   const patients = useAppSelector(state => state.dashboard.patients.filter(p => p.type === "PATIENT"));
   const examinations = useAppSelector(state => state.dashboard.examinations);
 
-  useEffect(() => {
-    dispatch(loadPatients());
-    dispatch(loadExaminations());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(loadPatients());
+  //   dispatch(loadExaminations());
+  // }, []);
 
   return (
     <Flex direction="column">

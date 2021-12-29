@@ -3,8 +3,6 @@ import Footer from "../footer/Footer";
 import {Box, Portal, useColorModeValue} from "@chakra-ui/react";
 import AuthNavbar from "../navbar/AuthNavbar";
 import Head from "next/head";
-import {useDispatch} from "react-redux";
-import {checkAuthStatus} from "../../redux/actions/auth";
 
 interface AuthLayoutProps {
   children: ReactNode,
@@ -18,16 +16,8 @@ const AuthLayout: FC<AuthLayoutProps> = (
 ) => {
   const bgColor = useColorModeValue("teal.400", "");
 
-  const dispatch = useDispatch();
-
   const wrapper = useRef(null);
   const navRef = useRef(null);
-
-
-  useEffect(() => {
-    // check if we are still authenticated
-    if (dispatch != null) dispatch(checkAuthStatus());
-  }, [dispatch]);
 
   useEffect(() => {
     document.body.style.overflow = "unset";

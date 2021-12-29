@@ -1,12 +1,10 @@
-import {ChangeEvent, FC, useEffect, useState} from "react";
+import {ChangeEvent, FC, useState} from "react";
 import {Flex, Select, Table, Tbody, Text, Th, Thead, Tr, useColorModeValue} from "@chakra-ui/react";
 import CardBody from "../../card/CardBody";
 import CardHeader from "../../card/CardHeader";
 import Card from "../../card/Card";
 import FileUpload from "../../dashboard/FileUpload";
 import RecordingsTableRow from "../../tables/RecordingsTableRow";
-import {useDispatch} from "react-redux";
-import {loadRecordings} from "../../../redux/actions/dashboard";
 import {useAppSelector} from "../../../redux/hooks";
 import {formatDate} from "../utils/format";
 
@@ -14,15 +12,10 @@ import {formatDate} from "../utils/format";
 const Recordings: FC = () => {
   const textColor = useColorModeValue("gray.700", "white");
 
-  const dispatch = useDispatch();
   const recordings = useAppSelector(state => state.dashboard.recordings);
   const examinations = useAppSelector(state => state.dashboard.examinations);
 
   const [selected, setSelected] = useState<string>("");
-
-  useEffect(() => {
-    dispatch(loadRecordings());
-  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => setSelected(e.target.value);
 

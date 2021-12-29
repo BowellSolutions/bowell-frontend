@@ -1,13 +1,10 @@
-import {Box, Button, Flex, Icon, Link, Td, Text, Tr, useColorModeValue,} from "@chakra-ui/react";
+import {Box, Flex, Icon, Link, Td, Text, Tr, useColorModeValue,} from "@chakra-ui/react";
 import {FC, useEffect, useState} from "react";
-import {FaTrashAlt} from "react-icons/fa";
 import {useDisclosure} from "@chakra-ui/hooks";
 import {MdExpandLess, MdExpandMore} from "react-icons/md";
 import {formatDate} from "../views/utils/format";
 import {ExaminationData, FileData} from "../../api/types";
-import {deleteFile, getFile} from "../../api/files";
-import {useDispatch} from "react-redux";
-import {loadRecordings} from "../../redux/actions/dashboard";
+import {getFile} from "../../api/files";
 import AttachRecordingModal from "../dashboard/AttachRecordingModal";
 import NextLink from "next/link";
 import ConfirmDetachModal from "../dashboard/ConfirmDetachModal";
@@ -27,7 +24,7 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
 
   const textColor = useColorModeValue("gray.500", "white");
   const borderBottom = isOpen ? "0" : "1px";
-  
+
   useEffect(() => {
     if (isOpen && fileDetails == null) {
       getFile(fileId).then(res => {

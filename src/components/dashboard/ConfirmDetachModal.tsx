@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import {FaTrashAlt} from "react-icons/fa";
 import {deleteFile} from "../../api/files";
-import {loadRecordings} from "../../redux/actions/dashboard";
+import {retrieveRecordings} from "../../redux/actions/dashboard";
 import {useAppDispatch} from "../../redux/hooks";
 
 
@@ -29,7 +29,7 @@ const ConfirmDetachModal: FC<ConfirmDetachModalProps> = ({recordingId}) => {
   const handleDetach = (): void => {
     // detach recording from examination
     deleteFile(recordingId).then(() => {
-      dispatch(loadRecordings());
+      dispatch(retrieveRecordings(undefined));
       if (!toast.isActive("success-toast-detach")) {
         toast({
           id: "success-toast-detach",

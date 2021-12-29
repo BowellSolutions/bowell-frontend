@@ -1,12 +1,13 @@
-import {Button, Flex, Icon, Link, useColorModeValue} from "@chakra-ui/react";
+import {Button, Flex, Icon, useColorModeValue} from "@chakra-ui/react";
 import NextLink from "next/link";
 import {FC, useRef} from "react";
 import {BsFillPersonFill} from "react-icons/bs";
 import {IoMdSettings} from "react-icons/io";
 import SidebarResponsive from "../sidebar/SidebarResponsive";
 import Notifications from "../menu/Notifications";
-import {useDispatch} from "react-redux";
 import {logoutUser} from "../../redux/actions/auth";
+import {useAppDispatch} from "../../redux/hooks";
+import {useRouter} from "next/router";
 
 interface DashboardNavbarLinksProps {
   logoText: string,
@@ -27,12 +28,15 @@ const DashboardNavbarLinks: FC<DashboardNavbarLinksProps> = (
     ...rest
   }) => {
 
-  const dispatch = useDispatch();
+  const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const grayLinkColor = useColorModeValue("gray.500", "gray.200");
   const navbarLinkColor = secondary ? "white" : grayLinkColor;
 
-  const logout = () => dispatch(logoutUser());
+  const logout = () => {
+    dispatch(logoutUser()).unwrap().then(async () => await router.push("/"));
+  };
 
   const settingsRef = useRef(null);
 

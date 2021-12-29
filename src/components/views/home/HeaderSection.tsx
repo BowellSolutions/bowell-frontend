@@ -17,16 +17,15 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import {AiFillHome, AiOutlineMenu,} from "react-icons/ai";
-import {BsPersonFill, BsFillVolumeUpFill, BsPerson, BsVolumeUp} from "react-icons/bs";
+import {BsFillVolumeUpFill, BsPerson, BsPersonFill, BsVolumeUp} from "react-icons/bs";
 import {FaMoon, FaSun} from "react-icons/fa";
 import {IoIosArrowDown, IoIosRocket} from "react-icons/io";
 import {useDisclosure} from "@chakra-ui/hooks";
-import {FC, ReactNode, useEffect, useState} from "react";
+import {FC, ReactNode} from "react";
 import {BiReceipt} from "react-icons/bi";
 import NextLink from "next/link";
-import {useAppSelector} from "../../../redux/hooks";
-import {MdLogin, MdOutlineDashboard, MdOutlineMore, MdLogout} from "react-icons/md";
-import {useDispatch} from "react-redux";
+import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
+import {MdLogin, MdLogout, MdOutlineDashboard, MdOutlineMore} from "react-icons/md";
 import {logoutUser} from "../../../redux/actions/auth";
 
 interface SectionProps {
@@ -154,7 +153,7 @@ export default function HeaderSection() {
   const text = useColorModeValue("dark", "light");
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated);
   const logout = () => () => dispatch(logoutUser());
 

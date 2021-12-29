@@ -1,26 +1,15 @@
-import {FC, useEffect} from "react";
+import {FC} from "react";
 import {Flex, Grid, Text, useColorModeValue} from "@chakra-ui/react";
 import CardHeader from "../../card/CardHeader";
 import Card from "../../card/Card";
 import RecentExaminations from "../../dashboard/RecentExaminations";
 import StatisticsBoxes from "../../dashboard/StatisticsBoxes";
-import {useDispatch} from "react-redux";
-import {loadExaminations, loadPatients, loadRecordings} from "../../../redux/actions/dashboard";
 import RecentRecordings from "../../dashboard/RecentRecordings";
 import RecentPatients from "../../dashboard/RecentPatients";
 
 
 const DoctorDashboard: FC = () => {
   const textColor = useColorModeValue("gray.700", "white");
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // load patients, examinations, recordings on page load
-    dispatch(loadPatients());
-    dispatch(loadRecordings());
-    dispatch(loadExaminations());
-  }, []);
 
   return (
     <Flex flexDirection="column" pt={{base: "120px", md: "75px"}}>

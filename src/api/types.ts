@@ -1,4 +1,6 @@
 import {AxiosResponse} from "axios";
+import {Action} from "redux";
+import {RootState} from "../redux/reducers";
 
 export type Response<T> = AxiosResponse<T>;
 
@@ -137,4 +139,9 @@ export interface UpdateExaminationData {
   recording?: number | null,
   date?: Date | string,
   overview?: string,
+}
+
+
+export interface HydrateAction extends Action<"__NEXT_REDUX_WRAPPER_HYDRATE__"> {
+  payload: RootState
 }
