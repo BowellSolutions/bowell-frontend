@@ -15,9 +15,11 @@ import {CreateExaminationData, ExaminationData, FileData, UpdateExaminationData,
 
 export const retrieveExaminations = createAsyncThunk<ExaminationData[], any>(
   "dashboard/retrieveExaminations",
-  async (cookies, {dispatch, getState, rejectWithValue}) => {
+  async (token, {dispatch, getState, rejectWithValue}) => {
     try {
-      const res = await getExaminations({headers: {cookie: cookies}});
+      const res = await getExaminations(
+        token ? {headers: {Authorization: `Bearer ${token}`}} : {}
+      );
 
       if (res.status === 200) {
         const examinations = res.data;
@@ -59,9 +61,11 @@ export const editExamination = createAsyncThunk<ExaminationData, UpdateExaminati
 
 export const retrieveRecordings = createAsyncThunk<FileData[], any>(
   "dashboard/retrieveRecordings",
-  async (cookies, {dispatch, getState, rejectWithValue}) => {
+  async (token, {dispatch, getState, rejectWithValue}) => {
     try {
-      const res = await getFiles({headers: {cookie: cookies}});
+      const res = await getFiles(
+        token ? {headers: {Authorization: `Bearer ${token}`}} : {}
+      );
 
       if (res.status === 200) {
         const recordings = res.data;
@@ -86,9 +90,11 @@ export const retrieveRecordings = createAsyncThunk<FileData[], any>(
 
 export const retrievePatients = createAsyncThunk<UserData[], any>(
   "dashboard/retrievePatients",
-  async (cookies, {dispatch, getState, rejectWithValue}) => {
+  async (token, {dispatch, getState, rejectWithValue}) => {
     try {
-      const res = await getPatients({headers: {cookie: cookies}});
+      const res = await getPatients(
+        token ? {headers: {Authorization: `Bearer ${token}`}} : {}
+      );
 
       if (res.status === 200) {
         const patients = res.data;

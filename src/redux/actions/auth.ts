@@ -56,9 +56,11 @@ export const loginUser = createAsyncThunk<any, LoginUserData>(
 
 export const getUser = createAsyncThunk<UserData, any>(
   'auth/getUser',
-  async (cookies, {dispatch, rejectWithValue}) => {
+  async (token, {dispatch, rejectWithValue}) => {
     try {
-      const res = await getCurrentUser({headers: {cookie: cookies}});
+      const res = await getCurrentUser(
+        token ? {headers: {Authorization: `Bearer ${token}`}} : {}
+      );
       const userData = res.data;
 
       if (res.status === 200) {
@@ -102,14 +104,16 @@ export const setRefreshTimer = (): AppThunk => (dispatch) => {
 
 export const checkAuth = createAsyncThunk<{}, any>(
   'auth/checkAuth',
-  async (cookies, {dispatch, rejectWithValue}) => {
+  async (token, {dispatch, rejectWithValue}) => {
     try {
-      const res = await verifyToken({headers: {cookie: cookies}});
+      const res = await verifyToken(
+        token,
+        token ? {headers: {Authorization: `Bearer ${token}`}} : {});
 
       if (res.status === 200) {
         dispatch(authSuccess());
         dispatch<any>(setRefreshTimer());
-        await dispatch(getUser(cookies));
+        await dispatch(getUser(token));
         return res.data;
       } else {
         dispatch(authFail());
@@ -145,9 +149,9 @@ export const checkAuthStatus = (): AppThunk => async (dispatch, getState) => {
   }
 };
 
-export const logoutUser = createAsyncThunk(
+export const logoutUser = createAsyncThunk<{}, void>(
   'auth/logoutUser',
-  async (payload, {dispatch, rejectWithValue}) => {
+  async (arg, {dispatch, rejectWithValue}) => {
     try {
       const res = await logout();
 

@@ -40,8 +40,9 @@ const ProfileDetail: NextPage<AppState> = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async (context) => {
+      const cookies = context.req.cookies;
       // if there is no access cookie, dispatch fail and redirect to login
-      if (!context.req.cookies.access) {
+      if (!cookies.access) {
         await store.dispatch(authFail());
         return {
           redirect: {

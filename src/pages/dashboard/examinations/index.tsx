@@ -11,7 +11,6 @@ import {retrieveExaminations} from "../../../redux/actions/dashboard";
 const ExaminationsPage: NextPage<AppState> = () => {
   return (
     <DispatchLayout
-      // auth={auth}
       doctor={
         <DashboardLayout
           title="Dashboard"
@@ -39,8 +38,9 @@ const ExaminationsPage: NextPage<AppState> = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async (context) => {
+      const cookies = context.req.cookies;
       // if there is no access cookie, dispatch fail and redirect to login
-      if (!context.req.cookies.access) {
+      if (!cookies.access) {
         await store.dispatch(authFail());
         return {
           redirect: {
@@ -49,12 +49,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
           }
         };
       }
-      const cookies = context.req.headers.cookie;
-      // dispatch check auth to verify token, get user if token is valid - to fill state on server side
-      await store.dispatch<any>(checkAuth(cookies));
+
+      // dispatch check auth to verify token, get user if token is valid
+      await store.dispatch<any>(checkAuth(cookies.access));
 
       // load examinations
-      await store.dispatch<any>(retrieveExaminations(cookies));
+      await store.dispatch<any>(retrieveExaminations(cookies.access));
 
       return {
         props: {}

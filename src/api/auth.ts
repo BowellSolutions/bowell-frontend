@@ -22,8 +22,9 @@ export const refreshToken = (options?: AxiosRequestConfig): Promise<Response<{}>
   return axiosClient.post('/auth/token/refresh/', {}, {...options});
 };
 
-export const verifyToken = (options?: AxiosRequestConfig): Promise<Response<{}>> => {
-  return axiosClient.post('/auth/token/verify/', {}, {...options});
+export const verifyToken = (token?: string, options?: AxiosRequestConfig): Promise<Response<{}>> => {
+  // token can either be send in body (as token) or cookies (as access)
+  return axiosClient.post('/auth/token/verify/', token ? {token: token} : {}, {...options});
 };
 
 export const getCurrentUser = (options?: AxiosRequestConfig): Promise<Response<UserData>> => {

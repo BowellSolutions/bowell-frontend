@@ -40,8 +40,9 @@ const PatientDetail: NextPage<AppState> = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async (context) => {
+      const cookies = context.req.cookies;
       // if there is no access cookie, dispatch fail and redirect to login
-      if (!context.req.cookies.access) {
+      if (!cookies.access) {
         await store.dispatch(authFail());
         return {
           redirect: {
@@ -52,8 +53,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       }
 
       // dispatch check auth to verify token, get user if token is valid - to fill state on server side
-      await store.dispatch<any>(checkAuth(context.req.headers.cookie));
-
+      await store.dispatch<any>(checkAuth(cookies.access));
 
       return {
         props: {}
