@@ -40,16 +40,20 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async (context) => {
       const cookies = context.req.cookies;
 
+      console.log("[REQUEST]", context.req);
+      console.log("-----------------------");
+      console.log("[RESPONSE]", context.res);
+
       // if there is no access cookie, dispatch fail and redirect to login
-      if (!cookies.access) {
-        await store.dispatch(authFail());
-        return {
-          redirect: {
-            destination: '/login',
-            permanent: false
-          }
-        };
-      }
+      // if (!cookies.access) {
+      //   await store.dispatch(authFail());
+      //   return {
+      //     redirect: {
+      //       destination: '/login',
+      //       permanent: false
+      //     }
+      //   };
+      // }
 
       // dispatch check auth to verify token, get user if token is valid - to fill state on server side
       await store.dispatch<any>(checkAuth(cookies.access));
