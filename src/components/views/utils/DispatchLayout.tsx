@@ -13,10 +13,8 @@ const DispatchLayout: FC<DispatchLayoutProps> = (
   const router = useRouter();
   const {isAuthenticated, user} = useAppSelector(state => state.auth);
 
-  console.log("[CLIENT]", isAuthenticated, user);
-
-  // if (typeof window !== 'undefined' && !isAuthenticated)
-  //   router.push('/login').then();
+  if (typeof window !== 'undefined' && !isAuthenticated)
+    router.push('/login').then();
 
   if (user && user.type == "DOCTOR") {
     return doctor;
