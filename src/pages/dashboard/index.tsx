@@ -40,9 +40,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async (context) => {
       const cookies = context.req.cookies;
 
-      console.log("[REQUEST]", context.req);
+
+      console.log("[REQUEST COOKIES]");
       console.log("-----------------------");
-      console.log("[RESPONSE]", context.res);
+      console.log(context.req.cookies);
+      console.log("[REQUEST HEADERS]");
+      console.log("-----------------------");
+      console.log(context.req.headers);
+      console.log("-----------------------");
 
       // if there is no access cookie, dispatch fail and redirect to login
       // if (!cookies.access) {
