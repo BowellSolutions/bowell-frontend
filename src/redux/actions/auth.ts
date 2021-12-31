@@ -59,7 +59,7 @@ export const getUser = createAsyncThunk<UserData, any>(
   async (token, {dispatch, rejectWithValue}) => {
     try {
       const res = await getCurrentUser(
-        token ? {headers: {Authorization: `Bearer ${token}`}} : {}
+        token ? {headers: {Authorization: `Bearer ${token}`}, withCredentials: true} : {}
       );
       const userData = res.data;
 
@@ -108,7 +108,7 @@ export const checkAuth = createAsyncThunk<{}, any>(
     try {
       const res = await verifyToken(
         token,
-        token ? {headers: {Authorization: `Bearer ${token}`}} : {});
+        token ? {headers: {Authorization: `Bearer ${token}`}, withCredentials: true} : {});
 
       if (res.status === 200) {
         dispatch(authSuccess());

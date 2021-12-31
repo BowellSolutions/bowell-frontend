@@ -40,12 +40,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async (context) => {
       const cookies = context.req.cookies;
 
-
       console.log("[REQUEST COOKIES]");
-      console.log("-----------------------");
       console.log(context.req.cookies);
+      console.log(context.req.cookies.access);
+      console.log("-----------------------");
       console.log("[REQUEST HEADERS]");
       console.log("-----------------------");
+      console.log(context.req.headers);
+      console.log(context.req.headers.cookie);
       console.log(context.req.headers);
       console.log("-----------------------");
 
