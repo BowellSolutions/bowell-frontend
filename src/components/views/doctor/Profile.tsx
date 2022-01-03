@@ -141,15 +141,9 @@ const Profile: FC = () => {
   );
   const emailColor = useColorModeValue("gray.400", "gray.300");
 
-  const dispatch = useDispatch();
   const user = useAppSelector(state => state.auth.user);
   const patients = useAppSelector(state => state.dashboard.patients.filter(p => p.type === "PATIENT"));
   const examinations = useAppSelector(state => state.dashboard.examinations);
-
-  // useEffect(() => {
-  //   dispatch(loadPatients());
-  //   dispatch(loadExaminations());
-  // }, []);
 
   return (
     <Flex direction="column">
@@ -230,7 +224,7 @@ const Profile: FC = () => {
         </Box>
       </Box>
 
-      <Grid templateColumns={{sm: "1fr", xl: "repeat(3, 1fr)"}} gap="22px">
+      <Grid templateColumns={{sm: "1fr", xl: "repeat(3, 1fr)", "2xl": "0.7fr 1fr 1fr"}} gap="22px">
         <Card p="16px" my={{sm: "24px", xl: "0px"}} id="doctor-profile-info">
           <CardHeader p="12px 5px" mb="12px">
             <Text fontSize="lg" color={textColor} fontWeight="bold">

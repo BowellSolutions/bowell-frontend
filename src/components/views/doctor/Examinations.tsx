@@ -28,7 +28,7 @@ const Examinations: FC = () => {
         </CardHeader>
 
         <CardBody>
-          <SimpleGrid columns={{sm: 1, md: 2, lg: 2, xl: 3}} spacing="8px">
+          <SimpleGrid columns={{sm: 1, md: 2, lg: 2, xl: 3, "2xl": 4}} spacing="8px" w="100%" id="examinations-grid">
             {examinations.length > 0 && examinations.map((examination) => {
               return (
                 // fix this layout

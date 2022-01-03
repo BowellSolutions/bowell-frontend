@@ -15,7 +15,7 @@ const DoctorDashboard: FC = () => {
     <Flex flexDirection="column" pt={{base: "120px", md: "75px"}}>
       <StatisticsBoxes/>
 
-      <Grid templateColumns={{sm: "1fr", lg: "1.2fr 1.4fr"}} mt="16px" gap="24px">
+      <Grid templateColumns={{sm: "1fr", lg: "2fr 1.5fr"}} mt="16px" gap="24px">
         <Flex direction="column">
           <Card>
             <CardHeader mb="12px">

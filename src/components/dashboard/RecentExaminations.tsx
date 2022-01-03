@@ -35,6 +35,7 @@ const RecentExaminations: FC = () => {
             <Flex direction="column" w="100%" pr="16px">
               {examinations.filter(condition).map((examination) => (
                 <ExaminationsTableRow
+                  my="8px"
                   examination={examination}
                   key={`examination-d-row-${examination.id}`}
                 />
