@@ -43,6 +43,17 @@ export const getServerSideProps = wrapper.getServerSideProps(
       // dispatch check auth to verify token, get user if token is valid - to fill state on server side
       await store.dispatch<any>(checkAuth(cookies.access));
 
+      const {auth} = store.getState();
+      // doctor only endpoint
+      if (auth?.user?.type === "PATIENT") {
+        return {
+          redirect: {
+            destination: '/dashboard',
+            permanent: false
+          }
+        };
+      }
+
       // load patients
       await store.dispatch<any>(retrievePatients(cookies.access));
 

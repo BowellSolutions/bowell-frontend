@@ -58,11 +58,16 @@ export const getServerSideProps = wrapper.getServerSideProps(
       // dispatch check auth to verify token, get user if token is valid - to fill state on server side
       await store.dispatch<any>(checkAuth(cookies.access));
 
-      // load examinations, recordings, patients, statistics
+      const {auth} = store.getState();
+
+      // load examinations, recordings, patients, statistics based on user type
+      if (auth?.user?.type === "DOCTOR") {
+        await store.dispatch<any>(retrieveRecordings(cookies.access));
+        await store.dispatch<any>(retrievePatients(cookies.access));
+        await store.dispatch<any>(retrieveDoctorStatistics(cookies.access));
+      }
+
       await store.dispatch<any>(retrieveExaminations(cookies.access));
-      await store.dispatch<any>(retrieveRecordings(cookies.access));
-      await store.dispatch<any>(retrievePatients(cookies.access));
-      await store.dispatch<any>(retrieveDoctorStatistics(cookies.access));
 
       return {
         props: {}

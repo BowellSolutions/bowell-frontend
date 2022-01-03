@@ -55,8 +55,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
       // load examinations, recordings, patients
       await store.dispatch<any>(retrieveExaminations(cookies.access));
-      await store.dispatch<any>(retrieveRecordings(cookies.access));
-      await store.dispatch<any>(retrievePatients(cookies.access));
+
+      const {auth} = store.getState();
+      if (auth?.user?.type === "DOCTOR") {
+        await store.dispatch<any>(retrieveRecordings(cookies.access));
+        await store.dispatch<any>(retrievePatients(cookies.access));
+      }
 
       return {
         props: {}
