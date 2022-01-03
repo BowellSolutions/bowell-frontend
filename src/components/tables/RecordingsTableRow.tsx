@@ -123,7 +123,7 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
               fileDetails != null && Object.entries(fileDetails).map(
                 ([key, value], idx) => {
                   // data already present in the table
-                  if (key === "id" || key === "uploaded_at") return null;
+                  if (["id", "uploaded_at", "uploader", "probability_plot"].some(k => k === key)) return null;
                   else if (String(key).includes("date")) return (
                     <Text as="p" key={`file-row-${key}`} textTransform="none">
                       {`${key}: ${formatDate(value)}`}

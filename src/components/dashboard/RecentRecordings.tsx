@@ -5,10 +5,13 @@ import {FileData} from "../../api/types";
 import NextLink from "next/link";
 
 /*
-  Checks if recording is assigned to any examination, and whether its status is completed
+  Checks if recording is assigned to any examination,
+  and whether its status is processing_failed or processing_succeeded
 */
 const condition = (rec: FileData) => {
-  return rec.examination != null && rec.examination.status === "completed";
+  return rec.examination != null && (
+    rec.examination.status === "processing_failed" || rec.examination.status === "processing_succeeded"
+  );
 };
 
 
