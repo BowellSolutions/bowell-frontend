@@ -18,12 +18,13 @@ This setup uses Node 14 and yarn.
 
 ### Frontend
 
-- Next JS with Typescript
+- `next`, `typescript` Next JS with Typescript
 - `axios` - HTTP client
 - `redux`, `@reduxjs/toolkit`, `next-redux-wrapper` - (global) state management
 - `sass` - Scss support
 - `chakra-ui` + dependencies (such as `emotion`, `framer-motion`) - UI libraries
 - `formik`, `yup` - form validation
+- `recharts` - plots
 - `jest` + dependencies - unit tests
 - `cypress` + dependencies - E2E testing
 
