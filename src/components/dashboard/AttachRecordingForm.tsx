@@ -1,7 +1,7 @@
 import {ChangeEvent, FC, FormEvent, useState} from "react";
 import {Box, Button, Flex, FormControl, FormLabel, Heading, Select, useToast} from "@chakra-ui/react";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
-import {editExamination, retrieveExaminations} from "../../redux/actions/dashboard";
+import {editExamination, retrieveRecordings} from "../../redux/actions/dashboard";
 
 interface AttachRecordingFormProps {
   onClose: () => void,
@@ -23,7 +23,7 @@ const AttachRecordingForm: FC<AttachRecordingFormProps> = ({onClose, recordingId
       dispatch(
         editExamination({id: Number(selectedExamination), recording: recordingId})
       ).unwrap().then(() => {
-        dispatch(retrieveExaminations(undefined));
+        dispatch(retrieveRecordings(undefined));
         if (!toast.isActive("success-toast-attach")) {
           toast({
             id: "success-toast-attach",
