@@ -1,8 +1,8 @@
 import AxiosClient from "./axiosClient";
-import {CreateExaminationData, ExaminationData, Response, UpdateExaminationData} from "./types";
+import {CreateExaminationData, ExaminationData, PaginatedResponse, Response, UpdateExaminationData} from "./types";
 import {AxiosRequestConfig} from "axios";
 
-export const getExaminations = (options?: AxiosRequestConfig): Promise<Response<ExaminationData[]>> => {
+export const getExaminations = (options?: AxiosRequestConfig): Promise<PaginatedResponse<ExaminationData>> => {
   return AxiosClient.get('/examinations/', {...options});
 };
 

@@ -4,6 +4,15 @@ import {RootState} from "../redux/reducers";
 
 export type Response<T> = AxiosResponse<T>;
 
+export type PaginatedResponseData<T> = {
+  count: number;
+  previous: string | null,
+  next: string | null,
+  results: T[]
+}
+
+export type PaginatedResponse<T> = Response<PaginatedResponseData<T>>
+
 export interface UserData {
   id: number,
   username: string,
@@ -31,6 +40,11 @@ export interface RegisterUserData {
   password: string,
   type: string, // DOCTOR | PATIENT
   birth_date: string | null, // null is here just to match register form's birthDate field type
+}
+
+export interface ProbabilityPlotData {
+  start: number | string,
+  probability: number | string,
 }
 
 export interface FileData {
@@ -85,6 +99,9 @@ export interface FileData {
   total_sound_duration_per_3minutes?: number,
   // technical details
   similarity_to_training_set?: number,
+
+  // raw model output
+  probability_plot: ProbabilityPlotData[] | null
 }
 
 export interface UserInfo {
@@ -141,7 +158,14 @@ export interface UpdateExaminationData {
   overview?: string,
 }
 
+export interface DoctorStatisticsData {
+  examination_count: number,
+  patients_related_count: number,
+  examinations_scheduled_count: number,
+  examinations_next_week_count: number,
+}
+
 
 export interface HydrateAction extends Action<"__NEXT_REDUX_WRAPPER_HYDRATE__"> {
-  payload: RootState
+  payload: RootState;
 }

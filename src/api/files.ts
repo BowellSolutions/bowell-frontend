@@ -1,8 +1,8 @@
 import AxiosClient from "./axiosClient";
-import {FileData, Response} from "./types";
+import {FileData, Response, PaginatedResponse} from "./types";
 import {AxiosRequestConfig} from "axios";
 
-export const getFiles = (options?: AxiosRequestConfig): Promise<Response<FileData[]>> => {
+export const getFiles = (options?: AxiosRequestConfig): Promise<PaginatedResponse<FileData>> => {
   return AxiosClient.get('/recordings/', {...options});
 };
 
