@@ -6,7 +6,12 @@ import PatientDashboard from "../../components/views/patient/Dashboard";
 import {AppState, wrapper} from "../../redux/store";
 import {checkAuth} from "../../redux/actions/auth";
 import {authFail} from "../../redux/reducers/auth";
-import {retrieveExaminations, retrievePatients, retrieveRecordings} from "../../redux/actions/dashboard";
+import {
+  retrieveDoctorStatistics,
+  retrieveExaminations,
+  retrievePatients,
+  retrieveRecordings
+} from "../../redux/actions/dashboard";
 
 const DashboardHome: NextPage<AppState> = () => {
   return (
@@ -53,10 +58,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
       // dispatch check auth to verify token, get user if token is valid - to fill state on server side
       await store.dispatch<any>(checkAuth(cookies.access));
 
-      // load examinations, recordings, patients
+      // load examinations, recordings, patients, statistics
       await store.dispatch<any>(retrieveExaminations(cookies.access));
       await store.dispatch<any>(retrieveRecordings(cookies.access));
       await store.dispatch<any>(retrievePatients(cookies.access));
+      await store.dispatch<any>(retrieveDoctorStatistics(cookies.access));
 
       return {
         props: {}

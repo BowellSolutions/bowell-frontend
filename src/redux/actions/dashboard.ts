@@ -9,9 +9,17 @@ import {
 } from "../reducers/dashboard";
 import {getFiles} from "../../api/files";
 import {createExamination, getExaminations, updateExamination} from "../../api/examinations";
-import {getPatients} from "../../api/patients";
+import {getPatients} from "../../api/users";
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {CreateExaminationData, ExaminationData, FileData, UpdateExaminationData, UserData} from "../../api/types";
+import {
+  CreateExaminationData,
+  DoctorStatisticsData,
+  ExaminationData,
+  FileData,
+  UpdateExaminationData,
+  UserData
+} from "../../api/types";
+import {getDoctorStatistics} from "../../api/statistics";
 
 export const retrieveExaminations = createAsyncThunk<ExaminationData[], any>(
   "dashboard/retrieveExaminations",
@@ -22,14 +30,14 @@ export const retrieveExaminations = createAsyncThunk<ExaminationData[], any>(
       );
 
       if (res.status === 200) {
-        const examinations = res.data;
+        const examinations = res.data.results;
         const state = getState() as AppState;
         // if examinations are the same as the ones from request
         // do not dispatch anything
         if (state.dashboard.examinations !== examinations) {
           dispatch(getExaminationsSuccess(examinations));
         }
-        return res.data;
+        return examinations;
       } else {
         dispatch(getExaminationsFail());
         return rejectWithValue(res);
@@ -68,7 +76,7 @@ export const retrieveRecordings = createAsyncThunk<FileData[], any>(
       );
 
       if (res.status === 200) {
-        const recordings = res.data;
+        const recordings = res.data.results;
         const state = getState() as AppState;
         // if recordings are the same as the ones from request
         // do not dispatch anything
@@ -97,7 +105,7 @@ export const retrievePatients = createAsyncThunk<UserData[], any>(
       );
 
       if (res.status === 200) {
-        const patients = res.data;
+        const patients = res.data.results;
         const state = getState() as AppState;
         // if patients are the same as the ones from request
         // do not dispatch anything
@@ -113,6 +121,25 @@ export const retrievePatients = createAsyncThunk<UserData[], any>(
 
     } catch (err) {
       dispatch(getPatientsFail());
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const retrieveDoctorStatistics = createAsyncThunk<DoctorStatisticsData, any>(
+  'dashboard/retrieveStatistics',
+  async (token, {rejectWithValue}) => {
+    try {
+      const res = await getDoctorStatistics(
+        token ? {headers: {Authorization: `Bearer ${token}`}} : {}
+      );
+
+      if (res.status === 200) {
+        return res.data;
+      } else {
+        return rejectWithValue(res);
+      }
+    } catch (err) {
       return rejectWithValue(err);
     }
   }

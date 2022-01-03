@@ -2,7 +2,7 @@ import Card from "../card/Card";
 import CardBody from "../card/CardBody";
 import {Flex, Icon, SimpleGrid, Stat, StatLabel, StatNumber, useColorModeValue} from "@chakra-ui/react";
 import IconBox from "../icons/IconBox";
-import {FC, useState} from "react";
+import {FC} from "react";
 import {useAppSelector} from "../../redux/hooks";
 import {BiReceipt} from "react-icons/bi";
 import {BsFillPeopleFill, BsCalendarWeek} from "react-icons/bs";
@@ -13,12 +13,6 @@ const StatisticsBoxes: FC = () => {
   const iconTeal = useColorModeValue("teal.300", "teal.300");
   const iconBoxInside = useColorModeValue("white", "white");
   const textColor = useColorModeValue("gray.700", "white");
-
-  // to do data fetching or receiving it as props
-  const [patientsCount, setPatientsCount] = useState<number>(3);
-  const [totalExaminations, setTotalExaminations] = useState<number>(12);
-  const [pendingExaminations, setPendingExaminations] = useState<number>(3);
-  const [thisWeekExaminations, setThisWeekExaminations] = useState<number>(0);
 
   const statistics = useAppSelector(state => state.dashboard.statistics);
 
@@ -37,7 +31,7 @@ const StatisticsBoxes: FC = () => {
                 {"Patients Count"}
               </StatLabel>
               <StatNumber fontSize="lg" color={textColor}>
-                {patientsCount}
+                {statistics != null && statistics.patients_related_count}
               </StatNumber>
             </Stat>
             <IconBox
@@ -63,7 +57,7 @@ const StatisticsBoxes: FC = () => {
                 {"Total Examinations"}
               </StatLabel>
               <StatNumber fontSize="lg" color={textColor}>
-                {totalExaminations}
+                {statistics != null && statistics.examination_count}
               </StatNumber>
             </Stat>
             <IconBox
@@ -89,7 +83,7 @@ const StatisticsBoxes: FC = () => {
                 Pending Examinations
               </StatLabel>
               <StatNumber fontSize="lg" color={textColor}>
-                {pendingExaminations}
+                {statistics != null && statistics.examinations_scheduled_count}
               </StatNumber>
             </Stat>
             <IconBox
@@ -115,7 +109,7 @@ const StatisticsBoxes: FC = () => {
                 Examinations This Week
               </StatLabel>
               <StatNumber fontSize="lg" color={textColor} fontWeight="bold">
-                {thisWeekExaminations}
+                {statistics != null && statistics.examinations_next_week_count}
               </StatNumber>
             </Stat>
             <IconBox

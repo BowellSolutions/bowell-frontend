@@ -1,20 +1,20 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {HYDRATE} from "next-redux-wrapper";
-import {ExaminationData, FileData, HydrateAction, UserData} from "../../api/types";
-import {addExamination, editExamination} from "../actions/dashboard";
+import {DoctorStatisticsData, ExaminationData, FileData, HydrateAction, UserData} from "../../api/types";
+import {addExamination, editExamination, retrieveDoctorStatistics} from "../actions/dashboard";
 
 export interface DashboardState {
   patients: UserData[],
   examinations: ExaminationData[],
   recordings: FileData[],
-  statistics?: any, // not done yet
+  statistics: DoctorStatisticsData | null,
 }
 
 const initialState: DashboardState = {
   patients: [],
   examinations: [],
   recordings: [],
-  statistics: null, // not done yet
+  statistics: null,
 };
 
 
@@ -51,6 +51,10 @@ export const dashboardSlice = createSlice({
   },
 
   extraReducers: (builder) => {
+    builder.addCase(retrieveDoctorStatistics.fulfilled, (state, action) => {
+      state.statistics = action.payload;
+    })
+
     builder.addCase(addExamination.fulfilled, (state, action) => {
       state.examinations = [...state.examinations, action.payload];
     });
