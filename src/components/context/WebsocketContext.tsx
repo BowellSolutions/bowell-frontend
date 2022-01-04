@@ -1,9 +1,10 @@
 import {createContext, FC, Fragment, ReactNode, useCallback, useContext, useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {useAppSelector} from "../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 import {API_HOST, WS_SCHEME} from "../../config";
 import {useToast} from "@chakra-ui/react";
+import {addNotification, setWebsocketStatus} from "../../redux/reducers/dashboard";
 
 type WebsocketMessageType = "echo" | "";  // extend with types from backend
 
@@ -14,8 +15,6 @@ export interface WebsocketMessage {
 
 interface WebsocketContextState {
   sendMessage: (jsonMessage: any, keep?: boolean) => void,
-  connectionStatus: string,           // later replace with dispatch to store
-  notifications: WebsocketMessage[],  // later replace with dispatch to store
 }
 
 const WebsocketContext = createContext<WebsocketContextState>({} as WebsocketContextState);
@@ -38,8 +37,7 @@ const WebsocketContextProvider: FC<WebsocketContextProviderProps> = ({children})
   const isSSR = typeof window === undefined;
   const router = useRouter();
 
-  const [notifications, setNotifications] = useState<WebsocketMessage[]>([]);
-
+  const dispatch = useAppDispatch();
   const {user, isAuthenticated} = useAppSelector(state => state.auth);
 
   const toast = useToast();
@@ -62,11 +60,9 @@ const WebsocketContextProvider: FC<WebsocketContextProviderProps> = ({children})
         // dispatch proper action based on type property
         switch (content.type) {
           case "echo":
-            setNotifications(prev => prev.concat(content));
-            console.log(content); // debug only
+            dispatch(addNotification(content));
             break;
           default:
-            console.log(content); // debug only
             break;
         }
       },
@@ -91,6 +87,11 @@ const WebsocketContextProvider: FC<WebsocketContextProviderProps> = ({children})
     (jsonMessage: any, keep?: boolean) => sendJsonMessage(jsonMessage, keep), [sendJsonMessage]
   );
 
+  useEffect(() => {
+    // dispatch connection status on change
+    dispatch(setWebsocketStatus(statusMapping[readyState]));
+  }, [dispatch, readyState])
+
   if (isSSR) return (
     <Fragment>{children}</Fragment>
   );
@@ -98,8 +99,6 @@ const WebsocketContextProvider: FC<WebsocketContextProviderProps> = ({children})
   return (
     <WebsocketContext.Provider value={{
       sendMessage: sendMessage,
-      connectionStatus: statusMapping[readyState],  // later replace with dispatch to store
-      notifications: notifications, // later replace with dispatch to store
     }}>
       {children}
     </WebsocketContext.Provider>

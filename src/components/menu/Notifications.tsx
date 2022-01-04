@@ -1,16 +1,18 @@
 import {BellIcon} from "@chakra-ui/icons";
 import {Box, Flex, Menu, MenuButton, MenuItem, MenuList, Text} from "@chakra-ui/react";
-import {FC, useState} from "react";
+import {FC} from "react";
 import ItemContent from "./ItemContent";
-import {useWebSocketContext} from "../context/WebsocketContext";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
+import {removeNotification} from "../../redux/reducers/dashboard";
 
 interface NotificationsProps {
   color: string,
 }
 
 const Notifications: FC<NotificationsProps> = ({color}) => {
-  const {notifications} = useWebSocketContext();
-  const [items] = useState(notifications.reverse());
+  const dispatch = useAppDispatch();
+  const notifications = useAppSelector(state => state.dashboard.notifications);
+  const items = notifications.slice(0, 5); // display only 5 latest notifications
 
   return (
     <Menu>
@@ -32,7 +34,7 @@ const Notifications: FC<NotificationsProps> = ({color}) => {
           </MenuButton>
 
 
-          <MenuList p="16px 8px">
+          <MenuList px="4px" py="8px">
             {items.length === 0 ? (
               <Text fontSize="sm" textAlign="center">
                 There are no notifications...
@@ -42,7 +44,9 @@ const Notifications: FC<NotificationsProps> = ({color}) => {
                 {items.map(({payload}, idx) => (
                   <MenuItem
                     key={`notifications-item-${idx}`}
-                    borderRadius="8px" mb={idx !== items.length - 1 ? "10px" : "0"}
+                    borderRadius="8px" mb={idx !== items.length - 1 ? "4px" : "0"}
+                    px="4px" mx={0}
+                    closeOnSelect={false}
                   >
                     <ItemContent
                       aName="A"
@@ -50,6 +54,9 @@ const Notifications: FC<NotificationsProps> = ({color}) => {
                       boldInfo={"Recording"}
                       info={payload}
                       time={"1 minute ago"}
+                      deleteItem={() => {
+                        dispatch(removeNotification(idx));
+                      }}
                       key={`notifications-item-${idx}-content`}
                     />
                   </MenuItem>
