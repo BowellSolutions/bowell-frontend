@@ -19,7 +19,7 @@ const ItemContent: FC<ItemContentProps> = (
 
   return (
     <>
-      <Avatar name={aName} src={aSrc} borderRadius="12px" me="16px"/>
+      <Avatar name={aName} src={aSrc} borderRadius="12px" mr="8px"/>
       <Flex flexDirection="column">
         <Text fontSize="14px" mb="5px" color={notificationColor}>
           <Text fontWeight="bold" fontSize="14px" as="span">
