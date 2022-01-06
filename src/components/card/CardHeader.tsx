@@ -7,7 +7,7 @@ interface CardHeaderProps extends BoxProps {
 }
 
 const CardHeader: FC<CardHeaderProps> = ({variant, children, ...rest}) => {
-  const styles = useStyleConfig("CardHeader", variant ? {variant} : undefined);
+  const styles = useStyleConfig("CardHeader");
   // Pass the computed styles into the `__css` prop
   return (
     <Box __css={styles} {...rest}>

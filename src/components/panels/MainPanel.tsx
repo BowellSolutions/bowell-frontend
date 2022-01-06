@@ -7,7 +7,7 @@ interface MainPanelProps extends BoxProps {
 }
 
 const MainPanel: FC<MainPanelProps> = ({variant, children, ...rest}) => {
-  const styles = useStyleConfig("MainPanel", variant ? {variant} : undefined);
+  const styles = useStyleConfig("MainPanel");
   // Pass the computed styles into the `__css` prop
   return (
     <Box __css={styles} {...rest}>
