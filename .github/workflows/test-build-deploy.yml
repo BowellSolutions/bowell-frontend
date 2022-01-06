@@ -54,12 +54,12 @@ jobs:
       - name: build the image
         run: |
           docker buildx build \
-            --tag ${{ steps.image_name.outputs.name }} \
+            --tag ${{ secrets.PCR_URL }}/bowelsound/${{ steps.image_name.outputs.name }} \
             --platform linux/amd64 --push=true \
             --build-arg API_URL=https://api.bowelsound.gddc.pl/api --build-arg API_ACCESS_TOKEN_LIFETIME=3600 \
             --file Dockerfile.prod \
-            --cache-from=type=registry,ref=torisels/front:latest \
-            --cache-to=type=registry,ref=torisels/front:latest,mode=max .
+            --cache-from=type=registry,ref=${{ secrets.PCR_URL }}/bowelsound/cache/front:latest \
+            --cache-to=type=registry,ref=${{ secrets.PCR_URL }}/bowelsound/cache/front:latest,mode=max .
   deploy:
     name: Deploy to k8s
     runs-on: self-hosted
