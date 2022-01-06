@@ -7,7 +7,7 @@ interface PanelContainerProps extends BoxProps {
 }
 
 const PanelContainer: FC<PanelContainerProps> = ({variant, children, ...rest}) => {
-  const styles = useStyleConfig("PanelContainer", {variant: variant});
+  const styles = useStyleConfig("PanelContainer", variant ? {variant} : undefined);
   // Pass the computed styles into the `__css` prop
   return (
     <Box __css={styles} {...rest}>
