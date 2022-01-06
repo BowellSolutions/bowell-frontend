@@ -7,7 +7,7 @@ interface CardBodyProps extends BoxProps {
 }
 
 const CardBody: FC<CardBodyProps> = ({variant, children, ...rest}) => {
-  const styles = useStyleConfig("CardBody", {variant});
+  const styles = useStyleConfig("CardBody", {variant: variant});
   // Pass the computed styles into the `__css` prop
   return (
     <Box __css={styles} {...rest}>
