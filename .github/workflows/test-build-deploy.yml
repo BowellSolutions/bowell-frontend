@@ -11,89 +11,73 @@ on:
 
 
 jobs:
-  jest-tests:
-    name: Jest run
+  # jest-tests:
+  #   name: Jest run
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Use Node.js 14
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 14
+  #     - name: Install dependencies
+  #       run: |
+  #         yarn install
+  #     - name: Run tests
+  #       run: |
+  #         yarn test --coverage
+  build-image:
+    name: Build docker image
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Use Node.js 14
-        uses: actions/setup-node@v1
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      - name: Generate image's name based on tag and date
+        id: image_name
+        run: echo "::set-output name=name::frontend:${{ steps.date.outputs.date }}_${{ github.run_number }}"
+      - name: Login to private container registry
+        uses: docker/login-action@v1 
         with:
-          node-version: 14
-      - name: Install dependencies
+          registry: ${{ secrets.PCR_URL }}
+          username: ${{ secrets.PCR_USER_NAME }}
+          password: ${{ secrets.PCR_PASSWORD }}
+      - name: install buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v1
+        with:
+          version: latest
+      - name: build the image
         run: |
-          yarn install
-      - name: Run tests
-        run: |
-          yarn test --coverage
-
-#   cypress-tests:
-#    name: Cypress run
-#    runs-on: ubuntu-latest
-
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#      - name: Cypress run
-#        uses: cypress-io/github-action@v2
-#        with:
-#          build: yarn build
-#          start: yarn start
-#          wait-on: http://localhost:3000
-
-  build-and-deploy:
-    name: build image
+          docker buildx build \
+            --tag ${{ steps.image_name.outputs.name }} \
+            --platform linux/amd64 --push=true \
+            --build-arg API_URL=https://api.bowelsound.gddc.pl/api --build-arg API_ACCESS_TOKEN_LIFETIME=3600 \
+            --file Dockerfile.prod \
+            --cache-from=type=registry,ref=torisels/front:latest \
+            --cache-to=type=registry,ref=torisels/front:latest,mode=max .
+  deploy:
+    name: Deploy to k8s
     runs-on: self-hosted
-    needs: [jest-tests]
+    needs: [build-image]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
       - name: Checkout infra
         uses: actions/checkout@v2
         with:
           repository: BowellSolutions/bowell-infra
           token: ${{ secrets.GH_PAT }} 
           path: infra_front
-          ref: develop
+          ref: develop          
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
-      - name: Set buildkit pod name
-        id: buildkit_pod
-        run: echo "::set-output name=pod_name::front-buildkit-${{ github.run_number }}"
       - name: Generate image's name based on tag and date
         id: image_name
         run: echo "::set-output name=name::frontend:${{ steps.date.outputs.date }}_${{ github.run_number }}"
-      - name: Kubectl apply buildkit pod
-        run: |
-          cat infra_front/build-agents/buildkit/pod.yaml | sed "s|{{POD_NAME}}|${{ steps.buildkit_pod.outputs.pod_name }}|" | kubectl apply -f -
-      - name: Build image
-        run: |
-          kubectl wait --timeout=300s --for=condition=Ready pod/${{ steps.buildkit_pod.outputs.pod_name }} -n build-agents-dev 
-          kubectl exec -n build-agents-dev ${{ steps.buildkit_pod.outputs.pod_name }} -- update-ca-certificates 
-          kubectl cp ./ ${{ steps.buildkit_pod.outputs.pod_name }}:/tmp/bcontext -n build-agents-dev 
-          kubectl exec -n build-agents-dev ${{ steps.buildkit_pod.outputs.pod_name }} -- buildctl \
-                    build \
-                    --frontend dockerfile.v0 \
-                    --local dockerfile=. \
-                    --local context=/tmp/bcontext \
-                    --frontend-opt filename=tmp/bcontext/Dockerfile.prod \
-                    --output type=image,\"name=nexus.nexus-dev.svc.cluster.local:5056/bowelsound/${{ steps.image_name.outputs.name }},nexus.nexus-dev.svc.cluster.local:5056/bowelsound/frontend:latest\",push=true \
-                    --export-cache type=registry,ref=torisels/frontendn:latest,mode=max \
-                    --import-cache type=registry,ref=torisels/frontendn:latest \
-                    --opt build-arg:API_URL=https://api.bowelsound.gddc.pl/api \
-                    --opt build-arg:API_ACCESS_TOKEN_LIFETIME=3600 
-          retVal=$?
-
-          if [ "$retVal" -ne "0" ]; then
-              echo "Error when generating image"
-              kubectl logs ${{ steps.buildkit_pod.outputs.pod_name }} -n build-agents-dev --tail 1000 && kubectl delete pod -n build-agents-dev ${{ steps.buildkit_pod.outputs.pod_name }}
-              exit 1
-          fi
-          kubectl delete pod -n build-agents-dev ${{ steps.buildkit_pod.outputs.pod_name }}
-          
       - name: Apply new deployment
         run : |
           sed "s|{{IMAGE_NAME}}|${{ steps.image_name.outputs.name }}|" infra_front/frontend/k8s/deployment.yaml | kubectl apply -f -
