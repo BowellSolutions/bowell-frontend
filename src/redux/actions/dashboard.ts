@@ -1,6 +1,7 @@
-import {AppThunk} from "../store";
+import {AppState} from "../store";
 import {
-  getExaminationsFail, getExaminationsSuccess,
+  getExaminationsFail,
+  getExaminationsSuccess,
   getPatientsFail,
   getPatientsSuccess,
   getRecordingsFail,
@@ -8,30 +9,46 @@ import {
 } from "../reducers/dashboard";
 import {getFiles} from "../../api/files";
 import {createExamination, getExaminations, updateExamination} from "../../api/examinations";
-import {getPatients} from "../../api/patients";
+import {getPatients} from "../../api/users";
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {CreateExaminationData, ExaminationData, UpdateExaminationData} from "../../api/types";
+import {
+  CreateExaminationData,
+  DoctorStatisticsData,
+  ExaminationData,
+  FileData,
+  UpdateExaminationData,
+  UserData
+} from "../../api/types";
+import {getDoctorStatistics} from "../../api/statistics";
 
-export const loadExaminations = (): AppThunk => async (dispatch, getState) => {
-  try {
-    const res = await getExaminations();
+export const retrieveExaminations = createAsyncThunk<ExaminationData[], any>(
+  "dashboard/retrieveExaminations",
+  async (token, {dispatch, getState, rejectWithValue}) => {
+    try {
+      const res = await getExaminations(
+        token ? {headers: {Authorization: `Bearer ${token}`}} : {}
+      );
 
-    if (res.status === 200) {
-      const examinations = res.data;
-      const state = getState();
-      // if examinations are the same as the ones from request
-      // do not dispatch anything
-      if (state.dashboard.examinations !== examinations) {
-        dispatch(getExaminationsSuccess(examinations));
+      if (res.status === 200) {
+        const examinations = res.data.results;
+        const state = getState() as AppState;
+        // if examinations are the same as the ones from request
+        // do not dispatch anything
+        if (state.dashboard.examinations !== examinations) {
+          dispatch(getExaminationsSuccess(examinations));
+        }
+        return examinations;
+      } else {
+        dispatch(getExaminationsFail());
+        return rejectWithValue(res);
       }
-    } else {
-      dispatch(getExaminationsFail());
-    }
 
-  } catch (e) {
-    dispatch(getExaminationsFail());
+    } catch (err) {
+      dispatch(getExaminationsFail());
+      return rejectWithValue(err);
+    }
   }
-};
+);
 
 export const addExamination = createAsyncThunk<ExaminationData, CreateExaminationData>(
   "dashboard/addExamination",
@@ -50,49 +67,80 @@ export const editExamination = createAsyncThunk<ExaminationData, UpdateExaminati
   }
 );
 
-export const loadRecordings = (): AppThunk => async (dispatch, getState) => {
-  try {
-    const res = await getFiles();
+export const retrieveRecordings = createAsyncThunk<FileData[], any>(
+  "dashboard/retrieveRecordings",
+  async (token, {dispatch, getState, rejectWithValue}) => {
+    try {
+      const res = await getFiles(
+        token ? {headers: {Authorization: `Bearer ${token}`}} : {}
+      );
 
-    if (res.status === 200) {
-      const recordings = res.data;
-      const state = getState();
-      // if recordings are the same as the ones from request
-      // do not dispatch anything
-      if (state.dashboard.recordings !== recordings) {
-        dispatch(getRecordingsSuccess(recordings));
+      if (res.status === 200) {
+        const recordings = res.data.results;
+        const state = getState() as AppState;
+        // if recordings are the same as the ones from request
+        // do not dispatch anything
+        if (state.dashboard.recordings !== recordings) {
+          dispatch(getRecordingsSuccess(recordings));
+        }
+        return recordings;
+      } else {
+        dispatch(getRecordingsFail());
+        return rejectWithValue(res);
       }
-    } else {
+
+    } catch (err) {
       dispatch(getRecordingsFail());
+      return rejectWithValue(err);
     }
-
-  } catch (e) {
-    dispatch(getRecordingsFail());
   }
-};
+);
 
+export const retrievePatients = createAsyncThunk<UserData[], any>(
+  "dashboard/retrievePatients",
+  async (token, {dispatch, getState, rejectWithValue}) => {
+    try {
+      const res = await getPatients(
+        token ? {headers: {Authorization: `Bearer ${token}`}} : {}
+      );
 
-export const loadPatients = (): AppThunk => async (dispatch, getState) => {
-  try {
-    const res = await getPatients();
+      if (res.status === 200) {
+        const patients = res.data.results;
+        const state = getState() as AppState;
+        // if patients are the same as the ones from request
+        // do not dispatch anything
+        if (state.dashboard.patients !== patients) {
+          dispatch(getPatientsSuccess(patients));
+        }
+        return patients;
 
-    if (res.status === 200) {
-      const patients = res.data;
-      const state = getState();
-      // if patients are the same as the ones from request
-      // do not dispatch anything
-      if (state.dashboard.patients !== patients) {
-        dispatch(getPatientsSuccess(patients));
+      } else {
+        dispatch(getPatientsFail());
+        return rejectWithValue(res);
       }
 
-    } else {
+    } catch (err) {
       dispatch(getPatientsFail());
+      return rejectWithValue(err);
     }
-
-  } catch (e) {
-    dispatch(getPatientsFail());
   }
-};
+);
 
+export const retrieveDoctorStatistics = createAsyncThunk<DoctorStatisticsData, any>(
+  'dashboard/retrieveStatistics',
+  async (token, {rejectWithValue}) => {
+    try {
+      const res = await getDoctorStatistics(
+        token ? {headers: {Authorization: `Bearer ${token}`}} : {}
+      );
 
-
+      if (res.status === 200) {
+        return res.data;
+      } else {
+        return rejectWithValue(res);
+      }
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);

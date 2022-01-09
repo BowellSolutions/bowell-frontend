@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useState} from "react";
 import {
   Flex,
   Icon,
@@ -19,19 +19,16 @@ import CardHeader from "../../card/CardHeader";
 import PatientsTableRow from "../../tables/PatientsTableRow";
 import Card from "../../card/Card";
 import {useAppSelector} from "../../../redux/hooks";
-import {useDispatch} from "react-redux";
-import {loadPatients} from "../../../redux/actions/dashboard";
 import useTableFilter from "../../../hooks/useTableFilter";
 
 
 const Patients: FC = () => {
   const textColor = useColorModeValue("gray.700", "white");
 
-  const dispatch = useDispatch();
+  const user = useAppSelector(state => state.auth.user);
   const patients = useAppSelector(
     state => state.dashboard.patients.filter(p => p.type === "PATIENT" && p.id !== user?.id)
   );
-  const user = useAppSelector(state => state.auth.user);
 
   const [query, setQuery] = useState<string>(""); // rows will be filtered by this query
 
@@ -41,14 +38,9 @@ const Patients: FC = () => {
     query
   );
 
-  useEffect(() => {
-    // load patients on each load because they could have changed
-    dispatch(loadPatients());
-  }, []);
-
   return (
     <Flex direction="column" pt={{base: "120px", md: "75px"}}>
-      <Card overflowX={{sm: "scroll", xl: "hidden"}}>
+      <Card overflowX={{sm: "scroll", xl: "hidden"}} px={{base: "12px", md: "24px"}}>
         <CardHeader p="6px 0px 22px 0px">
           <Flex alignItems="center" grow={1}>
             <Text fontSize="xl" color={textColor} fontWeight="bold">
@@ -56,7 +48,7 @@ const Patients: FC = () => {
             </Text>
           </Flex>
 
-          <Flex>
+          <Flex ml={{base: "12px", md: 0}} maxW={{base: "70%", md: "none"}}>
             <InputGroup>
               <InputLeftElement pointerEvents="none">
                 <Icon as={AiOutlineSearch}/>

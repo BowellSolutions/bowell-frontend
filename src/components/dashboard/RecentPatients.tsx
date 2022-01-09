@@ -1,7 +1,14 @@
 import {useAppSelector} from "../../redux/hooks";
 import {Avatar, Box, Flex, SimpleGrid, Text, useColorModeValue} from "@chakra-ui/react";
-import {formatDate} from "../views/utils/format";
+import {formatDate, getDaysBetweenDates} from "../views/utils/format";
 import NextLink from "next/link";
+import {UserData} from "../../api/types";
+
+const DAYS_RECENT = 14;
+
+const condition = (p: UserData) => {
+  return p.type === "PATIENT" && getDaysBetweenDates(new Date(), new Date(p.date_joined)) < DAYS_RECENT;
+}
 
 const RecentPatients = () => {
   const patients = useAppSelector(state => state.dashboard.patients);
@@ -11,7 +18,7 @@ const RecentPatients = () => {
 
   return (
     <SimpleGrid columns={{sm: 1, md: 2, lg: 1, xl: 2}} spacing={{sm: "8px", md: "12px", lg: "16px"}}>
-      {patients.length > 0 && patients.filter(p => p.type === "PATIENT").map((patient) => (
+      {patients.length > 0 && patients.filter(condition).map((patient) => (
         <Box
           px="16px" py="12px"
           bg={bgColor} borderRadius="12px" w="100%"

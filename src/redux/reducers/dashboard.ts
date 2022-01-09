@@ -1,20 +1,20 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {HYDRATE} from "next-redux-wrapper";
-import {ExaminationData, FileData, UserData} from "../../api/types";
-import {addExamination, editExamination} from "../actions/dashboard";
+import {DoctorStatisticsData, ExaminationData, FileData, HydrateAction, UserData} from "../../api/types";
+import {addExamination, editExamination, retrieveDoctorStatistics} from "../actions/dashboard";
 
-interface State {
+export interface DashboardState {
   patients: UserData[],
   examinations: ExaminationData[],
   recordings: FileData[],
-  statistics?: any, // not done yet
+  statistics: DoctorStatisticsData | null,
 }
 
-const initialState: State = {
+const initialState: DashboardState = {
   patients: [],
   examinations: [],
   recordings: [],
-  statistics: null, // not done yet
+  statistics: null,
 };
 
 
@@ -51,6 +51,10 @@ export const dashboardSlice = createSlice({
   },
 
   extraReducers: (builder) => {
+    builder.addCase(retrieveDoctorStatistics.fulfilled, (state, action) => {
+      state.statistics = action.payload;
+    })
+
     builder.addCase(addExamination.fulfilled, (state, action) => {
       state.examinations = [...state.examinations, action.payload];
     });
@@ -63,9 +67,16 @@ export const dashboardSlice = createSlice({
       };
     });
 
-    builder.addCase(HYDRATE, (state, action) => {
-      const _action = action as any;
-      return {...state, ..._action.payload};
+    builder.addCase(HYDRATE, (state, action: HydrateAction) => {
+      const srvState = action.payload.dashboard;
+
+      return {
+        // do not allow server to clear state - persist values between switching pages
+        examinations: srvState.examinations.length > 0 ? srvState.examinations : state.examinations,
+        patients: srvState.patients.length > 0 ? srvState.patients : state.patients,
+        recordings: srvState.recordings.length > 0 ? srvState.recordings : state.recordings,
+        statistics: srvState.statistics != null ? srvState.statistics : state.statistics,
+      };
     });
   },
 

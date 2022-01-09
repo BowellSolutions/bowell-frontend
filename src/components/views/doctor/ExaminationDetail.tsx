@@ -7,9 +7,8 @@ import CardBody from "../../card/CardBody";
 import {FileData} from "../../../api/types";
 import {getFile} from "../../../api/files";
 import {formatDate} from "../utils/format";
-import {CartesianGrid, Label, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
-import {data} from "../../../data/graph";
 import EditExaminationModal from "../../dashboard/EditExaminationModal";
+import ProbabilityPlot from "../../dashboard/ProbabilityPlot";
 
 interface DoctorExaminationDetailProps {
   examinationID: number | string,
@@ -112,39 +111,19 @@ const DoctorExaminationDetail: FC<DoctorExaminationDetailProps> = ({examinationI
             </CardBody>
           </Card>
 
-          {/* Later change it to something else */}
-          {examination.status === "completed" && (
-            <Card w="100%" m={{base: "8px 0", md: "8px"}}>
-              <CardHeader mb="16px">
-                <Text fontSize="lg" fontWeight="bold" mb="10px" userSelect="none">
-                  Probability vs time graph
-                </Text>
-              </CardHeader>
-
-              <ResponsiveContainer width="100%" height="100%" minHeight={550} maxHeight={600}>
-                <LineChart
-                  width={500}
-                  height={300}
-                  data={data}
-                  margin={{
-                    top: 0,
-                    right: 30,
-                    left: 20,
-                    bottom: 15,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="2 2"/>
-                  <XAxis dataKey="x">
-                    <Label value="Time [s]" offset={-10} position="insideBottom"/>
-                  </XAxis>
-                  <YAxis>
-                    <Label value="Probability of a having bowel sound" offset={5} position="left" angle={-90}/>
-                  </YAxis>
-                  <Tooltip/>
-                  <Line type="monotone" dataKey="y" stroke="#319795" dot={false}/>
-                </LineChart>
-              </ResponsiveContainer>
-            </Card>
+          {/*
+             Show probability vs time graph only if examination is in processing_succeeded state
+             and probability_plot is not null
+          */}
+          {examination.status === "processing_succeeded" && recording?.probability_plot && (
+            <ProbabilityPlot
+              title="Probability vs time graph"
+              data={recording.probability_plot}
+              x_key="start"
+              y_key="probability"
+              x_label="Time [s]"
+              y_label="Probability of a having bowel sound"
+            />
           )}
         </Flex>
 
@@ -160,7 +139,7 @@ const DoctorExaminationDetail: FC<DoctorExaminationDetailProps> = ({examinationI
             {examination?.recording && recording != null && Object.entries(recording).map(
               ([key, value], idx) => {
                 // data already present in the table
-                if (key === "id" || key === "uploaded_at") return null;
+                if (["id", "uploaded_at", "uploader", "probability_plot"].some(k => k === key)) return null;
                 else if (String(key).includes("date")) return (
                   <Text as="p" key={`file-row-${key}`} textTransform="none">
                     {`${key}: ${formatDate(value)}`}

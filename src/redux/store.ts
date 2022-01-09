@@ -9,6 +9,11 @@ import {createWrapper} from "next-redux-wrapper";
 const makeStore = () => configureStore({
   reducer: rootReducer,
   devTools: process.env.NODE_ENV === "development",
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware({
+      serializableCheck: false,
+    });
+  }
 });
 
 export type AppStore = ReturnType<typeof makeStore>;

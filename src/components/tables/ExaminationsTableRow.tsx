@@ -1,22 +1,22 @@
 import {FC} from "react";
 import {ExaminationData} from "../../api/types";
-import {Box, Collapse, Flex, Icon, IconButton, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Collapse, Flex, FlexProps, Icon, IconButton, Text, useColorModeValue} from "@chakra-ui/react";
 import {useDisclosure} from "@chakra-ui/hooks";
 import {MdExpandLess, MdExpandMore} from "react-icons/md";
 import {DeleteIcon} from "@chakra-ui/icons";
 import FileUpload from "../dashboard/FileUpload";
 import {updateExamination} from "../../api/examinations";
 import {useDispatch} from "react-redux";
-import {loadExaminations, loadRecordings} from "../../redux/actions/dashboard";
+import {retrieveExaminations, retrieveRecordings} from "../../redux/actions/dashboard";
 import {formatDate} from "components/views/utils/format";
 import EditExaminationModal from "../dashboard/EditExaminationModal";
 import NextLink from "next/link";
 
-interface ExaminationsTableRowProps {
+interface ExaminationsTableRowProps extends FlexProps {
   examination: ExaminationData,
 }
 
-const ExaminationsTableRow: FC<ExaminationsTableRowProps> = ({examination}) => {
+const ExaminationsTableRow: FC<ExaminationsTableRowProps> = ({examination, ...flexProps}) => {
   const textColor = useColorModeValue("gray.700", "white");
   const bgColor = useColorModeValue("#F8F9FA", "gray.800");
   const nameColor = useColorModeValue("gray.500", "white");
@@ -28,16 +28,17 @@ const ExaminationsTableRow: FC<ExaminationsTableRowProps> = ({examination}) => {
   const handleDetachFile = () => {
     if (examination.recording != null) {
       updateExamination(examination.id, {recording: null}).then((res) => {
-        dispatch(loadExaminations());
-        dispatch(loadRecordings());
+        dispatch(retrieveExaminations(undefined));
+        dispatch(retrieveRecordings(undefined));
       });
     }
   };
 
   return (
     <Flex
-      px="24px" py="12px" bg={bgColor} my="8px" mx="8px"
+      px="24px" py="12px" bg={bgColor} my="0" mx="8px"
       borderRadius="12px" w="100%" direction="column"
+      {...flexProps}
     >
       <Flex justify="space-between" w="100%">
         <Flex direction="column" maxWidth="70%">

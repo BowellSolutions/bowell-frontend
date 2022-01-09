@@ -17,11 +17,14 @@ import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {loginUser, resetRegister} from "../../redux/actions/auth";
 import {useFormik} from "formik";
 import * as Yup from "yup";
+import {useRouter} from "next/router";
 
 const Login: FC = () => {
   const titleColor = useColorModeValue("teal.300", "teal.200");
   const textColor = useColorModeValue("gray.400", "white");
   const bgColor = useColorModeValue("white", "gray.700");
+
+  const router = useRouter();
 
   const dispatch = useAppDispatch();
   const {loading, register_success} = useAppSelector((state) => state.auth);
@@ -41,6 +44,7 @@ const Login: FC = () => {
       dispatch(
         loginUser({email: values.email, password: values.password})
       ).unwrap().then((res) => {
+          router.push('/dashboard').then();
           if (!toast.isActive("success-toast")) {
             toast({
               id: "success-toast",

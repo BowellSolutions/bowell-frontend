@@ -5,7 +5,6 @@ import {
   authFail,
   authSuccess,
   loadUserFail,
-  loadUserSuccess,
   loginFail,
   loginSuccess,
   logoutFail,
@@ -14,7 +13,8 @@ import {
   refreshSuccess,
   removeAuthLoading,
   resetRegisterSuccess,
-  setAuthLoading, setRegisterSuccess
+  setAuthLoading,
+  setRegisterSuccess
 } from "../reducers/auth";
 import {clearDashboardData} from "../reducers/dashboard";
 import {LoginUserData, RegisterUserData, UserData} from "../../api/types";
@@ -36,7 +36,7 @@ export const loginUser = createAsyncThunk<any, LoginUserData>(
       if (res.status === 200 && res) {
         dispatch(removeAuthLoading());
         dispatch(loginSuccess());
-        dispatch<any>(loadUser());
+        dispatch<any>(getUser(undefined));
         return res.data;
       } else {
         dispatch(removeAuthLoading());
@@ -54,19 +54,28 @@ export const loginUser = createAsyncThunk<any, LoginUserData>(
   }
 );
 
-export const loadUser = (): AppThunk => async (dispatch) => {
-  try {
-    const res = await getCurrentUser();
-    const userData = res.data;
+export const getUser = createAsyncThunk<UserData, any>(
+  'auth/getUser',
+  async (token, {dispatch, rejectWithValue}) => {
+    try {
+      const res = await getCurrentUser(
+        token ? {headers: {Authorization: `Bearer ${token}`}, withCredentials: true} : {}
+      );
+      const userData = res.data;
 
-    if (res.status === 200) {
-      dispatch(loadUserSuccess(userData));
-    } else dispatch(loadUserFail());
+      if (res.status === 200) {
+        return userData;
+      } else {
+        dispatch(loadUserFail());
+        return rejectWithValue(res);
+      }
 
-  } catch (err) {
-    dispatch(loadUserFail());
-  }
-};
+    } catch (err) {
+      dispatch(loadUserFail());
+      return rejectWithValue(err);
+    }
+  },
+);
 
 export const resetRegister = (): AppThunk => (dispatch) => {
   dispatch(resetRegisterSuccess());
@@ -93,6 +102,31 @@ export const setRefreshTimer = (): AppThunk => (dispatch) => {
   }, Number(ACCESS_TOKEN_LIFETIME) * 1000);
 };
 
+export const checkAuth = createAsyncThunk<{}, any>(
+  'auth/checkAuth',
+  async (token, {dispatch, rejectWithValue}) => {
+    try {
+      const res = await verifyToken(
+        token,
+        token ? {headers: {Authorization: `Bearer ${token}`}, withCredentials: true} : {});
+
+      if (res.status === 200) {
+        dispatch(authSuccess());
+        dispatch<any>(setRefreshTimer());
+        await dispatch(getUser(token));
+        return res.data;
+      } else {
+        dispatch(authFail());
+        return rejectWithValue(res);
+      }
+    } catch (err) {
+      dispatch(authFail());
+      return rejectWithValue(err);
+    }
+  },
+);
+
+// change later
 export const checkAuthStatus = (): AppThunk => async (dispatch, getState) => {
   try {
     const res = await verifyToken();
@@ -104,7 +138,7 @@ export const checkAuthStatus = (): AppThunk => async (dispatch, getState) => {
 
       // do not fetch user if it is already inside the store
       if (state.auth.user == null) {
-        dispatch(loadUser());
+        dispatch(getUser(undefined));
       }
 
     } else {
@@ -115,19 +149,27 @@ export const checkAuthStatus = (): AppThunk => async (dispatch, getState) => {
   }
 };
 
-export const logoutUser = (): AppThunk => async (dispatch) => {
-  try {
-    const res = await logout();
+export const logoutUser = createAsyncThunk<{}, void>(
+  'auth/logoutUser',
+  async (arg, {dispatch, rejectWithValue}) => {
+    try {
+      const res = await logout();
 
-    if (res.status === 200) {
-      dispatch(logoutSuccess());
-      dispatch(clearDashboardData());
-    } else dispatch(logoutFail());
+      if (res.status === 200) {
+        dispatch(logoutSuccess());
+        dispatch(clearDashboardData());
+        return res.data;
+      } else {
+        dispatch(logoutFail());
+        return rejectWithValue(res);
+      }
 
-  } catch (err) {
-    dispatch(logoutFail());
+    } catch (err) {
+      dispatch(logoutFail());
+      return rejectWithValue(err);
+    }
   }
-};
+);
 
 export const registerUser = createAsyncThunk<UserData, RegisterUserData>(
   'auth/registerUser',

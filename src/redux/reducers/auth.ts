@@ -1,15 +1,17 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {checkAuth, getUser} from "../actions/auth";
+import {HydrateAction, UserData} from "../../api/types";
 import {HYDRATE} from "next-redux-wrapper";
-import {UserData} from "../../api/types";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-interface State {
+
+export interface AuthState {
   user: null | UserData,
   isAuthenticated: boolean,
   loading: boolean,
   register_success: boolean,
 }
 
-const initialState: State = {
+const initialState: AuthState = {
   user: null,
   isAuthenticated: false,
   loading: false,
@@ -69,13 +71,35 @@ export const authSlice = createSlice({
     },
   },
 
-  extraReducers: {
-    [HYDRATE]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(checkAuth.fulfilled, (state, action) => {
+      state.isAuthenticated = true;
+    });
+
+    builder.addCase(checkAuth.rejected, (state, action) => {
+      state.isAuthenticated = false;
+    });
+
+    builder.addCase(getUser.fulfilled, (state, action) => {
+      state.isAuthenticated = true;
+      state.user = action.payload;
+    });
+
+    builder.addCase(getUser.rejected, (state, action) => {
+      state.isAuthenticated = false;
+      state.user = null;
+    });
+
+    builder.addCase(HYDRATE, (state, action: HydrateAction) => {
+      const serverState = action.payload.auth;
+
       return {
         ...state,
-        ...action.payload
+        ...serverState,
+        // persist user when switching pages
+        user: serverState.user != null ? serverState.user : state.user,
       };
-    }
+    });
   }
 });
 

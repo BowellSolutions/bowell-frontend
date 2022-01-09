@@ -3,25 +3,26 @@ import {Box, Divider, Icon} from "@chakra-ui/react";
 import {doctorsRoutes, patientsRoutes} from "../routes";
 import {useDashboardContext} from "../context/DashboardContext";
 import {useRouter} from "next/router";
-import {useAppSelector} from "../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {MdLogin} from "react-icons/md";
 import {IoIosRocket} from "react-icons/io";
 import ButtonActiveLink from "./ButtonActiveLink";
 import ButtonLink from "./ButtonLink";
 import SidebarButton from "./Button";
 import {logoutUser} from "../../redux/actions/auth";
-import {useDispatch} from "react-redux";
 
 
 const SidebarResponsiveLinks: FC = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {type: userType} = useDashboardContext();
   const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated);
 
   const routesToMap = userType === "doctor" ? doctorsRoutes : patientsRoutes;
 
-  const logout = () => dispatch(logoutUser());
+  const logout = () => {
+    dispatch(logoutUser()).unwrap().then(async () => await router.push("/"));
+  };
 
   return (
     <Box>

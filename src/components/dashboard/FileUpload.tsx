@@ -1,10 +1,10 @@
 import {FC, useCallback, useState} from "react";
-import {Box, Button, Flex, Heading, IconButton, Progress, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Button, Flex, IconButton, Progress, Text, useColorModeValue} from "@chakra-ui/react";
 import {uploadFile} from "../../api/files";
 import {useDropzone} from "react-dropzone";
 import {DeleteIcon} from "@chakra-ui/icons";
 import {useDispatch} from "react-redux";
-import {loadRecordings} from "../../redux/actions/dashboard";
+import {retrieveRecordings} from "../../redux/actions/dashboard";
 
 const MAX_SIZE = 1024 * 1024 * 1024;
 
@@ -55,7 +55,7 @@ export const FileUpload: FC<FileUploadProps> = ({examinationId}) => {
           if (res.status === 201) {
             setPercentage(0);
             setError(null);
-            dispatch(loadRecordings()); // reload recordings - later replace with individual object load
+            dispatch(retrieveRecordings(undefined)); // reload recordings - later replace with individual object load
           }
         }
       ).catch(err => {
