@@ -43,9 +43,8 @@ jobs:
       - name: Login to private container registry
         uses: docker/login-action@v1 
         with:
-          registry: ${{ secrets.PCR_URL }}
-          username: ${{ secrets.PCR_USER_NAME }}
-          password: ${{ secrets.PCR_PASSWORD }}
+          username: ${{ secrets.DH_USER_NAME }}
+          password: ${{ secrets.DH_PASSWORD }}
       - name: install buildx
         id: buildx
         uses: crazy-max/ghaction-docker-buildx@v1
@@ -54,7 +53,7 @@ jobs:
       - name: build the image
         run: |
           docker buildx build \
-            --tag ${{ secrets.PCR_URL }}/bowelsound/${{ steps.image_name.outputs.name }} \
+            --tag ${{ secrets.DH_URL }}/bowelsound/${{ steps.image_name.outputs.name }} \
             --platform linux/amd64 --push=true \
             --build-arg API_URL=https://api.bowelsound.gddc.pl/api --build-arg API_ACCESS_TOKEN_LIFETIME=3600 \
             --file Dockerfile.prod .
