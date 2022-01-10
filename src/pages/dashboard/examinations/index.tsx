@@ -6,7 +6,6 @@ import PatientExaminations from "../../../components/views/patient/Examinations"
 import {AppState, wrapper} from "../../../redux/store";
 import {authFail} from "../../../redux/reducers/auth";
 import {checkAuth} from "../../../redux/actions/auth";
-import {retrieveExaminations} from "../../../redux/actions/dashboard";
 
 const ExaminationsPage: NextPage<AppState> = () => {
   return (
@@ -50,11 +49,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
         };
       }
 
-      // dispatch check auth to verify token, get user if token is valid
-      await store.dispatch<any>(checkAuth(cookies.access));
-
-      // load examinations
-      await store.dispatch<any>(retrieveExaminations(cookies.access));
+      await store.dispatch<any>(checkAuth(cookies.access))
 
       return {
         props: {}
