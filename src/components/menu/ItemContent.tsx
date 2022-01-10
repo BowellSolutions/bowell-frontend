@@ -1,7 +1,9 @@
 import {Icon} from "@chakra-ui/icon";
-import {Avatar, Flex, Text, useColorModeValue} from "@chakra-ui/react";
+import {Avatar, CloseButton, Flex, Text, useColorModeValue} from "@chakra-ui/react";
 import {AiFillClockCircle} from "react-icons/ai";
 import {FC} from "react";
+import {useAppDispatch} from "../../redux/hooks";
+import {removeNotification} from "../../redux/reducers/dashboard";
 
 interface ItemContentProps {
   aName: string,
@@ -9,18 +11,20 @@ interface ItemContentProps {
   boldInfo: string,
   info: string,
   time: string,
+  deleteItem: () => void,
 }
 
 const ItemContent: FC<ItemContentProps> = (
-  {aName, aSrc, boldInfo, info, time}
+  {aName, aSrc, boldInfo, info, time, deleteItem}
 ) => {
   const navbarIcon = useColorModeValue("gray.500", "gray.200");
   const notificationColor = useColorModeValue("gray.700", "white");
 
   return (
     <>
-      <Avatar name={aName} src={aSrc} borderRadius="12px" me="16px"/>
-      <Flex flexDirection="column">
+      <Avatar name={aName} src={aSrc} borderRadius="12px" mr="8px"/>
+
+      <Flex flexDirection="column" mr="8px" flexGrow={1}>
         <Text fontSize="14px" mb="5px" color={notificationColor}>
           <Text fontWeight="bold" fontSize="14px" as="span">
             {boldInfo}{" "}
@@ -40,6 +44,8 @@ const ItemContent: FC<ItemContentProps> = (
           </Text>
         </Flex>
       </Flex>
+
+      <CloseButton onClick={deleteItem}/>
     </>
   );
 };

@@ -6,7 +6,9 @@ describe('Test dashboard reducer', () => {
     patients: [],
     examinations: [],
     recordings: [],
-    statistics: null
+    statistics: null,
+    notifications: [],
+    websocket_status: "Uninstantiated",
   };
 
   it('should return the initial state', () => {

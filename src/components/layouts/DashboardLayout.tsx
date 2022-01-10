@@ -1,4 +1,4 @@
-import React, {FC, ReactNode, useEffect, useRef, useState} from "react";
+import React, {FC, ReactNode, useRef, useState} from "react";
 import ScrollToTopButton from "../utils/ScrollToTopButton";
 import {useDisclosure} from "@chakra-ui/hooks";
 import Footer from "../footer/Footer";
@@ -10,8 +10,6 @@ import Sidebar from "../sidebar/Sidebar";
 import Configurator from "../configurator/Configurator";
 import {Portal} from "@chakra-ui/react";
 import Head from "next/head";
-import {useDispatch} from "react-redux";
-import {checkAuthStatus} from "../../redux/actions/auth";
 import DashboardContext from "../context/DashboardContext";
 
 export type UserType = "doctor" | "patient";
@@ -39,12 +37,6 @@ const DashboardLayout: FC<DashboardLayoutProps> = (
   const {isOpen, onOpen, onClose} = useDisclosure();
 
   const mainPanel = useRef(null);
-
-  const dispatch = useDispatch();
-  // useEffect(() => {
-  //   // check if we are still authenticated
-  //   if (dispatch != null) dispatch(checkAuthStatus());
-  // }, [dispatch]);
 
   return (
     <>
