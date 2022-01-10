@@ -1,23 +1,30 @@
-import {ChangeEvent, FC, useState} from "react";
+import {ChangeEvent, FC, useEffect, useState} from "react";
 import {Flex, Select, Table, Tbody, Text, Th, Thead, Tr, useColorModeValue} from "@chakra-ui/react";
 import CardBody from "../../card/CardBody";
 import CardHeader from "../../card/CardHeader";
 import Card from "../../card/Card";
 import FileUpload from "../../dashboard/FileUpload";
 import RecordingsTableRow from "../../tables/RecordingsTableRow";
-import {useAppSelector} from "../../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
 import {formatDate} from "../utils/format";
+import {retrieveRecordings} from "../../../redux/actions/dashboard";
 
 
 const Recordings: FC = () => {
   const textColor = useColorModeValue("gray.700", "white");
 
+  const dispatch = useAppDispatch();
   const recordings = useAppSelector(state => state.dashboard.recordings);
   const examinations = useAppSelector(state => state.dashboard.examinations);
 
   const [selected, setSelected] = useState<string>("");
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => setSelected(e.target.value);
+
+  useEffect(() => {
+    dispatch(retrieveRecordings(undefined));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Flex direction="column" pt={{base: "120px", md: "75px"}}>

@@ -1,13 +1,13 @@
-import {FC} from "react";
+import {FC, useEffect} from "react";
 import {Avatar, Box, Button, Flex, Grid, Text, useColorModeValue} from "@chakra-ui/react";
 import CardBody from "../../card/CardBody";
 import CardHeader from "../../card/CardHeader";
 import Card from "../../card/Card";
-import {useAppSelector} from "../../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
 import {ExaminationData, UserData} from "../../../api/types";
-import {useDispatch} from "react-redux";
 import NextLink from "next/link";
 import {formatDate} from "../utils/format";
+import {retrieveExaminations, retrievePatients, retrieveRecordings} from "../../../redux/actions/dashboard";
 
 interface PatientsProps {
   patients: UserData[],
@@ -141,9 +141,17 @@ const Profile: FC = () => {
   );
   const emailColor = useColorModeValue("gray.400", "gray.300");
 
+  const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.auth.user);
   const patients = useAppSelector(state => state.dashboard.patients.filter(p => p.type === "PATIENT"));
   const examinations = useAppSelector(state => state.dashboard.examinations);
+
+  useEffect(() => {
+    dispatch(retrieveExaminations(undefined));
+    dispatch(retrieveRecordings(undefined));
+    dispatch(retrievePatients(undefined));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Flex direction="column">

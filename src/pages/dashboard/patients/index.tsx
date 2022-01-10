@@ -5,7 +5,6 @@ import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import {AppState, wrapper} from "../../../redux/store";
 import {authFail} from "../../../redux/reducers/auth";
 import {checkAuth} from "../../../redux/actions/auth";
-import {retrievePatients} from "../../../redux/actions/dashboard";
 
 const PatientsPage: NextPage<AppState> = () => {
   return (
@@ -53,9 +52,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
           }
         };
       }
-
-      // load patients
-      await store.dispatch<any>(retrievePatients(cookies.access));
 
       return {
         props: {}

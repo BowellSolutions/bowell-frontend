@@ -53,7 +53,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       }
 
       // dispatch check auth to verify token, get user if token is valid - to fill state on server side
-      await store.dispatch<any>(checkAuth(context.req.headers.cookie));
+      await store.dispatch<any>(checkAuth(cookies.access));
 
       return {
         props: {}
