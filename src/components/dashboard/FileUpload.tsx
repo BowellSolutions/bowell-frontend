@@ -1,5 +1,5 @@
 import {FC, useCallback, useState} from "react";
-import {Box, Button, Flex, IconButton, Progress, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Button, Flex, IconButton, Progress, Text, useColorModeValue, useToast} from "@chakra-ui/react";
 import {uploadFile} from "../../api/files";
 import {useDropzone} from "react-dropzone";
 import {DeleteIcon} from "@chakra-ui/icons";
@@ -22,6 +22,8 @@ export const FileUpload: FC<FileUploadProps> = ({examinationId}) => {
   const [error, setError] = useState<any>(null);
 
   const dispatch = useDispatch();
+
+  const toast = useToast();
 
   const dropzoneBgColorActive = useColorModeValue("gray.50", "transparent");
   const dropzoneBgColorAccept = useColorModeValue("gray.100", "gray.600");
@@ -55,11 +57,25 @@ export const FileUpload: FC<FileUploadProps> = ({examinationId}) => {
           if (res.status === 201) {
             setPercentage(0);
             setError(null);
+            toast({
+              id: "success-upload-file",
+              description: "Successfully uploaded file!",
+              status: "success",
+              duration: 2500,
+              isClosable: true,
+            });
             dispatch(retrieveRecordings(undefined)); // reload recordings - later replace with individual object load
           }
         }
       ).catch(err => {
         setError(JSON.stringify(err));
+        toast({
+          id: "error-upload-file",
+          description: "File upload did not succeed!",
+          status: "error",
+          duration: 2500,
+          isClosable: true,
+        });
       });
     }
   };

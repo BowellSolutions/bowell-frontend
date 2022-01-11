@@ -104,6 +104,12 @@ export interface FileData {
   probability_plot: ProbabilityPlotData[] | null
 }
 
+export interface InferenceResults {
+  task_id: string | number,
+  status: string,
+  result?: FileData,
+}
+
 export interface UserInfo {
   id: number,
   first_name: string,
@@ -138,6 +144,7 @@ export interface ExaminationData {
   recording: RecordingInExamination | null,
   date: Date | string,
   overview?: string,
+  analysis_id?: string,
 }
 
 export interface CreateExaminationData {

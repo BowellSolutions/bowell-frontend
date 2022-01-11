@@ -58,6 +58,14 @@ export const dashboardSlice = createSlice({
       state.notifications = [action.payload, ...state.notifications];
     },
 
+    updateExamination: (state, action) => {
+      const index = state.examinations.findIndex(ex => ex.id === action.payload.id);
+      state.examinations[index] = {
+        ...state.examinations[index],
+        ...action.payload,
+      };
+    },
+
     removeNotification: (state, action) => {
       const index = action.payload;
       state.notifications = state.notifications.filter((_, idx) => idx !== index);
@@ -120,6 +128,7 @@ export const {
   getRecordingsFail,
   getExaminationsSuccess,
   getExaminationsFail,
+  updateExamination,
   addNotification,
   removeNotification,
   setWebsocketStatus,
