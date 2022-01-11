@@ -80,7 +80,8 @@ const Recordings: FC = () => {
           </Text>
 
           <Select my="8px" placeholder="Choose an existing examination" onChange={handleChange}>
-            {examinations.length > 0 && examinations.map((examination) => (
+            {/* Display examinations which do not have an assigned recording */}
+            {examinations.length > 0 && examinations.filter(ex => ex.recording == null).map((examination) => (
               <option key={`option-exam-${examination.id}`} value={examination.id}>
                 Examination (#{examination.id}) --
                 {examination?.patient?.first_name} {examination?.patient?.last_name} (id. {examination?.patient?.id}) --

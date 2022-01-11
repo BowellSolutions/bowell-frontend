@@ -39,32 +39,27 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
         <Td minWidth={{sm: "50px"}} pl="0px" borderBottom={borderBottom}>
           <Flex align="center" py=".8rem" minWidth="100%" flexWrap="nowrap">
             <Flex direction="column">
-              <NextLink href={`/dashboard/recordings/${encodeURIComponent(fileId)}`}>
-                <Text
-                  fontSize="md"
-                  fontWeight="bold"
-                  color={textColor}
-                  minWidth="100%"
-                  _hover={{textDecoration: "underline", cursor: "pointer"}}
-                >
-                  {fileId}
-                </Text></NextLink>
+              <Text
+                fontSize="md"
+                fontWeight="600"
+                color={textColor}
+                minWidth="100%"
+              >
+                {fileId}
+              </Text>
             </Flex>
           </Flex>
         </Td>
 
         <Td minWidth={{sm: "200px"}} borderBottom={borderBottom}>
           <Flex direction="column">
-            <NextLink href={`/dashboard/recordings/${encodeURIComponent(fileId)}`}>
-              <Text
-                fontSize="md"
-                color={textColor}
-                textTransform="none"
-                _hover={{textDecoration: "underline", cursor: "pointer"}}
-              >
-                {name}
-              </Text>
-            </NextLink>
+            <Text
+              fontSize="md"
+              color={textColor}
+              textTransform="none"
+            >
+              {name}
+            </Text>
           </Flex>
         </Td>
 

@@ -4,9 +4,9 @@ import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 import {API_HOST, WS_SCHEME} from "../../config";
 import {useToast} from "@chakra-ui/react";
-import {addNotification, setWebsocketStatus} from "../../redux/reducers/dashboard";
+import {addNotification, setWebsocketStatus, updateExamination} from "../../redux/reducers/dashboard";
 
-type WebsocketMessageType = "echo" | "";  // extend with types from backend
+type WebsocketMessageType = "notify" | "update_examination";  // extend with types from backend
 
 export interface WebsocketMessage {
   type: WebsocketMessageType,
@@ -57,10 +57,14 @@ const WebsocketContextProvider: FC<WebsocketContextProviderProps> = ({children})
         // parse incoming message object
         const content: WebsocketMessage = JSON.parse(event.data);
 
+        dispatch(addNotification(content));
+
         // dispatch proper action based on type property
         switch (content.type) {
-          case "echo":
-            dispatch(addNotification(content));
+          case "notify":
+            break;
+          case "update_examination":
+            dispatch(updateExamination(content.payload));
             break;
           default:
             break;
@@ -90,7 +94,7 @@ const WebsocketContextProvider: FC<WebsocketContextProviderProps> = ({children})
   useEffect(() => {
     // dispatch connection status on change
     dispatch(setWebsocketStatus(statusMapping[readyState]));
-  }, [dispatch, readyState])
+  }, [dispatch, readyState]);
 
   if (isSSR) return (
     <Fragment>{children}</Fragment>

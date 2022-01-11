@@ -4,6 +4,7 @@ import {FC} from "react";
 import ItemContent from "./ItemContent";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {removeNotification} from "../../redux/reducers/dashboard";
+import {formatDate} from "../views/utils/format";
 
 interface NotificationsProps {
   color: string,
@@ -41,7 +42,7 @@ const Notifications: FC<NotificationsProps> = ({color}) => {
               </Text>
             ) : (
               <Flex flexDirection="column">
-                {items.map(({payload}, idx) => (
+                {items.map(({message, type, timestamp}, idx) => (
                   <MenuItem
                     key={`notifications-item-${idx}`}
                     borderRadius="8px" mb={idx !== items.length - 1 ? "4px" : "0"}
@@ -49,11 +50,10 @@ const Notifications: FC<NotificationsProps> = ({color}) => {
                     closeOnSelect={false}
                   >
                     <ItemContent
-                      aName="A"
-                      aSrc={""}
-                      boldInfo={"Recording"}
-                      info={payload}
-                      time={"1 minute ago"}
+                      letter={type === "notify" || type === "update_examination" ? "R" : "S"}
+                      boldInfo={type === "notify" || type === "update_examination" ? "Recording" : "System"}
+                      info={message}
+                      time={`${formatDate(timestamp)}`}
                       deleteItem={() => {
                         dispatch(removeNotification(idx));
                       }}
