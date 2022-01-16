@@ -1,3 +1,8 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Handles dashboard examinations route - /dashboard/examinations/
+ * Authorized only route.
+ **/
 import {NextPage} from "next";
 import Examinations from "../../../components/views/doctor/Examinations";
 import DispatchLayout from "../../../components/views/utils/DispatchLayout";

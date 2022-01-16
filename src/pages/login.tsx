@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Handles /login route
+ **/
 import {NextPage} from "next";
 import Login from "../components/views/Login";
 import AuthLayout from "../components/layouts/AuthLayout";

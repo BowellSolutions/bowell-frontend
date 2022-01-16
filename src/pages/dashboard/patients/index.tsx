@@ -1,3 +1,8 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Handles dashboard profile route - /dashboard/patients/
+ * Authorized and doctor only route.
+ **/
 import {NextPage} from "next";
 import Patients from "../../../components/views/doctor/Patients";
 import DispatchLayout from "../../../components/views/utils/DispatchLayout";

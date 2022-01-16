@@ -1,3 +1,8 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Handles dashboard profile route - /dashboard/profile
+ * Authorized only route.
+ **/
 import {NextPage} from "next";
 import Profile from "../../../components/views/doctor/Profile";
 import DispatchLayout from "../../../components/views/utils/DispatchLayout";
@@ -6,7 +11,6 @@ import PatientProfile from "../../../components/views/patient/Profile";
 import {AppState, wrapper} from "../../../redux/store";
 import {authFail} from "../../../redux/reducers/auth";
 import {checkAuth} from "../../../redux/actions/auth";
-import {retrieveExaminations, retrievePatients, retrieveRecordings} from "../../../redux/actions/dashboard";
 
 const ProfilePage: NextPage<AppState> = () => {
   return (

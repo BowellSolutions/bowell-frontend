@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: 404 page rendered by Next.js
+ **/
 import {NextPage} from "next";
 import {Flex} from "@chakra-ui/react";
 import PageNotFound from "../components/views/404";

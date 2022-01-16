@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Handles dashboard recordings route - /dashboard/recordings
+ **/
 import {NextPage} from "next";
 import Recordings from "../../../components/views/doctor/Recordings";
 import DispatchLayout from "../../../components/views/utils/DispatchLayout";

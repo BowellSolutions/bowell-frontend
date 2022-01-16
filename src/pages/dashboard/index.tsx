@@ -1,3 +1,8 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Handles dashboard home route - /dashboard
+ * Authorized only route.
+ **/
 import {NextPage} from "next";
 import Dashboard from "../../components/views/doctor/Dashboard";
 import DispatchLayout from "../../components/views/utils/DispatchLayout";

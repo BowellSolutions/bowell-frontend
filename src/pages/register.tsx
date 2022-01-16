@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Handles /register route
+ **/
 import {NextPage} from "next";
 import Register from "../components/views/Register";
 import AuthLayout from "../components/layouts/AuthLayout";
