@@ -1,3 +1,14 @@
+/*
+* @author: Adam Lisichin
+* @file: Exports examination related functions performing HTTP calls with axiosClient
+* Available functions:
+* - getExaminations
+* - getExamination
+* - createExamination
+* - updateExamination
+* - startInference
+* - getInferenceState
+*/
 import AxiosClient from "./axiosClient";
 import {
   CreateExaminationData,

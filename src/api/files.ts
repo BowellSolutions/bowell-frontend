@@ -1,3 +1,12 @@
+/*
+* @author: Adam Lisichin
+* @file: Exports recordings related functions performing HTTP calls with axiosClient
+* Available functions:
+* - getFiles
+* - getFile
+* - deleteFile
+* - uploadFile
+*/
 import AxiosClient from "./axiosClient";
 import {FileData, Response, PaginatedResponse} from "./types";
 import {AxiosRequestConfig} from "axios";
