@@ -24,6 +24,9 @@ export const buttonStyles = {
             boxShadow: "none",
           },
         },
+        "with-shadow": {
+          boxShadow: "0 0 2px 2px #efdfde",
+        },
       },
       baseStyle: {
         borderRadius: "15px",
