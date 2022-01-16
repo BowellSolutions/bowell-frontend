@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports ExaminationForm component - used for editing an existing examination.
+ **/
 import {FC, useState} from "react";
 import {
   Box,
@@ -32,7 +36,16 @@ interface State {
   overview?: string | null,
 }
 
-
+/**
+ * Form with examination optional fields:
+ * - height_cm - number between 1 and 999
+ * - mass_kg - number between 1 and 999
+ * - symptoms - text input
+ * - medication - text input
+ * - status - text choice field
+ * - overview - textarea
+ * Calls API on submit, updates given examination and displays proper toast based on response
+ */
 const EditExaminationForm: FC<EditExaminationFormProps> = ({onClose, examination}) => {
   const initialState: State = {
     height_cm: examination.height_cm,

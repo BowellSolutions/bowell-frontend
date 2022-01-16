@@ -1,4 +1,4 @@
-/*
+/**
 * @author: Adam Lisichin
 * @file: Exports ProfileInfo component which is used in doctor's Profile
 */
@@ -10,7 +10,7 @@ import {formatDate} from "../views/utils/format";
 import Card from "../card/Card";
 import {useAppSelector} from "../../redux/hooks";
 
-/*
+/**
 * Component which displays user data from Redux store in rows.
 */
 const ProfileInfo: FC<BoxProps> = ({...cardProps}) => {

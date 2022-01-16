@@ -1,6 +1,11 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports custom hooks:
+ * - useTableFilter - returns memoized rows filtered by column query
+ **/
 import {useMemo} from "react";
 
-/*
+/**
 * Returns rows filtered by chosen columns. Columns mean (sub)array of row's values.
 * T - type/interface of a row object - row
 * K - array which consists of keys of T - columns

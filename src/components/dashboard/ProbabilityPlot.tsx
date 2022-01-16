@@ -1,3 +1,8 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports ProbabilityPlot component - line chart built with Recharts, presenting probabilities of having
+ * a bowel sound based on machine learning model response.
+ **/
 import CardHeader from "../card/CardHeader";
 import {Text} from "@chakra-ui/react";
 import {CartesianGrid, Label, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";

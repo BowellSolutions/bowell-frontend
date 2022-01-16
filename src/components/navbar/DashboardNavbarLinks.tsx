@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports DashboardNavbarLinks component - links rendered in DashboardNavbar
+ **/
 import {Button, Flex, Icon, useColorModeValue} from "@chakra-ui/react";
 import NextLink from "next/link";
 import {FC, useRef} from "react";

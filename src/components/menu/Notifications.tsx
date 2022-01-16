@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports Notifications component
+ **/
 import {BellIcon} from "@chakra-ui/icons";
 import {Box, Flex, Menu, MenuButton, MenuItem, MenuList, Text} from "@chakra-ui/react";
 import {FC} from "react";
@@ -10,6 +14,11 @@ interface NotificationsProps {
   color: string,
 }
 
+/**
+ * Menu which appears when bell icon is clicked, disappears when it loses focus.
+ * Displays up to 5, the most recent notifications from Redux store.
+ * Each list item is closeable which leads to removing an item for store.
+ */
 const Notifications: FC<NotificationsProps> = ({color}) => {
   const dispatch = useAppDispatch();
   const notifications = useAppSelector(state => state.dashboard.notifications);

@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file:
+ **/
 import {FC, useEffect, useState} from "react";
 import {
   Flex,

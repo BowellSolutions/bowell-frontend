@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports Login component used in /login route
+ **/
 import {
   Button,
   Flex,

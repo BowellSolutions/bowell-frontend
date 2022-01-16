@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports AuthNavbarLinks component - links rendered in AuthNavbar
+ **/
 import NextLink from "next/link";
 import {Button, HStack, Icon, Text} from "@chakra-ui/react";
 import {IoIosHome, IoIosRocket} from "react-icons/io";

@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports ScrollToTopButton component
+ **/
 import {Button, Icon, useColorModeValue} from "@chakra-ui/react";
 import {FC, useEffect, useState} from "react";
 import {BsChevronUp} from "react-icons/bs";
@@ -13,6 +17,10 @@ const styles = {
   },
 };
 
+/**
+ * Floating button which appears when window is scrolled at least to 250px.
+ * When clicked makes page scroll to the top.
+ */
 const ScrollToTopButton: FC = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const navbarIcon = useColorModeValue("gray.500", "gray.200");
@@ -31,6 +39,7 @@ const ScrollToTopButton: FC = () => {
   };
 
   useEffect(() => {
+    // attach toggleVisible on mount, remove on unmount
     window.addEventListener("scroll", toggleVisible);
     return () => window.removeEventListener("scroll", toggleVisible);
   }, []);

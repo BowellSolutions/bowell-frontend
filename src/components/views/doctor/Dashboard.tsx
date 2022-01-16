@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file:
+ **/
 import {FC, useEffect} from "react";
 import {Flex, Grid, Text, useColorModeValue} from "@chakra-ui/react";
 import CardHeader from "../../card/CardHeader";

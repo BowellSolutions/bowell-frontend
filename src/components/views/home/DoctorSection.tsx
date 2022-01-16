@@ -1,4 +1,8 @@
-import React, {FC, useState} from "react";
+/**
+ * @author: Adam Lisichin
+ * @file: Exports DoctorSection component used on home page
+ **/
+import {FC, useState} from "react";
 import {Box, chakra, Flex, useColorModeValue} from "@chakra-ui/react";
 import Carousel from "./Carousel";
 

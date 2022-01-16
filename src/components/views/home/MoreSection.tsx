@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports MoreSection component used on home page
+ **/
 import {Box, Button, chakra, Flex, Image, SimpleGrid, useColorModeValue} from "@chakra-ui/react";
 import NextLink from "next/link";
 

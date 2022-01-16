@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports PageNotFound which is rendered by Next.js whenever it throws 404
+ **/
 import {FC} from "react";
 import {Box, Button, Heading, Text} from "@chakra-ui/react";
 import NextLink from "next/link";

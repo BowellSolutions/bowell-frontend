@@ -1,5 +1,9 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports MobileSection component used on home page
+ **/
 import {Box, chakra, Flex, Image, useColorModeValue} from "@chakra-ui/react";
-import React, {useState} from "react";
+import {useState} from "react";
 
 const images = [
   "/assets/phone_view_1.png",

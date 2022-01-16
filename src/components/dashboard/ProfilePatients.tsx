@@ -1,4 +1,4 @@
-/*
+/**
 * @author: Adam Lisichin
 * @file: Exports ProfilePatients component used in doctor's Profile
 */

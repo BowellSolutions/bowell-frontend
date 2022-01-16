@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports ItemContent component - list item inside the Notifications menu
+ **/
 import {Icon} from "@chakra-ui/icon";
 import {Avatar, CloseButton, Flex, Text, useColorModeValue} from "@chakra-ui/react";
 import {AiFillClockCircle} from "react-icons/ai";

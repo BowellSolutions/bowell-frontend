@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file:
+ **/
 import {ChangeEvent, FC, useEffect, useState} from "react";
 import {Flex, Select, Table, Tbody, Text, Th, Thead, Tr, useColorModeValue} from "@chakra-ui/react";
 import CardBody from "../../card/CardBody";

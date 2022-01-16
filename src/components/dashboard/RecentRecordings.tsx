@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports RecentRecordings component - recently processed recordings in doctor's dashboard
+ **/
 import {FC} from "react";
 import {Box, Flex, SimpleGrid, Text, useColorModeValue} from "@chakra-ui/react";
 import {useAppSelector} from "../../redux/hooks";

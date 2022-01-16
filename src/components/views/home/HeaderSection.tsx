@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports HeaderSection component used on home page
+ **/
 import {
   Box,
   Button,

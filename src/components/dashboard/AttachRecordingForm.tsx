@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports AttachRecordingForm component
+ **/
 import {ChangeEvent, FC, FormEvent, useState} from "react";
 import {Box, Button, Flex, FormControl, FormLabel, Heading, Select, useToast} from "@chakra-ui/react";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
@@ -8,6 +12,9 @@ interface AttachRecordingFormProps {
   recordingId: number,
 }
 
+/**
+ * Form with examination choice field. Calls API on submit and tries to attach the recording to the chosen examination.
+ */
 const AttachRecordingForm: FC<AttachRecordingFormProps> = ({onClose, recordingId}) => {
   const [selectedExamination, setSelectedExamination] = useState<string>("");
 

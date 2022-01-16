@@ -1,3 +1,8 @@
+/**
+ * @author: Adam Lisichin
+ * @file: File with API_URL, ACCESS_TOKEN_LIFETIME, WS_SCHEME and API_HOST constants used globally
+ **/
+
 import getConfig from 'next/config';
 
 const {publicRuntimeConfig} = getConfig();

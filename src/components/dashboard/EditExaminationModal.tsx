@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports ExaminationModal component - modal activated on button click with an examination update form inside
+ **/
 import {FC} from "react";
 import {Button, Flex, Icon, Text, useColorModeValue} from "@chakra-ui/react";
 import {Modal, ModalCloseButton, ModalContent, ModalOverlay} from "@chakra-ui/modal";

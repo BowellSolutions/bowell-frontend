@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports PanelContent component - Box with PanelContent styles from theme
+ **/
 import {Box, BoxProps, useStyleConfig} from "@chakra-ui/react";
 import {FC, ReactNode} from "react";
 

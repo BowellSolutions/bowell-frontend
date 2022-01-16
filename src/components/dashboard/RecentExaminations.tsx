@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports RecentPatients component - examinations coming in 31 days in doctor's dashboard home page
+ **/
 import {FC} from "react";
 import {Button, Flex, Text, useColorModeValue} from "@chakra-ui/react";
 import CardHeader from "../card/CardHeader";

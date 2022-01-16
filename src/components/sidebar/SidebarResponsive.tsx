@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports SidebarResponsiveLinks component - mobile sidebar in dashboard
+ **/
 import {FC, ReactNode, useRef} from "react";
 import {Separator} from "../utils/Separator";
 import {HamburgerIcon} from "@chakra-ui/icons";

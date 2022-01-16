@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file:
+ **/
 import {Button, Flex, SimpleGrid, Text, useToast} from "@chakra-ui/react";
 import {FC, useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../redux/hooks";

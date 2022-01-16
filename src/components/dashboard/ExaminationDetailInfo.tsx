@@ -1,4 +1,4 @@
-/*
+/**
 * @author: Adam Lisichin
 * @file: Exports ExaminationDetailInfo component used in ExaminationDetail
 */

@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports DashboardContext and useDashboardContext - context used to prevent props drilling
+ **/
 import {createContext, useContext} from "react";
 import {UserType} from "../layouts/DashboardLayout";
 

@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports ExaminationModal component - modal with an examination creation form
+ **/
 import {FC} from "react";
 import ExaminationForm from "./ExaminationForm";
 import {useDisclosure} from "@chakra-ui/hooks";

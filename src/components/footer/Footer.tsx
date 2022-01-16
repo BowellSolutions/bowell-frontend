@@ -1,5 +1,9 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports Footer component
+ **/
 import {Flex, Link, Text} from "@chakra-ui/react";
-import React, {FC} from "react";
+import {FC} from "react";
 
 interface FooterProps {
   textColor?: string,

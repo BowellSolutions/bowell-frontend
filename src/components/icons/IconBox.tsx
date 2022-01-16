@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports IconBox component - Flex container with extra styles
+ **/
 import {Flex, FlexProps} from "@chakra-ui/react";
 import {FC, ReactNode} from "react";
 

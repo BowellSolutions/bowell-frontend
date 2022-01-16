@@ -1,4 +1,4 @@
-/*
+/**
 * @author: Adam Lisichin
 * @file: Exports PatientExaminations component which is rendered in Next.js page /dashboard/examinations
 */
