@@ -22,6 +22,7 @@
     "@emotion/styled": "^11",
     "@reduxjs/toolkit": "^1.6.2",
     "axios": "^0.23.0",
+    "chakra-ui-steps": "^1.5.0",
     "formik": "^2.2.9",
     "formik-chakra-ui": "^1.6.0",
     "framer-motion": "^4",

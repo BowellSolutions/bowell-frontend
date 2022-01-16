@@ -12,6 +12,7 @@ import {CardComponent} from "./components/additions/Card";
 import {CardHeaderComponent} from "./components/additions/CardHeader";
 import {font} from "./foundations/fonts";
 import {buttonStyles} from "./components/builtins/button";
+import {Stepper} from "./components/plugins/Steps";
 
 export default extendTheme(
   {breakpoints}, // Breakpoints
@@ -26,5 +27,6 @@ export default extendTheme(
   CardHeaderComponent, // Card Header component
   MainPanelComponent, // Main Panel component
   PanelContentComponent, // Panel Content component
-  PanelContainerComponent // Panel Container component
+  PanelContainerComponent, // Panel Container component
+  Stepper, // chakra-ui-steps Stepper
 );
