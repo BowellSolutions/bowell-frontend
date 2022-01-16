@@ -1,4 +1,8 @@
-import React, {FC, ReactNode, useRef, useState} from "react";
+/*
+* @author: Adam Lisichin
+* @file: Exports DashboardLayout HOC which is used to wrap every dashboard Next.js page
+*/
+import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import ScrollToTopButton from "../utils/ScrollToTopButton";
 import {useDisclosure} from "@chakra-ui/hooks";
 import Footer from "../footer/Footer";
@@ -32,11 +36,49 @@ const DashboardLayout: FC<DashboardLayoutProps> = (
     type,
   }
 ) => {
-  const [sidebarVariant, setSidebarVariant] = useState<SidebarVariantType>("transparent");
-  const [fixed, setFixed] = useState<boolean>(false);
+  const [sidebarVariant, setSidebarVariant] = useState<SidebarVariantType>(() => {
+    if (typeof window !== "undefined") {
+      // if found a valid key in localStorage, keep it
+      const item = localStorage.getItem("dashboard-sidebar-type");
+      if (item === "transparent" || item === "opaque") return item;
+      // else set default value in case somebody manually changed it to random string
+      else localStorage.setItem("dashboard-sidebar-type", "transparent");
+    }
+    return "transparent";
+  });
+
+  const [fixed, setFixed] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      // if found a valid key in localStorage, keep it
+      const item = localStorage.getItem("dashboard-header-type");
+      if (item === "true" || item === "false") return Boolean(item);
+      // else set default value in case somebody manually changed it to random string
+      else localStorage.setItem("dashboard-header-type", "false");
+    }
+    return false;
+  });
+
   const {isOpen, onOpen, onClose} = useDisclosure();
 
   const mainPanel = useRef(null);
+
+  const setSidebarType = (variant: SidebarVariantType) => {
+    setSidebarVariant(variant);
+    localStorage.setItem("dashboard-sidebar-type", variant);
+  };
+
+  const setFixedHeader = (value: boolean) => {
+    setFixed(value);
+    localStorage.setItem("dashboard-header-type", String(value));
+  };
+
+  useEffect(() => {
+    // save sidebar and header type in localStorage if they have not been set before
+    const sidebarType = localStorage.getItem("dashboard-sidebar-type");
+    const isFixed = localStorage.getItem("dashboard-header-type");
+    if (!sidebarType) localStorage.setItem("dashboard-sidebar-type", "transparent");
+    if (!isFixed) localStorage.setItem("dashboard-header-type", "fixed");
+  }, []);
 
   return (
     <>
@@ -93,9 +135,9 @@ const DashboardLayout: FC<DashboardLayoutProps> = (
             onClose={onClose}
             isChecked={fixed}
             isTransparent={sidebarVariant === "transparent"}
-            onSwitch={(value) => setFixed(value)}
-            onOpaque={() => setSidebarVariant("opaque")}
-            onTransparent={() => setSidebarVariant("transparent")}
+            onSwitch={(value) => setFixedHeader(value)}
+            onOpaque={() => setSidebarType("opaque")}
+            onTransparent={() => setSidebarType("transparent")}
           />
         </MainPanel>
       </DashboardContext.Provider>
