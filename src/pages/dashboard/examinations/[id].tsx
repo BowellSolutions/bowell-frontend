@@ -3,6 +3,7 @@ import {useRouter} from "next/router";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import DispatchLayout from "../../../components/views/utils/DispatchLayout";
 import DoctorExaminationDetail from "../../../components/views/doctor/ExaminationDetail";
+import PatientExaminationDetail from "../../../components/views/patient/ExaminationDetail";
 import {AppState, wrapper} from "../../../redux/store";
 import {authFail} from "../../../redux/reducers/auth";
 import {checkAuth} from "../../../redux/actions/auth";
@@ -31,7 +32,7 @@ const ExaminationDetail: NextPage<AppState> = () => {
           brandText={`Examination #${id}`}
           type="patient"
         >
-          <></>
+          <PatientExaminationDetail examinationID={id as string}/>
         </DashboardLayout>
       }
     />
