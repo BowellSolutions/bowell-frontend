@@ -1,3 +1,14 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports Redux dashboard action creators - mostly async thunks.
+ * Available action creators:
+ * - retrieveExaminations
+ * - addExamination
+ * - editExamination
+ * - retrieveRecordings
+ * - retrievePatients
+ * - retrieveDoctorStatistics
+ **/
 import {AppState} from "../store";
 import {
   getExaminationsFail,

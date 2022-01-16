@@ -1,10 +1,16 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Contains Redux store configuration, exports types and wrapper.
+ * Redux store was integrated with Next.js using:
+ *  - next-redux-wrapper
+ *  - @redux/toolkit
+ **/
 import {Action} from 'redux';
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import rootReducer from './reducers';
 import {configureStore} from "@reduxjs/toolkit";
 import {createWrapper} from "next-redux-wrapper";
 
-/* Next-Redux-Wrapper with Redux Toolkit  */
 
 const makeStore = () => configureStore({
   reducer: rootReducer,
