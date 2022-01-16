@@ -8,6 +8,7 @@ import {getFile} from "../../api/files";
 import AttachRecordingModal from "../dashboard/AttachRecordingModal";
 import NextLink from "next/link";
 import ConfirmDetachModal from "../dashboard/ConfirmDetachModal";
+import RecordingDetails from "../utils/RecordingDetails";
 
 interface RecordingsTableRowProps {
   fileId: number | string,
@@ -115,22 +116,7 @@ const RecordingsTableRow: FC<RecordingsTableRowProps> = (
           <Td colSpan={6} borderTop={0}>
             {
               // iterate over key-value pairs and return data in rows
-              fileDetails != null && Object.entries(fileDetails).map(
-                ([key, value], idx) => {
-                  // data already present in the table
-                  if (["id", "uploaded_at", "uploader", "probability_plot"].some(k => k === key)) return null;
-                  else if (String(key).includes("date")) return (
-                    <Text as="p" key={`file-row-${key}`} textTransform="none">
-                      {`${key}: ${formatDate(value)}`}
-                    </Text>
-                  );
-                  return (
-                    <Text as="p" key={`file-row-${key}`} textTransform="none">
-                      {`${key}: ${value}`}
-                    </Text>
-                  );
-                }
-              )
+              fileDetails != null && <RecordingDetails recordingData={fileDetails}/>
             }
           </Td>
         </Tr>
