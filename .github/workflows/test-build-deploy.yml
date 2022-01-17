@@ -54,7 +54,7 @@ jobs:
         run: |
           docker buildx build \
             --tag torisels/${{ steps.image_name.outputs.name }} \
-            --platform linux/amd64,linux/arm64 --push=true \
+            --platform linux/amd64 --push=true \
             --build-arg API_URL=https://api.bowelsound.gddc.pl/api --build-arg API_ACCESS_TOKEN_LIFETIME=3600 \
             --file Dockerfile.prod .
   deploy:
