@@ -93,12 +93,12 @@ const ExaminationCard: FC<ExaminationsCardProps> = ({examination, verbose = fals
           <Flex direction="column" pt="32px" grow={1}>
             <Text color="gray.400" fontSize="sm" fontWeight="semibold">
               Symptoms:{" "}
-              <Text as="span" color="gray.500">{examination.height_cm}</Text>
+              <Text as="span" color="gray.500">{examination.symptoms}</Text>
             </Text>
 
             <Text color="gray.400" fontSize="sm" fontWeight="semibold">
               Medication:{" "}
-              <Text as="span" color="gray.500">{examination.height_cm}</Text>
+              <Text as="span" color="gray.500">{examination.medication}</Text>
             </Text>
 
             <Text color={nameColor} fontSize="sm" fontWeight="bold" pb="0.25rem">
