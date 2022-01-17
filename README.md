@@ -20,13 +20,20 @@ This setup uses Node 14 and yarn.
 
 - `next`, `typescript` Next JS with Typescript
 - `axios` - HTTP client
-- `redux`, `@reduxjs/toolkit`, `next-redux-wrapper` - (global) state management
+- `redux`, `react-redux`, `@reduxjs/toolkit`, `next-redux-wrapper` - (global) state management
 - `sass` - Scss support
 - `chakra-ui` + dependencies (such as `emotion`, `framer-motion`) - UI libraries
 - `formik`, `yup` - form validation
+- `react-use-websockets` - websocket client
+- `react-dropzone` - drop zone component used for file upload
 - `recharts` - plots
 - `jest` + dependencies - unit tests
-- `cypress` + dependencies - E2E testing
+- `cypress` + dependencies - E2E testing  
+and more...
+
+## File Structure
+
+Click [here](FILES.md) to read project's file structure documentation.
 
 ## Development setup
 
@@ -59,11 +66,15 @@ Jest (unit tests)
 yarn test
 ```
 
-Cypress (e2e tests)
+Cypress (e2e tests) - multiple ways to run:
 
 ```shell
-yarn e2e
+yarn e2e                  # with dev server
+yarn e2e:headless         # windowless cypress with dev server
+yarn e2e:prod             # cypress with production build
+yarn e2e:prod:headless    # windowless cypress with production build
 ```
+
 
 ### With Docker
 
