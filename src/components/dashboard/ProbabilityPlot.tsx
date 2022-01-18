@@ -4,11 +4,13 @@
  * a bowel sound based on machine learning model response.
  **/
 import CardHeader from "../card/CardHeader";
-import {Text} from "@chakra-ui/react";
+import {Button, Checkbox, Flex, Input, Select, Text} from "@chakra-ui/react";
 import {CartesianGrid, Label, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import Card from "../card/Card";
-import {FC} from "react";
+import {FC, useCallback, useMemo, useState} from "react";
 import {ProbabilityPlotData} from "../../api/types";
+import {useCurrentPng} from "recharts-to-png";
+import FileSaver from "file-saver";
 
 
 interface ProbabilityPlotProps {
@@ -23,6 +25,28 @@ interface ProbabilityPlotProps {
 export const ProbabilityPlot: FC<ProbabilityPlotProps> = (
   {data, x_key, y_key, title, x_label, y_label}
 ) => {
+  const [step, setStep] = useState<number>(1);
+  const [lineColor, setLineColor] = useState<string>("#319795");
+  const [dotsEnabled, setDotsEnabled] = useState<boolean>(false);
+
+  // return memoized data (calculate only if data or step has changed)
+  const plot = useMemo(() => {
+    // reduce number of points by filtering with step
+    return data.filter(p => (Number(p.start) / step) % 1 === 0);
+  }, [data, step]);
+
+  const [getPng, {ref, isLoading}] = useCurrentPng();
+  const handleDownload = useCallback(async () => {
+    const png = await getPng();
+
+    // Verify that png is not undefined
+    if (png) {
+      const filename = `bowell-chart-${new Date().toISOString()}.png`;
+      // Download with FileSaver
+      FileSaver.saveAs(png, filename);
+    }
+  }, [getPng]);
+
   return (
     <Card w="100%" m={{base: "8px 0", md: "8px"}}>
       <CardHeader mb="16px">
@@ -35,13 +59,14 @@ export const ProbabilityPlot: FC<ProbabilityPlotProps> = (
         <LineChart
           width={500}
           height={300}
-          data={data}
+          data={plot}
           margin={{
             top: 0,
             right: 30,
             left: 20,
             bottom: 15,
           }}
+          ref={ref}
         >
           <CartesianGrid strokeDasharray="2 2"/>
           <XAxis dataKey={x_key}>
@@ -51,9 +76,83 @@ export const ProbabilityPlot: FC<ProbabilityPlotProps> = (
             <Label value={y_label} offset={5} position="left" angle={-90}/>
           </YAxis>
           <Tooltip/>
-          <Line type="monotone" dataKey={y_key} stroke="#319795" dot={false}/>
+          <Line type="monotone" dataKey={y_key} stroke={lineColor} dot={dotsEnabled}/>
         </LineChart>
       </ResponsiveContainer>
+
+      <Flex flexDirection="column">
+        <Text fontSize="md" fontWeight="bold" mt="16px" userSelect="none">
+          Options:
+        </Text>
+
+        <Flex alignItems="center">
+          <Flex grow={1}>
+            <Text fontSize="md" fontWeight="semibold" mt="16px" userSelect="none">
+              X axis step:
+            </Text>
+          </Flex>
+
+          <Select
+            w="auto"
+            id="select-time-step"
+            onChange={e => setStep(Number(e.target.value))}
+            value={step}
+          >
+            <option value={10}>10s</option>
+            <option value={5}>5s</option>
+            <option value={2}>2s</option>
+            <option value={1}>1s</option>
+            <option value={0.5}>0.5s</option>
+            <option value={0.1}>0.1s</option>
+            <option value={0.05}>0.05s</option>
+            <option value={0.01}>0.01s</option>
+          </Select>
+        </Flex>
+
+        <Flex alignItems="center" mt="8px">
+          <Flex grow={1}>
+            <Text fontSize="md" fontWeight="semibold" mt="16px" userSelect="none">
+              Line color
+            </Text>
+          </Flex>
+
+          <Input
+            size="sm"
+            w="75px"
+            id="line-color-picker"
+            type="color"
+            value={lineColor}
+            onChange={e => setLineColor(e.target.value)}
+          />
+        </Flex>
+
+        <Flex alignItems="center" mt="8px">
+          <Flex grow={1}>
+            <Text fontSize="md" fontWeight="semibold" mt="16px" userSelect="none">
+              Dots
+            </Text>
+          </Flex>
+
+          <Checkbox
+            size="lg"
+            id="dots-enabled-checkbox"
+            defaultIsChecked={false}
+            onChange={e => setDotsEnabled(e.target.checked)}
+          />
+        </Flex>
+
+        <Flex justifyContent="flex-end" mt="16px">
+          <Button
+            id="btn-save-to-png"
+            onClick={handleDownload}
+            isLoading={isLoading}
+            isDisabled={isLoading}
+            colorScheme="blue"
+          >
+            Save as PNG
+          </Button>
+        </Flex>
+      </Flex>
     </Card>
   );
 };
