@@ -2,7 +2,7 @@
  * @author: Adam Lisichin
  * @file: Exports WelcomeSection component used on home page
  **/
-import {Box, Button, chakra, Flex, Icon, Image, Stack, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Button, chakra, Flex, Icon, Image, Link, Stack, Text, useColorModeValue} from "@chakra-ui/react";
 import NextLink from "next/link";
 
 
@@ -58,45 +58,49 @@ export default function WelcomeSection() {
           justifyContent={{sm: "left", md: "center"}}
         >
           <NextLink passHref href="#welcome-section-image">
-            <Button
-              as="a"
-              variant="solid"
-              colorScheme="teal"
-              display="inline-flex"
-              alignItems="center"
-              justifyContent="center"
-              w={{base: "full", sm: "auto"}}
-              mb={{base: 2, sm: 0}}
-              size="lg"
-              cursor="pointer"
-              leftIcon={
-                <Icon boxSize={4} ml={1} viewBox="0 0 20 20" fill="currentColor">
-                  <path
-                    fillRule="evenodd"
-                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </Icon>
-              }
-            >
-              Get Started
-            </Button>
+            <Link>
+              <Button
+                as="a"
+                variant="solid"
+                colorScheme="teal"
+                display="inline-flex"
+                alignItems="center"
+                justifyContent="center"
+                w={{base: "full", sm: "auto"}}
+                mb={{base: 2, sm: 0}}
+                size="lg"
+                cursor="pointer"
+                leftIcon={
+                  <Icon boxSize={4} ml={1} viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      fillRule="evenodd"
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </Icon>
+                }
+              >
+                Get Started
+              </Button>
+            </Link>
           </NextLink>
 
           <NextLink href="/login" passHref>
-            <Button
-              as="a"
-              colorScheme="gray"
-              display="inline-flex"
-              alignItems="center"
-              justifyContent="center"
-              w={{base: "full", sm: "auto"}}
-              mb={{base: 2, sm: 0}}
-              size="lg"
-              cursor="pointer"
-            >
-              Go To Dashboard
-            </Button>
+            <Link>
+              <Button
+                as="a"
+                colorScheme="gray"
+                display="inline-flex"
+                alignItems="center"
+                justifyContent="center"
+                w={{base: "full", sm: "auto"}}
+                mb={{base: 2, sm: 0}}
+                size="lg"
+                cursor="pointer"
+              >
+                Go To Dashboard
+              </Button>
+            </Link>
           </NextLink>
         </Stack>
       </Box>

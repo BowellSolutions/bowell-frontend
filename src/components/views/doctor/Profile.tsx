@@ -3,7 +3,7 @@
  * @file:
  **/
 import {FC, useEffect} from "react";
-import {Button, Flex, Grid, Text, useColorModeValue} from "@chakra-ui/react";
+import {Button, Flex, Grid, Link, Text, useColorModeValue} from "@chakra-ui/react";
 import CardBody from "../../card/CardBody";
 import CardHeader from "../../card/CardHeader";
 import Card from "../../card/Card";
@@ -55,9 +55,11 @@ const Profile: FC = () => {
 
           <Flex justifyContent="flex-end" alignItems="center">
             <NextLink passHref href="/dashboard/examinations">
-              <Button bgColor="teal.300" color={textColor}>
-                View All
-              </Button>
+              <Link>
+                <Button bgColor="teal.300" color={textColor}>
+                  View All
+                </Button>
+              </Link>
             </NextLink>
           </Flex>
         </Card>
@@ -79,9 +81,11 @@ const Profile: FC = () => {
 
           <Flex justifyContent="flex-end" alignItems="center">
             <NextLink passHref href="/dashboard/patients">
-              <Button bgColor="teal.300" color={textColor}>
-                View All
-              </Button>
+              <Link>
+                <Button bgColor="teal.300" color={textColor}>
+                  View All
+                </Button>
+              </Link>
             </NextLink>
           </Flex>
         </Card>

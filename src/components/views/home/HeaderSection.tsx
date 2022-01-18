@@ -184,49 +184,59 @@ export default function HeaderSection() {
       />
 
       <NextLink href="/" passHref>
-        <Button
-          w="full"
-          variant="ghost"
-          leftIcon={<AiFillHome/>}>
-          Home
-        </Button>
+        <Link>
+          <Button
+            w="full"
+            variant="ghost"
+            leftIcon={<AiFillHome/>}>
+            Home
+          </Button>
+        </Link>
       </NextLink>
 
       <NextLink href="/dashboard" passHref>
-        <Button
-          w="full"
-          variant="ghost"
-          leftIcon={<MdOutlineDashboard/>}>
-          Dashboard
-        </Button>
+        <Link>
+          <Button
+            w="full"
+            variant="ghost"
+            leftIcon={<MdOutlineDashboard/>}>
+            Dashboard
+          </Button>
+        </Link>
       </NextLink>
 
       <NextLink href="/dashboard/examinations" passHref>
-        <Button
-          w="full"
-          variant="ghost"
-          leftIcon={<BiReceipt/>}
-        >
-          Examinations
-        </Button>
+        <Link>
+          <Button
+            w="full"
+            variant="ghost"
+            leftIcon={<BiReceipt/>}
+          >
+            Examinations
+          </Button>
+        </Link>
       </NextLink>
 
       <NextLink href="/dashboard/recordings" passHref>
-        <Button
-          w="full"
-          variant="ghost"
-          leftIcon={<BsFillVolumeUpFill/>}
-        >
-          Recordings
-        </Button>
+        <Link>
+          <Button
+            w="full"
+            variant="ghost"
+            leftIcon={<BsFillVolumeUpFill/>}
+          >
+            Recordings
+          </Button>
+        </Link>
       </NextLink>
 
       {isAuthenticated ? (
         <>
           <NextLink passHref href="/dashboard/profile">
-            <Button w="full" variant="ghost" leftIcon={<BsPersonFill/>}>
-              Profile
-            </Button>
+            <Link>
+              <Button w="full" variant="ghost" leftIcon={<BsPersonFill/>}>
+                Profile
+              </Button>
+            </Link>
           </NextLink>
 
           <Button w="full" variant="ghost" leftIcon={<MdLogout/>} onClick={logout()}>
@@ -235,15 +245,19 @@ export default function HeaderSection() {
         </>
       ) : <>
         <NextLink passHref href="/login">
-          <Button w="full" variant="ghost" leftIcon={<MdLogin/>}>
-            Sign in
-          </Button>
+          <Link>
+            <Button w="full" variant="ghost" leftIcon={<MdLogin/>}>
+              Sign in
+            </Button>
+          </Link>
         </NextLink>
 
         <NextLink passHref href="/register">
-          <Button w="full" variant="ghost" leftIcon={<IoIosRocket/>}>
-            Sign up
-          </Button>
+          <Link>
+            <Button w="full" variant="ghost" leftIcon={<IoIosRocket/>}>
+              Sign up
+            </Button>
+          </Link>
         </NextLink>
       </>}
     </VStack>
@@ -306,15 +320,19 @@ export default function HeaderSection() {
             {isAuthenticated ? (
               <>
                 <NextLink passHref href="/dashboard">
-                  <Button colorScheme="teal" variant="ghost" size="sm">
-                    Dashboard
-                  </Button>
+                  <Link>
+                    <Button colorScheme="teal" variant="ghost" size="sm">
+                      Dashboard
+                    </Button>
+                  </Link>
                 </NextLink>
 
                 <NextLink passHref href="/dashboard/profile">
-                  <Button colorScheme="teal" variant="ghost" size="sm">
-                    Profile
-                  </Button>
+                  <Link>
+                    <Button colorScheme="teal" variant="ghost" size="sm">
+                      Profile
+                    </Button>
+                  </Link>
                 </NextLink>
 
                 <Button colorScheme="teal" variant="ghost" size="sm" onClick={logout()}>
@@ -323,15 +341,19 @@ export default function HeaderSection() {
               </>
             ) : <>
               <NextLink passHref href="/login">
-                <Button colorScheme="teal" variant="ghost" size="sm">
-                  Sign in
-                </Button>
+                <Link>
+                  <Button colorScheme="teal" variant="ghost" size="sm">
+                    Sign in
+                  </Button>
+                </Link>
               </NextLink>
 
               <NextLink passHref href="/register">
-                <Button colorScheme="teal" variant="solid" size="sm">
-                  Sign up
-                </Button>
+                <Link>
+                  <Button colorScheme="teal" variant="solid" size="sm">
+                    Sign up
+                  </Button>
+                </Link>
               </NextLink>
             </>}
           </HStack>

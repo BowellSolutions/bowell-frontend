@@ -1,7 +1,7 @@
 /**
-* @author: Adam Lisichin
-* @file: Exports PatientExaminationDetail component which is rendered in Next.js page /dashboard/examinations/[id]
-*/
+ * @author: Adam Lisichin
+ * @file: Exports PatientExaminationDetail component which is rendered in Next.js page /dashboard/examinations/[id]
+ */
 import {Badge, Button, Flex, Link, Table, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue} from "@chakra-ui/react";
 import NextLink from "next/link";
 import {formatDate} from "../views/utils/format";
@@ -43,13 +43,15 @@ const PatientExaminationsTable: FC<PatientExaminationsTableProps> = ({examinatio
           <Tr key={`patient-examination-${examination.id}`}>
             <Td minWidth={{sm: "40px"}} pl="0px">
               <NextLink href={`/dashboard/examinations/${examination.id}`}>
-                <Text
-                  fontWeight="bold" cursor="pointer"
-                  _hover={{textDecoration: "underline"}}
-                  display="inline-block"
-                >
-                  {examination.id}
-                </Text>
+                <Link>
+                  <Text
+                    fontWeight="bold" cursor="pointer"
+                    _hover={{textDecoration: "underline"}}
+                    display="inline-block"
+                  >
+                    {examination.id}
+                  </Text>
+                </Link>
               </NextLink>
             </Td>
 
@@ -94,9 +96,11 @@ const PatientExaminationsTable: FC<PatientExaminationsTableProps> = ({examinatio
 
             <Td pl="0px">
               <NextLink href={`/dashboard/examinations/${examination.id}`} passHref>
-                <Button fontSize="md" fontWeight="bold">
-                  View
-                </Button>
+                <Link>
+                  <Button fontSize="md" fontWeight="bold">
+                    View
+                  </Button>
+                </Link>
               </NextLink>
             </Td>
           </Tr>

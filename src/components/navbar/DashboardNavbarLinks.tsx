@@ -2,7 +2,7 @@
  * @author: Adam Lisichin
  * @file: Exports DashboardNavbarLinks component - links rendered in DashboardNavbar
  **/
-import {Button, Flex, Icon, useColorModeValue} from "@chakra-ui/react";
+import {Button, Flex, Icon, Link, useColorModeValue} from "@chakra-ui/react";
 import NextLink from "next/link";
 import {FC, useRef} from "react";
 import {BsFillPersonFill} from "react-icons/bs";
@@ -68,16 +68,18 @@ const DashboardNavbarLinks: FC<DashboardNavbarLinksProps> = (
       </Button>
 
       <NextLink href="/dashboard/profile" passHref>
-        <Icon
-          as={BsFillPersonFill}
-          w="22px"
-          h="22px"
-          mx="0px"
-          px="0px"
-          me={{sm: "16px", lg: "8px"}}
-          color={navbarLinkColor}
-          cursor="pointer"
-        />
+        <Link>
+          <Icon
+            as={BsFillPersonFill}
+            w="22px"
+            h="22px"
+            mx="0px"
+            px="0px"
+            me={{sm: "16px", lg: "8px"}}
+            color={navbarLinkColor}
+            cursor="pointer"
+          />
+        </Link>
       </NextLink>
 
       <SidebarResponsive

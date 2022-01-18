@@ -4,7 +4,7 @@
  **/
 import {FC} from "react";
 import {ExaminationData} from "../../api/types";
-import {Box, Collapse, Flex, FlexProps, Icon, IconButton, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Collapse, Flex, FlexProps, Icon, IconButton, Link, Text, useColorModeValue} from "@chakra-ui/react";
 import {useDisclosure} from "@chakra-ui/hooks";
 import {MdExpandLess, MdExpandMore} from "react-icons/md";
 import {DeleteIcon} from "@chakra-ui/icons";
@@ -46,13 +46,15 @@ const ExaminationsTableRow: FC<ExaminationsTableRowProps> = ({examination, ...fl
     >
       <Flex justify="space-between" w="100%">
         <Flex direction="column" maxWidth="70%">
-          <NextLink href={`/dashboard/examinations/${encodeURIComponent(examination.id)}`}>
-            <Text
-              color={nameColor} fontSize="md" fontWeight="bold" mb="10px" userSelect="none"
-              _hover={{textDecoration: "underline", cursor: "pointer"}}
-            >
-              {examination?.patient?.first_name} {examination?.patient?.last_name}
-            </Text>
+          <NextLink href={`/dashboard/examinations/${examination.id}`}>
+            <Link>
+              <Text
+                color={nameColor} fontSize="md" fontWeight="bold" mb="10px" userSelect="none"
+                _hover={{textDecoration: "underline", cursor: "pointer"}}
+              >
+                {examination?.patient?.first_name} {examination?.patient?.last_name}
+              </Text>
+            </Link>
           </NextLink>
 
           <Text color="gray.400" fontSize="sm" fontWeight="semibold">

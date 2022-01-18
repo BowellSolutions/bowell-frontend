@@ -3,7 +3,7 @@
  * @file: Exports PageNotFound which is rendered by Next.js whenever it throws 404
  **/
 import {FC} from "react";
-import {Box, Button, Heading, Text} from "@chakra-ui/react";
+import {Box, Button, Heading, Link, Text} from "@chakra-ui/react";
 import NextLink from "next/link";
 
 const PageNotFound: FC = () => {
@@ -28,14 +28,16 @@ const PageNotFound: FC = () => {
       </Text>
 
       <NextLink href="/" passHref>
-        <Button
-          colorScheme="teal"
-          bgGradient="linear(to-r, teal.400, teal.500, teal.600)"
-          color="white"
-          variant="solid"
-        >
-          Go to Home
-        </Button>
+        <Link>
+          <Button
+            colorScheme="teal"
+            bgGradient="linear(to-r, teal.400, teal.500, teal.600)"
+            color="white"
+            variant="solid"
+          >
+            Go to Home
+          </Button>
+        </Link>
       </NextLink>
     </Box>
   );

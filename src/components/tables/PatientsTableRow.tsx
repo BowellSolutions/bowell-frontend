@@ -2,7 +2,7 @@
  * @author: Adam Lisichin
  * @file: Exports PatientsTableRow component used to represent individual row in patients table
  **/
-import {Avatar, Badge, Button, Flex, Td, Text, Tr, useColorModeValue,} from "@chakra-ui/react";
+import {Avatar, Badge, Button, Flex, Link, Td, Text, Tr, useColorModeValue,} from "@chakra-ui/react";
 import {FC} from "react";
 import {formatDate} from "../views/utils/format";
 import NextLink from "next/link";
@@ -30,16 +30,18 @@ const PatientsTableRow: FC<PatientsTableRowProps> = (
         <Flex align="center" py=".8rem" minWidth="100%" flexWrap="nowrap">
           <Flex direction="column">
             <NextLink href={`/dashboard/patients/${id}`} passHref>
-              <Text
-                fontSize="md"
-                fontWeight="bold"
-                color={textColor}
-                minWidth="100%"
-                cursor="pointer"
-                _hover={{textDecoration: "underline"}}
-              >
-                {id}
-              </Text>
+              <Link>
+                <Text
+                  fontSize="md"
+                  fontWeight="bold"
+                  color={textColor}
+                  minWidth="100%"
+                  cursor="pointer"
+                  _hover={{textDecoration: "underline"}}
+                >
+                  {id}
+                </Text>
+              </Link>
             </NextLink>
           </Flex>
         </Flex>
@@ -48,21 +50,25 @@ const PatientsTableRow: FC<PatientsTableRowProps> = (
       <Td minWidth={{sm: "250px"}} pl="0px">
         <Flex align="center" py=".8rem" minWidth="100%" flexWrap="nowrap">
           <NextLink href={`/dashboard/patients/${id}`} passHref>
-            <Avatar src="" w="50px" borderRadius="12px" mr="18px" cursor="pointer"/>
+            <Link>
+              <Avatar src="" w="50px" borderRadius="12px" mr="18px" cursor="pointer"/>
+            </Link>
           </NextLink>
           <Flex direction="column">
             <NextLink href={`/dashboard/patients/${id}`} passHref>
-              <Text
-                fontSize="md"
-                color={textColor}
-                fontWeight="bold"
-                minWidth="100%"
-                textTransform="none"
-                cursor="pointer"
-                _hover={{textDecoration: "underline"}}
-              >
-                {firstName} {lastName}
-              </Text>
+              <Link>
+                <Text
+                  fontSize="md"
+                  color={textColor}
+                  fontWeight="bold"
+                  minWidth="100%"
+                  textTransform="none"
+                  cursor="pointer"
+                  _hover={{textDecoration: "underline"}}
+                >
+                  {firstName} {lastName}
+                </Text>
+              </Link>
             </NextLink>
             <Text fontSize="sm" color="gray.400" fontWeight="normal" textTransform="none">
               {email}
@@ -91,16 +97,18 @@ const PatientsTableRow: FC<PatientsTableRowProps> = (
 
       <Td>
         <NextLink href={`/dashboard/patients/${id}`} passHref>
-          <Button p="0px" bg="transparent" variant="no-hover">
-            <Text
-              fontSize="md"
-              color="gray.400"
-              fontWeight="bold"
-              cursor="pointer"
-            >
-              Show
-            </Text>
-          </Button>
+          <Link>
+            <Button p="0px" bg="transparent" variant="no-hover">
+              <Text
+                fontSize="md"
+                color="gray.400"
+                fontWeight="bold"
+                cursor="pointer"
+              >
+                Show
+              </Text>
+            </Button>
+          </Link>
         </NextLink>
       </Td>
 

@@ -3,7 +3,7 @@
  * @file: Exports RecentPatients component - examinations coming in 31 days in doctor's dashboard home page
  **/
 import {FC} from "react";
-import {Button, Flex, Text, useColorModeValue} from "@chakra-ui/react";
+import {Button, Flex, Link, Text, useColorModeValue} from "@chakra-ui/react";
 import CardHeader from "../card/CardHeader";
 import CardBody from "../card/CardBody";
 import Card from "../card/Card";
@@ -51,9 +51,11 @@ const RecentExaminations: FC = () => {
 
       <Flex mt="8px" justifyContent="flex-end">
         <NextLink passHref href="/dashboard/examinations">
-          <Button bgColor="teal.300" color={textColor}>
-            View All
-          </Button>
+          <Link>
+            <Button bgColor="teal.300" color={textColor}>
+              View All
+            </Button>
+          </Link>
         </NextLink>
       </Flex>
     </Card>

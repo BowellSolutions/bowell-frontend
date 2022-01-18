@@ -1,10 +1,10 @@
 /**
-* @author: Adam Lisichin
-* @file: Exports ProfilePatients component used in doctor's Profile
-*/
+ * @author: Adam Lisichin
+ * @file: Exports ProfilePatients component used in doctor's Profile
+ */
 import {UserData} from "../../api/types";
 import {FC} from "react";
-import {Avatar, Button, Flex, Text, useColorModeValue} from "@chakra-ui/react";
+import {Avatar, Button, Flex, Link, Text, useColorModeValue} from "@chakra-ui/react";
 import NextLink from "next/link";
 
 interface ProfilePatientsProps {
@@ -46,17 +46,19 @@ const ProfilePatients: FC<ProfilePatientsProps> = ({patients}) => {
             </Flex>
           </Flex>
 
-          <NextLink href={`/dashboard/patients/${encodeURIComponent(patient.id)}`} passHref>
-            <Button bg="transparent" variant="no-hover">
-              <Text
-                fontSize="sm"
-                fontWeight="600"
-                color="teal.300"
-                alignSelf="center"
-              >
-                VIEW
-              </Text>
-            </Button>
+          <NextLink href={`/dashboard/patients/${patient.id}`} passHref>
+            <Link>
+              <Button bg="transparent" variant="no-hover">
+                <Text
+                  fontSize="sm"
+                  fontWeight="600"
+                  color="teal.300"
+                  alignSelf="center"
+                >
+                  VIEW
+                </Text>
+              </Button>
+            </Link>
           </NextLink>
         </Flex>
       ))}
