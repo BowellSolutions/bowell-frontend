@@ -49,6 +49,7 @@ src/
             - ExaminationForm.tsx                   # form for creating new examination
             - ExaminationModal.tsx                  # modal with examination form
             - FileUpload.tsx                        # drop zone with file upload feature
+            - PatientDetailsModal.tsx               # modal with patient details
             - ProbabilityPlot.tsx                   # plot showing probabilities of having a bowel sound
             - ProfileExaminations.tsx               # examinations in doctor's profile
             - ProfileForm.tsx                       # form in patient profile which currently only displays data 
@@ -89,6 +90,7 @@ src/
             - SidebarResponsiveLinks.tsx            # styled links in mobile sidebar
         - tables/
             - ExaminationsTableRow.tsx              # examination card used in doctor dashboard
+            - PatientsExaminationsTable.tsx         # table with examinations of a chosen patient
             - PatientsTableRow.tsx                  # table row in patients table
             - RecordingsTableRow.tsx                # table row in recordings table with attached drop zone for quick file upload
         - utils/
@@ -102,6 +104,7 @@ src/
                 - ExaminationDetail.tsx             # examination details, analysis result and probability plot
                 - Examinations.tsx                  # all examinations
                 - Patients.tsx                      # patients table
+                - PatientDetails.tsx                # patients detail page with their examinations
                 - Profile.tsx                       # doctor's profile - differs from patient's
                 - Recordings.tsx                    # recordings table and file upload dropzone below
             - home/                                 # home page components
