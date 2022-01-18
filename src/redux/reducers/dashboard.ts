@@ -1,3 +1,14 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports dashboardSlice, dashboard actions and reducer, state interface, websocket status.
+ * dashboard state:
+ *  - patients
+ *  - examinations
+ *  - recordings
+ *  - statistics
+ *  - notifications
+ *  - websocket_status
+ **/
 import {createSlice} from "@reduxjs/toolkit";
 import {HYDRATE} from "next-redux-wrapper";
 import {DoctorStatisticsData, ExaminationData, FileData, HydrateAction, UserData} from "../../api/types";

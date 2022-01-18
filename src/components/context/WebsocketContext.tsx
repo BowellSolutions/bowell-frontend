@@ -1,3 +1,11 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports:
+ * - WebsocketContextProvider - HOC component which establishes websocket connection in Dashboard, dispatches incoming
+ * messages and connection status to store, displays toast on open and close.
+ * - useWebsocketContext hook
+ * - WebsocketMessage interface
+ **/
 import {createContext, FC, Fragment, ReactNode, useCallback, useContext, useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";

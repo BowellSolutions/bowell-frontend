@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports RecentPatients component - recently added patients in doctor's dashboard
+ **/
 import {useAppSelector} from "../../redux/hooks";
 import {Avatar, Box, Flex, SimpleGrid, Text, useColorModeValue} from "@chakra-ui/react";
 import {formatDate, getDaysBetweenDates} from "../views/utils/format";

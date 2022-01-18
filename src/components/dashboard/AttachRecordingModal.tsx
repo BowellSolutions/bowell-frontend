@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports AttachRecordingModal component - modal activated on button click with recording update form
+ **/
 import {FC} from "react";
 import {useDisclosure} from "@chakra-ui/hooks";
 import {Button, Flex, Text} from "@chakra-ui/react";

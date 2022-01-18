@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports Configurator component - openable sidebar on the right side in dashboard
+ **/
 import {
   Box,
   Button,
@@ -26,6 +30,12 @@ interface ConfiguratorProps {
   onSwitch: (value: boolean) => void,
 }
 
+/**
+ * Component which allows:
+ * - setting sidebar type (opaque/transparent)
+ * - setting header type (fixed or sticky)
+ * - toggling to light/dark mode
+ */
 const Configurator: FC<ConfiguratorProps> = (
   {
     secondary,

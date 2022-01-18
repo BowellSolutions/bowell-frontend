@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports global chakra-ui styles added to theme
+ **/
 import {mode, StyleFunctionProps} from "@chakra-ui/theme-tools";
 import {Dict} from "@chakra-ui/utils";
 

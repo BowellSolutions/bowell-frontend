@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports FeatureSection component used on home page
+ **/
 import {Box, chakra, Flex, Icon, SimpleGrid, useColorModeValue} from "@chakra-ui/react";
 import {FC, ReactNode} from "react";
 

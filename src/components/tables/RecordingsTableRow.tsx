@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports RecordingsTableRow component used to represent individual row in recordings table
+ **/
 import {Box, Flex, Icon, Link, Td, Text, Tr, useColorModeValue,} from "@chakra-ui/react";
 import {FC, useEffect, useState} from "react";
 import {useDisclosure} from "@chakra-ui/hooks";

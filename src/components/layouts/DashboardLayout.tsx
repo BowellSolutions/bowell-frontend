@@ -1,7 +1,10 @@
-/*
-* @author: Adam Lisichin
-* @file: Exports DashboardLayout HOC which is used to wrap every dashboard Next.js page
-*/
+/**
+ * @author: Adam Lisichin
+ * @file: Exports DashboardLayout HOC which is used to wrap every dashboard page.
+ * Provides html head with meta tags. Consists of multiple components (sidebar, navbar etc.).
+ * Children are rendered into PanelContent component.
+ * Dispatches checkAuthStatus action on mount to check if user has a valid token.
+ */
 import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import ScrollToTopButton from "../utils/ScrollToTopButton";
 import {useDisclosure} from "@chakra-ui/hooks";

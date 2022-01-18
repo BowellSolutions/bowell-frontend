@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports SidebarButton component
+ **/
 import {Button, Flex, Text, useColorModeValue} from "@chakra-ui/react";
 import IconBox from "../icons/IconBox";
 import {FC} from "react";

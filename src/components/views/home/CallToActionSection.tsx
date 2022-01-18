@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports CallToActionSection component used on home page
+ **/
 import {Box, chakra, Flex, SimpleGrid, Stack, useColorModeValue} from "@chakra-ui/react";
 import HomeFooter from "./HomeFooter";
 import NextLink from "next/link";

@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports ExaminationForm component - used for creating new examination.
+ **/
 import {FC, useState} from "react";
 import {
   Box,
@@ -23,6 +27,10 @@ interface ExaminationFormProps {
 
 const today = new Date();
 
+/**
+ * Form with patients choice field and interactive datetime widget. On submit calls API and displays a proper
+ * toast based on the response.
+ */
 const ExaminationForm: FC<ExaminationFormProps> = ({onClose}) => {
   const bgColor = useColorModeValue("white", "gray.700");
 

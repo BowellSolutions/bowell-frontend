@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports Carousel component used in Patient and Doctor sections
+ **/
 import {Box, Flex, HStack, Image, Text} from "@chakra-ui/react";
 import {Dispatch, FC, SetStateAction} from "react";
 

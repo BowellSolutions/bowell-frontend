@@ -1,4 +1,4 @@
-/*
+/**
 * @author: Adam Lisichin
 * @file: Exports ExaminationCard component used in PatientDashboard
 */

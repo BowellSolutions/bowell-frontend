@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports FileUpload component - dropzone with file upload functionality
+ **/
 import {FC, useCallback, useState} from "react";
 import {Box, Button, Flex, IconButton, Progress, Text, useColorModeValue, useToast} from "@chakra-ui/react";
 import {uploadFile} from "../../api/files";

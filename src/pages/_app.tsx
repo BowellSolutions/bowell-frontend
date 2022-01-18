@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Next.js application
+ **/
 import '../styles/globals.scss';
 import type {AppProps} from 'next/app';
 import {wrapper} from "../redux/store";

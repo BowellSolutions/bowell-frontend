@@ -1,3 +1,22 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports Chakra UI base theme extended with:
+ * - breakpoints
+ * - global styles
+ * - fonts
+ * - components:
+ *  - builtin   button
+ *  - builtin   badge
+ *  - builtin   link
+ *  - builtin   drawer
+ *  - custom    card
+ *  - custom    card body
+ *  - custom    card header
+ *  - custom    main panel
+ *  - custom    panel content
+ *  - custom    panel container
+ *  - plugin    stepper
+ **/
 import {extendTheme} from "@chakra-ui/react";
 import {breakpoints} from "./foundations/breakpoints";
 import {linkStyles} from "./components/builtins/link";

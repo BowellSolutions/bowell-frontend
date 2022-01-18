@@ -1,3 +1,8 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Handles dashboard profile route - /dashboard/patients/[id].
+ * Authorized and doctor only route.
+ **/
 import {NextPage} from "next";
 import {useRouter} from "next/router";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";

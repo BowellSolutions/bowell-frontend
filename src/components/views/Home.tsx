@@ -1,3 +1,16 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports Home component used in home route. Homepage consists of multiple sections:
+ * - Header
+ * - Welcome
+ * - Doctor
+ * - Patient
+ * - Mobile
+ * - Features
+ * - More
+ * - Call to action
+ * and floating "Scroll to top button"
+ **/
 import {FC} from "react";
 import ScrollToTopButton from "../utils/ScrollToTopButton";
 import HeaderSection from "./home/HeaderSection";

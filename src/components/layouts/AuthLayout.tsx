@@ -1,3 +1,8 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports AuthLayout HOC which is used to wrap login and register page content.
+ * Provides html head with meta tags. Consists of navbar, footer and passed children.
+ **/
 import {FC, ReactNode, useEffect, useRef} from "react";
 import Footer from "../footer/Footer";
 import {Box, Portal, useColorModeValue} from "@chakra-ui/react";
@@ -18,10 +23,6 @@ const AuthLayout: FC<AuthLayoutProps> = (
 
   const wrapper = useRef(null);
   const navRef = useRef(null);
-
-  useEffect(() => {
-    document.body.style.overflow = "unset";
-  }, []);
 
   return (
     <>

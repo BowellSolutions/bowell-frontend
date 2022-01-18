@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports WelcomeSection component used on home page
+ **/
 import {Box, Button, chakra, Flex, Icon, Image, Stack, Text, useColorModeValue} from "@chakra-ui/react";
 import NextLink from "next/link";
 

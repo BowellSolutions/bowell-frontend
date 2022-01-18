@@ -1,4 +1,4 @@
-/*
+/**
 * @author: Adam Lisichin
 * @file: Exports ProfileHeader component which is used in users' Profile
 */
@@ -14,6 +14,7 @@ const ProfileHeader: FC = () => {
   );
   const borderProfileColor = useColorModeValue("white", "rgba(255, 255, 255, 0.31)");
   const emailColor = useColorModeValue("gray.400", "gray.300");
+
   const user = useAppSelector(state => state.auth.user);
 
   return (

@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports SidebarLinks component
+ **/
 import {FC} from "react";
 import {UserType} from "../layouts/DashboardLayout";
 import {Box, Button, Flex, Text, useColorModeValue} from "@chakra-ui/react";

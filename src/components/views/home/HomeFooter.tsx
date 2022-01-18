@@ -1,4 +1,8 @@
-import React, {FC} from "react";
+/**
+ * @author: Adam Lisichin
+ * @file: Exports HomeFooter component used on home page
+ **/
+import {FC} from "react";
 import {Link, Text} from "@chakra-ui/react";
 
 const HomeFooter: FC = () => {

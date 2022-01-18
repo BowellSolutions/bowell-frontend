@@ -1,3 +1,8 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Handles dashboard profile route - /dashboard/profile/[id]
+ * Authorized only route.
+ **/
 import {NextPage} from "next";
 import {useRouter} from "next/router";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
@@ -20,7 +25,7 @@ const ProfileDetail: NextPage<AppState> = () => {
           brandText={`Profile #${id}`}
           type="doctor"
         >
-          <></>
+          <>{/* To be created */}</>
         </DashboardLayout>
       }
       patient={
@@ -30,7 +35,7 @@ const ProfileDetail: NextPage<AppState> = () => {
           brandText={`Profile #${id}`}
           type="patient"
         >
-          <></>
+          <>{/* To be created */}</>
         </DashboardLayout>
       }
     />

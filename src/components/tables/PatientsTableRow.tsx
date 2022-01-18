@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports PatientsTableRow component used to represent individual row in patients table
+ **/
 import {Avatar, Badge, Button, Flex, Td, Text, Tr, useColorModeValue,} from "@chakra-ui/react";
 import {FC} from "react";
 import {formatDate} from "../views/utils/format";

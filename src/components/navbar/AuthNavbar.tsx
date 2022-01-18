@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports AuthNavbar component - navbar used in /login and /register routes
+ **/
 import {Box, Flex, Image, Link, Text, useColorModeValue,} from "@chakra-ui/react";
 import {FC} from "react";
 import NextLink from "next/link";

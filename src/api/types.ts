@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports Typescript types and interfaces which are used globally for typing
+ */
 import {AxiosResponse} from "axios";
 import {Action} from "redux";
 import {RootState} from "../redux/reducers";

@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports Register component used in /register route
+ **/
 import {
   Button,
   Divider,

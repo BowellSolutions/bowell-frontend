@@ -1,7 +1,7 @@
-/*
-* @author: Adam Lisichin
-* @file: Exports ProfileForm component which is used in patient's Profile
-*/
+/**
+ * @author: Adam Lisichin
+ * @file: Exports ProfileForm component which is used in patient's Profile
+ */
 import {FC} from "react";
 import {
   Box,
@@ -20,10 +20,10 @@ import {
 import {useAppSelector} from "../../redux/hooks";
 import {formatDate} from "../views/utils/format";
 
-/*
-  Component which displays existing user data inside the form.
-  Form handling has not been implemented - this is just a basis.
-*/
+/**
+ * Component which displays existing user data inside the form.
+ * Form handling has not been implemented - this is just a basis.
+ */
 const ProfileForm: FC = () => {
   const user = useAppSelector(state => state.auth.user);
 

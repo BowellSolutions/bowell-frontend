@@ -1,3 +1,12 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports authSlice, auth actions and reducer, state interface.
+ * auth state:
+ *  - user
+ *  - isAuthenticated
+ *  - loading
+ *  - register_success
+ **/
 import {checkAuth, getUser} from "../actions/auth";
 import {HydrateAction, UserData} from "../../api/types";
 import {HYDRATE} from "next-redux-wrapper";

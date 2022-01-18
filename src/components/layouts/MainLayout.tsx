@@ -1,3 +1,10 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports MainLayout Higher Order Component - used on home page.
+ * Provides html head with meta tags and main container with styles from scss file into,
+ * which wraps children passed to this layout.
+ * Dispatches checkAuthStatus action on mount to check if user has a valid token.
+ **/
 import {FC, ReactNode, useEffect} from "react";
 import Head from "next/head";
 import {useDispatch} from "react-redux";

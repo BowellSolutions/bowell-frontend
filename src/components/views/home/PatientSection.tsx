@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports PatientSection component used on home page
+ **/
 import React, {FC, useState} from "react";
 import {Box, chakra, Flex, useColorModeValue} from "@chakra-ui/react";
 import Carousel from "./Carousel";

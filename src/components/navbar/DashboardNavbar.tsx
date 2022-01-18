@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports AuthNavbarLinks component - navbar rendered inside the dashboard
+ **/
 import {Box, Flex, Heading, Link, useColorModeValue} from "@chakra-ui/react";
 import React, {FC, useEffect, useState} from "react";
 import DashboardNavbarLinks from "./DashboardNavbarLinks";

@@ -1,4 +1,4 @@
-/*
+/**
 * @author: Adam Lisichin
 * @file: Exports PatientProfile component which is rendered in Next.js page /dashboard/profile
 */

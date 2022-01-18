@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports Separator component
+ **/
 import React, {FC, ReactNode} from "react";
 import {Flex} from "@chakra-ui/react";
 
@@ -6,6 +10,9 @@ interface SeparatorProps {
   children?: ReactNode,
 }
 
+/**
+ * Component used for separating content horizontally.
+ */
 export const Separator: FC<SeparatorProps> = ({variant, children, ...rest}) => {
   return (
     <Flex

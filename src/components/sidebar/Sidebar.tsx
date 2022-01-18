@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports Sidebar component - sidebar in dashboard
+ **/
 import {FC, useRef} from "react";
 import {Separator} from "../utils/Separator";
 import {Box, Image, Link, Stack, Text, useColorModeValue} from "@chakra-ui/react";

@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports StatisticsBoxes component - doctor statistics in dashboard home page
+ **/
 import Card from "../card/Card";
 import CardBody from "../card/CardBody";
 import {Flex, Icon, SimpleGrid, Stat, StatLabel, StatNumber, useColorModeValue} from "@chakra-ui/react";
@@ -9,6 +13,13 @@ import {BsFillPeopleFill, BsCalendarWeek} from "react-icons/bs";
 import {MdPendingActions} from "react-icons/md";
 
 
+/**
+ * Renders 4 cards with doctors statistics into a grid. Those cards contain:
+ * 1) Count of all patients related to this doctor
+ * 2) Count of all examinations that belong to this doctor
+ * 3) Count of scheduled examinations that belong to this doctor
+ * 4) Count of examinations coming in 7 days that belong to this doctor
+ */
 const StatisticsBoxes: FC = () => {
   const iconTeal = useColorModeValue("teal.300", "teal.300");
   const iconBoxInside = useColorModeValue("white", "white");
@@ -34,10 +45,8 @@ const StatisticsBoxes: FC = () => {
                 {statistics != null && statistics.patients_related_count}
               </StatNumber>
             </Stat>
-            <IconBox
-              // @ts-ignore
-              as="box" h="45px" w="45px" bg={iconTeal}
-            >
+
+            <IconBox h="45px" w="45px" bg={iconTeal}>
               <Icon h="24px" w="24px" color={iconBoxInside} as={BsFillPeopleFill}/>
             </IconBox>
           </Flex>
@@ -60,10 +69,8 @@ const StatisticsBoxes: FC = () => {
                 {statistics != null && statistics.examination_count}
               </StatNumber>
             </Stat>
-            <IconBox
-              // @ts-ignore
-              as="box" h="45px" w="45px" bg={iconTeal}
-            >
+
+            <IconBox h="45px" w="45px" bg={iconTeal}>
               <Icon h="24px" w="24px" color={iconBoxInside} as={BiReceipt}/>
             </IconBox>
           </Flex>
@@ -86,10 +93,8 @@ const StatisticsBoxes: FC = () => {
                 {statistics != null && statistics.examinations_scheduled_count}
               </StatNumber>
             </Stat>
-            <IconBox
-              // @ts-ignore
-              as="box" h="45px" w="45px" bg={iconTeal}
-            >
+
+            <IconBox h="45px" w="45px" bg={iconTeal}>
               <Icon h="24px" w="24px" color={iconBoxInside} as={MdPendingActions}/>
             </IconBox>
           </Flex>
@@ -112,10 +117,8 @@ const StatisticsBoxes: FC = () => {
                 {statistics != null && statistics.examinations_next_week_count}
               </StatNumber>
             </Stat>
-            <IconBox
-              // @ts-ignore
-              as="box" h="45px" w="45px" bg={iconTeal}
-            >
+
+            <IconBox h="45px" w="45px" bg={iconTeal}>
               <Icon h="22px" w="22px" color={iconBoxInside} as={BsCalendarWeek}/>
             </IconBox>
           </Flex>

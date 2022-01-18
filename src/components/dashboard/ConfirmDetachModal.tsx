@@ -1,3 +1,8 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports ConfirmDetachModal component - modal activated on button click, prompts user to either confirm their
+ * action or cancel and then closes itself.
+ **/
 import {FC, useRef} from "react";
 import {AlertDialogContent} from "@chakra-ui/modal";
 import {useDisclosure} from "@chakra-ui/hooks";

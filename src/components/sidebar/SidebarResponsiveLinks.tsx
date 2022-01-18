@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports SidebarResponsiveLinks component which renders button and active button links in mobile sidebar
+ **/
 import {FC} from "react";
 import {Box, Divider, Icon} from "@chakra-ui/react";
 import {doctorsRoutes, patientsRoutes} from "../routes";

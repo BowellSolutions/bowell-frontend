@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports doctor and patients routes used in Sidebar
+ **/
 import {Icon} from "@chakra-ui/react";
 import {BiReceipt} from "react-icons/bi";
 import {BsFillPeopleFill, BsFillPersonFill, BsFillVolumeUpFill,} from "react-icons/bs";

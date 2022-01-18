@@ -1,6 +1,6 @@
-/*
+/**
 * @author: Adam Lisichin
-* @file: Exports RecordingDetails component which renders recording details row by row
+* @file: Exports RecordingDetails component
 */
 import {FC} from "react";
 import {Text} from "@chakra-ui/react";
@@ -14,6 +14,10 @@ interface RecordingDetailsProps {
 
 const EXCLUDED_FIELDS = ["id", "uploaded_at", "uploader", "probability_plot"];
 
+/**
+ * Recording fields rendered row by row, excluding chosen fields (id, uploader, etc.).
+ * Each entry is mapped to formatted Text component.
+ */
 const RecordingDetails: FC<RecordingDetailsProps> = ({recordingData, excludeFields}) => {
   const excluded = excludeFields != null ? [...EXCLUDED_FIELDS, ...excludeFields] : EXCLUDED_FIELDS;
 

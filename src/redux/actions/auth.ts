@@ -1,3 +1,16 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports Redux auth action creators - mostly async thunks
+ * Available action creators:
+ * - loginUser
+ * - getUser
+ * - resetRegister
+ * - requestTokenRefresh
+ * - setRefreshTimer
+ * - checkAuth (and additional checkAuthStatus)
+ * - logoutUser
+ * - registerUser
+ **/
 import {getCurrentUser, login, logout, refreshToken, register, verifyToken} from "../../api/auth";
 import {ACCESS_TOKEN_LIFETIME} from "../../config";
 import type {AppThunk} from "../store";

@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports ButtonActiveLink component used in sidebars
+ **/
 import {Button, Flex, Text, useColorModeValue} from "@chakra-ui/react";
 import IconBox from "../icons/IconBox";
 import NextLink from "next/link";

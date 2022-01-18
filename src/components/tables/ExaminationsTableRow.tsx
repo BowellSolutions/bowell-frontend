@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports ExaminationsTableRow component - de facto a styled card with examination details
+ **/
 import {FC} from "react";
 import {ExaminationData} from "../../api/types";
 import {Box, Collapse, Flex, FlexProps, Icon, IconButton, Text, useColorModeValue} from "@chakra-ui/react";
