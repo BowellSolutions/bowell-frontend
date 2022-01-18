@@ -1,9 +1,9 @@
 /**
  * @author: Adam Lisichin
- * @file:
+ * @file: Exports DoctorExaminationDetail component - rendered in doctor's perspective at /dashboard/examination/[id]
  **/
 import {Button, Flex, SimpleGrid, Text, useToast} from "@chakra-ui/react";
-import {FC, useEffect, useState} from "react";
+import {FC, useEffect, useMemo, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
 import Card from "../../card/Card";
 import CardHeader from "../../card/CardHeader";
@@ -77,6 +77,44 @@ const DoctorExaminationDetail: FC<DoctorExaminationDetailProps> = ({examinationI
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notifications]);
 
+  const calculateInitialStep = useMemo(() => {
+    // get initial step based on number of points in probability_plot received from API
+    // TODO: clean this up later
+    if (recording != null && recording.probability_plot != null) {
+      const length = recording.probability_plot.length;
+      if (length >= 6000_00) {
+        return 10;
+      } else if (length < 6000_00) {
+        return 6;
+      } else if (length < 5000_00) {
+        return 5;
+      } else if (length < 4000_00) {
+        return 4;
+      } else if (length < 3000_00) {
+        return 3;
+      } else if (length < 2000_00) {
+        return 2;
+      } else if (length < 1000_00) {
+        return 1;
+      } else if (length < 500_00) {
+        return 0.5;
+      } else if (length < 400_00) {
+        return 0.4;
+      } else if (length < 300_00) {
+        return 0.3;
+      } else if (length < 200_00) {
+        return 0.2;
+      } else if (length < 100_00) {
+        return 0.1;
+      } else if (length < 60_00) {
+        return 0.05;
+      } else if (length < 30_00) {
+        return 0.01;
+      }
+    }
+    return 1;
+  }, [recording]);
+
   if (examination == null) return null;
 
   return (
@@ -112,6 +150,7 @@ const DoctorExaminationDetail: FC<DoctorExaminationDetailProps> = ({examinationI
             <ProbabilityPlot
               title="Probability vs time graph"
               data={recording.probability_plot}
+              initialStep={calculateInitialStep}
               x_key="start"
               y_key="probability"
               x_label="Time [s]"

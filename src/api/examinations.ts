@@ -21,6 +21,13 @@ export const getExaminations = (options?: AxiosRequestConfig): Promise<Paginated
 };
 
 /**
+ Sends GET request at /api/examinations/<query>
+ */
+export const getExaminationByQuery = (query: string, options?: AxiosRequestConfig): Promise<PaginatedResponse<ExaminationData>> => {
+  return AxiosClient.get(`/examinations/${query}`, {...options});
+};
+
+/**
  Sends GET request at /api/examinations/[id]/
  */
 export const getExamination =

@@ -1,23 +1,9 @@
 /**
  * @author: Adam Lisichin
- * @file:
+ * @file: Exports Patients component rendered in Doctor's dashboard in /dashboard/patients
  **/
 import {FC, useEffect, useState} from "react";
-import {
-  Flex,
-  Icon,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Table,
-  Tbody,
-  Text,
-  Th,
-  Thead,
-  Tr,
-  useColorModeValue
-} from "@chakra-ui/react";
-import {AiOutlineSearch} from "react-icons/ai";
+import {Flex, Table, Tbody, Text, Th, Thead, Tr, useColorModeValue} from "@chakra-ui/react";
 import CardBody from "../../card/CardBody";
 import CardHeader from "../../card/CardHeader";
 import PatientsTableRow from "../../tables/PatientsTableRow";
@@ -25,6 +11,7 @@ import Card from "../../card/Card";
 import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
 import useTableFilter from "../../../hooks/useTableFilter";
 import {retrievePatients} from "../../../redux/actions/dashboard";
+import SearchInput from "../../utils/SearchInput";
 
 
 const Patients: FC = () => {
@@ -59,22 +46,13 @@ const Patients: FC = () => {
             </Text>
           </Flex>
 
-          <Flex ml={{base: "12px", md: 0}} maxW={{base: "70%", md: "none"}}>
-            <InputGroup>
-              <InputLeftElement pointerEvents="none">
-                <Icon as={AiOutlineSearch}/>
-              </InputLeftElement>
-
-              <Input
-                id="patients-search-field"
-                name="search"
-                type="search"
-                size="md"
-                placeholder="Search"
-                onChange={(e) => setQuery(e.target.value)}
-              />
-            </InputGroup>
-          </Flex>
+          <SearchInput
+            query={query}
+            setQuery={setQuery}
+            inputId="patients-search-field"
+            ml={{base: "12px", md: 0}}
+            maxW={{base: "70%", md: "none"}}
+          />
         </CardHeader>
 
         <CardBody>

@@ -3,7 +3,7 @@
  * @file: Exports RecentRecordings component - recently processed recordings in doctor's dashboard
  **/
 import {FC} from "react";
-import {Box, Flex, SimpleGrid, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Flex, Link, SimpleGrid, Text, useColorModeValue} from "@chakra-ui/react";
 import {useAppSelector} from "../../redux/hooks";
 import {FileData} from "../../api/types";
 import NextLink from "next/link";
@@ -38,12 +38,14 @@ const RecentRecordings: FC = () => {
           <Flex justify="space-between" w="100%">
             <Flex direction="column" maxWidth="100%">
               <NextLink href={`/dashboard/recordings/${encodeURIComponent(recording.id)}`}>
-                <Text
-                  color={nameColor} fontSize="md" fontWeight="bold" mb="10px"
-                  _hover={{textDecoration: "underline", cursor: "pointer"}}
-                >
-                  {recording.name}
-                </Text>
+                <Link>
+                  <Text
+                    color={nameColor} fontSize="md" fontWeight="bold" mb="10px"
+                    _hover={{textDecoration: "underline", cursor: "pointer"}}
+                  >
+                    {recording.name}
+                  </Text>
+                </Link>
               </NextLink>
 
               <Text color="gray.400" fontSize="sm" fontWeight="semibold">

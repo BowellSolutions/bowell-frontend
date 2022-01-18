@@ -1,9 +1,9 @@
 /**
-* @author: Adam Lisichin
-* @file: Exports ExaminationCard component used in PatientDashboard
-*/
+ * @author: Adam Lisichin
+ * @file: Exports ExaminationCard component used in PatientDashboard
+ */
 import {FC} from "react";
-import {Flex, FlexProps, Text, Textarea, useColorModeValue} from "@chakra-ui/react";
+import {Flex, FlexProps, Link, Text, Textarea, useColorModeValue} from "@chakra-ui/react";
 import NextLink from "next/link";
 import {formatDate} from "../views/utils/format";
 import {ExaminationData} from "../../api/types";
@@ -32,12 +32,14 @@ const ExaminationCard: FC<ExaminationsCardProps> = ({examination, verbose = fals
       <Flex justify="space-between" w={{base: "unset", xl: "80%"}}>
         <Flex direction="column">
           <NextLink href={`/dashboard/examinations/${examination.id}`}>
-            <Text
-              color={nameColor} fontSize="md" fontWeight="bold" mb="10px" userSelect="none"
-              _hover={{textDecoration: "underline", cursor: "pointer"}}
-            >
-              {examination?.patient?.first_name} {examination?.patient?.last_name}
-            </Text>
+            <Link>
+              <Text
+                color={nameColor} fontSize="md" fontWeight="bold" mb="10px" userSelect="none"
+                _hover={{textDecoration: "underline", cursor: "pointer"}}
+              >
+                {examination?.patient?.first_name} {examination?.patient?.last_name}
+              </Text>
+            </Link>
           </NextLink>
 
           <Text color="gray.400" fontSize="sm" fontWeight="semibold">

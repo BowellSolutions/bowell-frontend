@@ -3,7 +3,7 @@
  * @file: Exports user related functions performing HTTP calls with axiosClient
  */
 import AxiosClient from "./axiosClient";
-import {PaginatedResponse, UserData} from "./types";
+import {PaginatedResponse, Response, UserData} from "./types";
 import {AxiosRequestConfig} from "axios";
 
 /**
@@ -19,4 +19,13 @@ export const getPatients = (options?: AxiosRequestConfig): Promise<PaginatedResp
  */
 export const getDoctors = (options?: AxiosRequestConfig): Promise<PaginatedResponse<UserData>> => {
   return AxiosClient.get('/users/?type=DOCTOR', {...options});
+};
+
+
+/**
+ * Sends GET request at /api/users/[id]/
+ */
+export const getUserById = (userId: number | string, options?: AxiosRequestConfig)
+  : Promise<Response<UserData>> => {
+  return AxiosClient.get(`/users/${userId}/`, {...options});
 };
