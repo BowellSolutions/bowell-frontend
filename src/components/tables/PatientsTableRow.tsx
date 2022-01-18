@@ -6,6 +6,7 @@ import {Avatar, Badge, Button, Flex, Td, Text, Tr, useColorModeValue,} from "@ch
 import {FC} from "react";
 import {formatDate} from "../views/utils/format";
 import NextLink from "next/link";
+import PatientDetailsModal from "../dashboard/PatientDetailsModal";
 
 interface PatientsTableRowProps {
   id: number,
@@ -104,18 +105,7 @@ const PatientsTableRow: FC<PatientsTableRowProps> = (
       </Td>
 
       <Td>
-        <NextLink passHref href={`/dashboard/patients/${id}`}>
-          <Button p="0px" bg="transparent" variant="no-hover">
-            <Text
-              fontSize="md"
-              color="gray.400"
-              fontWeight="bold"
-              cursor="pointer"
-            >
-              View
-            </Text>
-          </Button>
-        </NextLink>
+        <PatientDetailsModal patientId={id}/>
       </Td>
     </Tr>
   );
