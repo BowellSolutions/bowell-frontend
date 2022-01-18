@@ -1,3 +1,7 @@
+/**
+ * @author: Adam Lisichin
+ * @file: Exports SearchInput component - input field with search icon accepting query and setQuery as props
+ */
 import {ChangeEvent, Dispatch, FC, SetStateAction} from "react";
 import {Flex, FlexProps, Icon, Input, InputGroup, InputLeftElement} from "@chakra-ui/react";
 import {AiOutlineSearch} from "react-icons/ai";
