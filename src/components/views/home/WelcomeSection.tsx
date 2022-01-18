@@ -86,21 +86,19 @@ export default function WelcomeSection() {
           </NextLink>
 
           <NextLink href="/login" passHref>
-            <Link>
-              <Button
-                as="a"
-                colorScheme="gray"
-                display="inline-flex"
-                alignItems="center"
-                justifyContent="center"
-                w={{base: "full", sm: "auto"}}
-                mb={{base: 2, sm: 0}}
-                size="lg"
-                cursor="pointer"
-              >
-                Go To Dashboard
-              </Button>
-            </Link>
+            <Button
+              as="a"
+              colorScheme="gray"
+              display="inline-flex"
+              alignItems="center"
+              justifyContent="center"
+              w={{base: "full", sm: "auto"}}
+              mb={{base: 2, sm: 0}}
+              size="lg"
+              cursor="pointer"
+            >
+              Go To Dashboard
+            </Button>
           </NextLink>
         </Stack>
       </Box>
