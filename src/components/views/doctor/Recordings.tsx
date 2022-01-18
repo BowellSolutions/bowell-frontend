@@ -1,6 +1,6 @@
 /**
  * @author: Adam Lisichin
- * @file:
+ * @file: Exports Recording component rendered in Doctor's dashboard in /dashboard/recordings
  **/
 import {ChangeEvent, FC, useEffect, useState} from "react";
 import {Flex, Select, Table, Tbody, Text, Th, Thead, Tr, useColorModeValue} from "@chakra-ui/react";
@@ -12,6 +12,8 @@ import RecordingsTableRow from "../../tables/RecordingsTableRow";
 import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
 import {formatDate} from "../utils/format";
 import {retrieveRecordings} from "../../../redux/actions/dashboard";
+import SearchInput from "../../utils/SearchInput";
+import useTableFilter from "../../../hooks/useTableFilter";
 
 
 const Recordings: FC = () => {
@@ -22,6 +24,13 @@ const Recordings: FC = () => {
   const examinations = useAppSelector(state => state.dashboard.examinations);
 
   const [selected, setSelected] = useState<string>("");
+
+  const [query, setQuery] = useState<string>("");
+  const filteredRecordings = useTableFilter(
+    recordings,
+    ["id", "name"],
+    query
+  );
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => setSelected(e.target.value);
 
@@ -36,9 +45,18 @@ const Recordings: FC = () => {
         overflowX={{sm: "scroll", xl: "hidden"}}
       >
         <CardHeader p="6px 0px 22px 0px">
-          <Text fontSize="xl" color={textColor} fontWeight="bold">
-            Uploaded Files
-          </Text>
+          <Flex grow={1}>
+            <Text fontSize="xl" color={textColor} fontWeight="bold">
+              Uploaded Files
+            </Text>
+          </Flex>
+
+          <SearchInput
+            query={query}
+            setQuery={setQuery}
+            inputId="recordings-search-field"
+            ml={{base: "12px", md: 0}}
+          />
         </CardHeader>
 
         <CardBody>
@@ -55,7 +73,7 @@ const Recordings: FC = () => {
             </Thead>
 
             <Tbody>
-              {recordings.length > 0 && recordings.map((file) => {
+              {filteredRecordings.length > 0 && filteredRecordings.map((file) => {
                 return (
                   <RecordingsTableRow
                     fileId={file.id}

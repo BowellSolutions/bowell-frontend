@@ -94,6 +94,7 @@ src/
         - utils/
             - RecordingDetails.tsx                  # details about recording in rows
             - ScrollToTopButton.tsx                 # button which scrolls to top of the page on click
+            - SearchInput.tsx                       # search input field used to input filter condition in doctor dashboard
             - Separator.tsx                         # simple horizontal line used as separator
         - views/                                    # representational components rendered in corresponding routes
             - doctor/                               # doctor's perspective in dashboard
