@@ -10,6 +10,7 @@ import DispatchLayout from "../../../components/views/utils/DispatchLayout";
 import {AppState, wrapper} from "../../../redux/store";
 import {authFail} from "../../../redux/reducers/auth";
 import {checkAuth} from "../../../redux/actions/auth";
+import DoctorPatientDetails from "../../../components/views/doctor/PatientDetails";
 
 const PatientDetail: NextPage<AppState> = () => {
   const router = useRouter();
@@ -21,23 +22,14 @@ const PatientDetail: NextPage<AppState> = () => {
       doctor={
         <DashboardLayout
           title="Dashboard"
-          description="Bowell Dashboard - Examination detail"
+          description="Bowell Dashboard - Patient detail"
           brandText={`Patient #${id}`}
           type="doctor"
         >
-          <></>
+          <DoctorPatientDetails patientId={id as string}/>
         </DashboardLayout>
       }
-      patient={
-        <DashboardLayout
-          title="Dashboard"
-          description="Bowell Dashboard - Examination detail"
-          brandText={`Patient #${id}`}
-          type="patient"
-        >
-          <></>
-        </DashboardLayout>
-      }
+      patient={null}
     />
   );
 };
