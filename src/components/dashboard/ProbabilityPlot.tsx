@@ -15,6 +15,7 @@ import FileSaver from "file-saver";
 
 interface ProbabilityPlotProps {
   data: ProbabilityPlotData[],
+  initialStep: number,
   title: string,
   x_key: string,
   y_key: string,
@@ -23,9 +24,9 @@ interface ProbabilityPlotProps {
 }
 
 export const ProbabilityPlot: FC<ProbabilityPlotProps> = (
-  {data, x_key, y_key, title, x_label, y_label}
+  {data, initialStep, x_key, y_key, title, x_label, y_label}
 ) => {
-  const [step, setStep] = useState<number>(1);
+  const [step, setStep] = useState<number>(initialStep);
   const [lineColor, setLineColor] = useState<string>("#319795");
   const [dotsEnabled, setDotsEnabled] = useState<boolean>(false);
 
@@ -88,7 +89,7 @@ export const ProbabilityPlot: FC<ProbabilityPlotProps> = (
         <Flex alignItems="center">
           <Flex grow={1}>
             <Text fontSize="md" fontWeight="semibold" mt="16px" userSelect="none">
-              X axis step:
+              X axis step: <Text ml="8px" as="span" fontSize="sm" fontWeight="normal" color="gray">{step} [s]</Text>
             </Text>
           </Flex>
 
@@ -96,14 +97,13 @@ export const ProbabilityPlot: FC<ProbabilityPlotProps> = (
             w="auto"
             id="select-time-step"
             onChange={e => setStep(Number(e.target.value))}
-            value={step}
           >
             <option value={10}>10s</option>
             <option value={5}>5s</option>
             <option value={2}>2s</option>
             <option value={1}>1s</option>
-            <option value={0.5}>0.5s</option>
             <option value={0.1}>0.1s</option>
+            <option value={0.5}>0.5s</option>
             <option value={0.05}>0.05s</option>
             <option value={0.01}>0.01s</option>
           </Select>
@@ -112,7 +112,7 @@ export const ProbabilityPlot: FC<ProbabilityPlotProps> = (
         <Flex alignItems="center" mt="8px">
           <Flex grow={1}>
             <Text fontSize="md" fontWeight="semibold" mt="16px" userSelect="none">
-              Line color
+              Line color: <Text ml="8px" as="span" fontSize="sm" fontWeight="normal" color="gray">{lineColor}</Text>
             </Text>
           </Flex>
 
