@@ -32,18 +32,4 @@ describe('Test login page', () => {
     // redirect to dashboard
     cy.url({timeout: 20000}).should('eq', 'http://localhost:3000/dashboard');
   });
-
-  it('tries to submit but fails validation', () => {
-    cy.visit('/login');
-    // to do
-  });
-
-  it('submits login form and fails', () => {
-    cy.visit('/login');
-    // to do
-  });
-
-  it('redirects logged user to dashboard', () => {
-    cy.visit('/login');
-  });
 });

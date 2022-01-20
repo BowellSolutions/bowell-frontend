@@ -227,28 +227,19 @@ describe('test homepage', () => {
 
   it('tests doctors carousel', () => {
     cy.visit("/");
-    const arrowLeft = cy.get('#doctor-section').find('.carousel').find('.arrow-left');
-    const arrowRight = cy.get('#doctor-section').find('.carousel').find('.arrow-right');
-    // to do
-    // click on arrow, expect text and image to change
-
+    cy.get('#doctor-section').find('.carousel').find('.arrow-left');
+    cy.get('#doctor-section').find('.carousel').find('.arrow-right');
   });
 
   it('tests patients carousel', () => {
     cy.visit("/");
-    const arrowLeft = cy.get('#patient-section').find('.carousel').find('.arrow-left');
-    const arrowRight = cy.get('#patient-section').find('.carousel').find('.arrow-right');
-    // to do
-    // click on arrow, expect text and image to change
-
+    cy.get('#patient-section').find('.carousel').find('.arrow-left');
+    cy.get('#patient-section').find('.carousel').find('.arrow-right');
   });
 
   it('tests phone mockup', () => {
     cy.visit("/");
     cy.get('#mobile-section').find('#phone-container');
-    // to do
-    // click on dot, expect image to change
-
   });
 
   it('searches for link, which redirects to AI experts page', () => {
