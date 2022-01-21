@@ -33,7 +33,7 @@ and more...
 
 #### Third Party Dependencies:
 While designing the dashboard, we took inspiration from free version of 
-[Purity UI Dashboard](https://github.com/timcreative/freebies/blob/master/LICENSE.md) 
+[Purity UI Dashboard](https://github.com/creativetimofficial/purity-ui-dashboard) 
 created by [CreativeTim](https://www.creative-tim.com/), also licensed under MIT.
 All the code we used had been rewritten to Typescript, reformatted and refactored.
 Most of our components are self-written and only a few components come from the mentioned source.   
