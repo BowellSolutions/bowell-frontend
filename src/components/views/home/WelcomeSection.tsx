@@ -72,23 +72,22 @@ export default function WelcomeSection() {
           ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Vestibulum mi magna, placerat id.
         </chakra.p>
 
-        <Stack
-          direction={{base: "column", sm: "row"}}
+        <Flex
+          direction={{base: "column", md: "row"}}
           mb={{base: 4, md: 8}}
-          spacing={2}
           justifyContent={{sm: "left", md: "center"}}
         >
           <NextLink passHref href="#welcome-section-image">
             <Link>
               <Button
-                as="a"
                 variant="solid"
                 colorScheme="teal"
                 display="inline-flex"
                 alignItems="center"
                 justifyContent="center"
                 w={{base: "full", sm: "auto"}}
-                mb={{base: 2, sm: 0}}
+                mb={{base: 2, sm: 2, md: 0}}
+                mx={{base: 0, md: 2}}
                 size="lg"
                 cursor="pointer"
                 leftIcon={
@@ -106,28 +105,40 @@ export default function WelcomeSection() {
             </Link>
           </NextLink>
 
-          <NextLink href="/login" passHref>
-            <Button
-              as="a"
-              colorScheme="gray"
-              display="inline-flex"
-              alignItems="center"
-              justifyContent="center"
-              w={{base: "full", sm: "auto"}}
-              mb={{base: 2, sm: 0}}
-              size="lg"
-              cursor="pointer"
-            >
-              Go To Dashboard
-            </Button>
+          <NextLink passHref href="/login">
+            <Link>
+              <Button
+                variant="solid"
+                colorScheme="gray"
+                display="inline-flex"
+                alignItems="center"
+                justifyContent="center"
+                w={{base: "full", sm: "auto"}}
+                mb={{base: 2, sm: 2, md: 0}}
+                mx={{base: 0, md: 2}}
+                size="lg"
+                cursor="pointer"
+                leftIcon={
+                  <Icon boxSize={4} ml={1} viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      fillRule="evenodd"
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </Icon>
+                }
+              >
+                Go To Dashboard
+              </Button>
+            </Link>
           </NextLink>
-        </Stack>
+        </Flex>
       </Box>
 
       <Flex
         w={{base: "full", md: 10 / 12}}
         mx="auto"
-        mt={20}
+        mt={{base: 10, sm: 12, md: 20}}
         textAlign="center"
         justifyContent="center"
         id="welcome-section-image"
@@ -140,7 +151,7 @@ export default function WelcomeSection() {
           rounded="lg"
           shadow="2xl"
           src="/assets/hero_dashboard_lightmode.jpg"
-          alt="Dashboard screenshot"
+          alt=""
         />
       </Flex>
     </Box>

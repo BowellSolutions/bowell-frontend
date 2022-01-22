@@ -58,14 +58,14 @@ const slides = [
   },
   {
     img: "/assets/hero_doctor_slide4.jpg",
-    heading: "Upload new recordings.",
+    heading: "Activate recording analysis.",
     descriptions: [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lobortis quam massa, eu pulvinar erat egestas a. Sed id nulla ligula. Nam id lorem et est tempor blandit sed nec nisl. Proin tristique lectus justo, non lobortis elit semper eu. In justo erat, tristique ut pharetra in, dictum finibus tellus. Nunc varius massa neque.'
     ]
   },
   {
     img: "/assets/hero_doctor_slide5.jpg",
-    heading: "Activate recording analysis.",
+    heading: "Upload new recordings.",
     descriptions: [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eget arcu dictum, bibendum lacus at, semper mauris. Suspendisse imperdiet vestibulum lorem. Vivamus semper erat mi, quis faucibus sem porttitor a. Sed laoreet leo id nulla dignissim, sed luctus nulla ullamcorper.',
       'Integer scelerisque mi ac lorem lacinia, id aliquam purus laoreet. Aliquam nec metus vehicula.',
