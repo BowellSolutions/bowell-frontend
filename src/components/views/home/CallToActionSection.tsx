@@ -60,7 +60,7 @@ const CallToActionSection: FC = () => {
           spacing={4}
           mx="auto"
           py={{base: 8, lg: 16}}
-          px={{base: 4, lg: 8}}
+          px={{base: 2, sm: 8}}
           display={{lg: "flex"}}
         >
           <Box>

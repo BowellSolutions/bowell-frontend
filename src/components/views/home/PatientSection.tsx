@@ -32,35 +32,40 @@ const slides = [
     img: "/assets/hero_patient_slide1.jpg",
     heading: "See your recent activities.",
     descriptions: [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam leo libero, molestie sit amet aliquet ' +
-      'placerat, interdum a dui. Quisque aliquet, ante vitae congue venenatis, metus nisl tempus lorem, id ornare ' +
-      'mattis, turpis et porttitor tempor, odio velit rhoncus eros, sit amet mattis eros neque eu libero.',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut placerat hendrerit odio, convallis feugiat elit ' +
-      'congue sed. Cras interdum diam erat, sed blandit quam sodales sed.'
+      'Inside the dashboard patients can see their recently scheduled and completed examinations. ' +
+      'Examinations with analyzed recording have a more descriptive representation for the convenience of our users.',
+
+      'To see more examinations, navigate to examinations page.'
     ],
   },
   {
     img: "/assets/hero_patient_slide2.jpg",
     heading: "Look at your examinations",
     descriptions: [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut placerat hendrerit odio, convallis feugiat elit ' +
-      'congue sed. Cras interdum diam erat, sed blandit quam sodales sed.',
-      '\'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas diam dolor, dapibus sed augue non, ultricies laoreet ante. Fusce molestie tortor nisl, nec lacinia tortor dictum in.'
+      'Patients can see a table with all of the examinations they were assigned to. More details are available ' +
+      'after moving to detail page e.g with a View button.',
     ]
   },
   {
     img: "/assets/hero_patient_slide3.jpg",
     heading: "View examination details",
     descriptions: [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas diam dolor, dapibus sed augue non, ultricies laoreet ante. Fusce molestie tortor nisl, nec lacinia tortor dictum in. Suspendisse pellentesque, lacus at lobortis commodo, dui ipsum egestas nisl, vitae eleifend metus justo mollis nulla. Morbi vitae magna vel augue tristique posuere quis sed leo. Curabitur malesuada venenatis vulputate. Proin faucibus lectus.'
+      'Data such as an appointment date, examination status, patient\'s personal data, height and mass, ' +
+      'and also fields filled by a doctor including symptoms, medication and descriptive diagnosis. is ' +
+      'available on this page',
+
+      'The stepper at the top indicates the progress of a whole examination process.'
     ]
   },
   {
     img: "/assets/hero_patient_slide4.jpg",
     heading: "Inspect analysis' results",
     descriptions: [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eget arcu dictum, bibendum lacus at, semper mauris. Suspendisse imperdiet vestibulum lorem. Vivamus semper erat mi, quis faucibus sem porttitor a. Sed laoreet leo id nulla dignissim, sed luctus nulla ullamcorper.',
-      'Integer scelerisque mi ac lorem lacinia, id aliquam purus laoreet. Aliquam nec metus vehicula.',
+      'Patient can check the results of an analysis if the examination is during or after file analysis ' +
+      'by clicking the results backend. Then they are presented with the same recording details as a doctor.',
+
+      'If the examination has not been attached to any recording or the process has not started yet, ' +
+      'user will see just the examination details.',
     ]
   },
 ];
@@ -77,20 +82,20 @@ const PatientSection: FC = () => {
     <Flex
       direction={{base: "column", xl: "row"}}
       bg={lighterDarkBg}
-      px={{sm: 8, md: 12, lg: 16}}
+      px={{base: 2, sm: 8, md: 12, lg: 16}}
       pt={{base: 0, md: 8}}
       pb={{sm: 4, md: 16}}
       mx="auto"
       id="patient-section"
     >
-      <Flex order={1} w="full">
+      <Flex order={1} w="full" >
         <Carousel slides={slides} currentSlide={currentSlide} setCurrentSlide={setCurrentSlide}/>
       </Flex>
 
       <Flex
         w={{base: "full", md: 11 / 12, xl: 9 / 12}}
         mx="auto"
-        pt={{sm: 8, md: 8, lg: 0}}
+        pt={{base: 8, sm: 8, md: 8, lg: 0}}
         pl={{md: 20}}
         color="black"
         alignItems="center"
@@ -119,6 +124,7 @@ const PatientSection: FC = () => {
               fontSize={{base: "lg", md: "xl"}}
               color={textColor}
               key={`slide-${currentSlide}-desc-${idx}`}
+              textTransform="none"
             >
               {description}
             </chakra.p>

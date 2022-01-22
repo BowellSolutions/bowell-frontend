@@ -60,20 +60,20 @@ interface SectionProps {
   href?: string,
 }
 
-const Section: FC<SectionProps> = (props) => {
-  const hbg = useColorModeValue("gray.50", "gray.700");
-  const tcl = useColorModeValue("gray.900", "gray.50");
-  const dcl = useColorModeValue("gray.500", "gray.50");
+const Section: FC<SectionProps> = ({href, icon, title, children}) => {
+  const hoverBgColor = useColorModeValue("gray.50", "gray.700");
+  const titleColor = useColorModeValue("gray.900", "gray.50");
+  const descColor = useColorModeValue("gray.500", "gray.50");
 
   return (
-    <NextLink href={props.href ?? "/"} passHref>
+    <NextLink href={href ?? "/"} passHref>
       <Link
         m={-3}
         p={3}
         display="flex"
         alignItems="start"
         rounded="lg"
-        _hover={{bg: hbg}}
+        _hover={{bg: hoverBgColor}}
       >
         <chakra.svg
           flexShrink={0}
@@ -85,14 +85,14 @@ const Section: FC<SectionProps> = (props) => {
           stroke="currentColor"
           aria-hidden="true"
         >
-          {props.icon}
+          {icon}
         </chakra.svg>
         <Box ml={4}>
-          <chakra.p fontSize="sm" fontWeight="700" color={tcl}>
-            {props.title}
+          <chakra.p fontSize="sm" fontWeight="700" color={titleColor}>
+            {title}
           </chakra.p>
-          <chakra.p mt={1} fontSize="sm" color={dcl}>
-            {props.children}
+          <chakra.p mt={1} fontSize="sm" color={descColor} textTransform="none">
+            {children}
           </chakra.p>
         </Box>
       </Link>
@@ -121,7 +121,7 @@ const Features: FC = () => {
           }
           href="/dashboard/"
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed tortor auctor.
+          {"Feature rich dashboard with different interfaces for patients and doctors"}
         </Section>
 
         <Section
@@ -131,7 +131,7 @@ const Features: FC = () => {
           }
           href="/dashboard/examinations"
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          {"Medical examinations gathered in one place and designed with user experience in mind"}
         </Section>
 
         <Section
@@ -141,7 +141,7 @@ const Features: FC = () => {
           }
           href="/dashboard/recordings"
         >
-          Your customers&#039; data will be safe and secure.
+          {"Upload wav files and analyze them with machine learning model provided by our experts"}
         </Section>
 
         <Section
@@ -151,7 +151,8 @@ const Features: FC = () => {
           }
           href="/dashboard/profile"
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vehicula mauris non.
+          {"Profiles with user specific data. " +
+          "Recent examinations and patients displayed in doctor's perspective"}
         </Section>
 
         <Section

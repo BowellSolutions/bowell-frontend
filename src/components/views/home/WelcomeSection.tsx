@@ -23,16 +23,19 @@
  * @author: Adam Lisichin
  * @file: Exports WelcomeSection component used on home page
  **/
-import {Box, Button, chakra, Flex, Icon, Image, Link, Stack, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Button, chakra, Flex, Icon, Image, Link, Text, useColorModeValue} from "@chakra-ui/react";
 import NextLink from "next/link";
 
 
 export default function WelcomeSection() {
+  const headingColor = useColorModeValue("gray.900", 'gray.100');
+  const descColor = useColorModeValue("gray.600", 'gray.300');
+
   return (
     <Box
-      px={8} py={{sm: 16, md: 24}}
+      px={{base: 2, sm: 8}} py={{sm: 16, md: 24}}
       pb={{sm: 8, md: 12, lg: 24}}
-      mx="auto" mt={{base: "32px"}}
+      mx="auto" mt={{base: "80px", sm: "32px"}}
       id="welcome-section"
     >
       <Box
@@ -46,9 +49,9 @@ export default function WelcomeSection() {
           fontWeight="bold"
           lineHeight="none"
           letterSpacing={{base: "normal", md: "tight"}}
-          color={useColorModeValue("gray.900", 'gray.100')}
+          color={headingColor}
         >
-          Lorem{" "}
+          Stay{" "}
 
           <Text
             display={{base: "block", lg: "inline"}}
@@ -57,19 +60,29 @@ export default function WelcomeSection() {
             bgGradient="linear(to-r, green.400,purple.500)"
             fontWeight="extrabold"
           >
-            consectetur adipiscing
+            safe and sound
           </Text>{" "}
-          at edit ipsum lorem.
+          with Bowell
         </chakra.h1>
 
         <chakra.p
           px={{base: 0, lg: 24}}
-          mb={6}
+          mb={2}
           fontSize={{base: "lg", md: "xl"}}
-          color={useColorModeValue("gray.600", 'gray.300')}
+          color={descColor}
+          textTransform="none"
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam consectetur et ex a facilisis. Vestibulum ante
-          ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Vestibulum mi magna, placerat id.
+          Built and designed by passionate developers with simplicity and user experience in mind,
+          for the benefit of patients and doctors.
+        </chakra.p>
+
+        <chakra.p
+          px={{base: 0, lg: 24}} mb={6}
+          fontSize={{base: "lg", md: "xl"}}
+          color={descColor}
+          textTransform="none"
+        >
+          Manage patients, examinations, recordings and perform bowel analysis like nowhere else.
         </chakra.p>
 
         <Flex

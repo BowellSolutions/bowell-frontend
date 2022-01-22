@@ -63,21 +63,6 @@ a {
     }
   }
 
-  .dots {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    .dot {
-      position: relative;
-      width: 10px;
-      height: 30px;
-      display: inline-flex;
-      margin: 5px;
-      cursor: pointer;
-    }
-  }
-
   .footer {
     .credit {
       display: flex;
@@ -86,18 +71,6 @@ a {
       padding: 0.1rem 0.5rem 0.1rem;
       font-size: 1.3rem;
       color: $light-gray;
-    }
-  }
-}
-
-/*
-  Home page media queries
-*/
-@media (max-width: 767px) {
-  .dots {
-    .dot {
-      width: 30px;
-      height: 10px;
     }
   }
 }

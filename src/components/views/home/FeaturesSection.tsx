@@ -24,6 +24,13 @@
  * @file: Exports FeatureSection component used on home page
  **/
 import {Box, chakra, Flex, Icon, SimpleGrid, useColorModeValue} from "@chakra-ui/react";
+import {FcStatistics} from "react-icons/fc";
+import {FiEdit, FiUpload} from "react-icons/fi";
+import {MdOutlineNotifications, MdPlaylistAdd, MdOutlineAttachFile} from "react-icons/md";
+import {IoMdAnalytics} from "react-icons/io";
+import {BiReceipt, BiDetail} from "react-icons/bi";
+import {BsFillPersonFill, BsFillVolumeUpFill} from "react-icons/bs";
+import {HiLockClosed} from "react-icons/hi";
 import {FC, ReactNode} from "react";
 
 interface FeatureProps {
@@ -33,18 +40,20 @@ interface FeatureProps {
   children: ReactNode,
 }
 
+const Feature: FC<FeatureProps> = ({color, icon, title, children}) => {
+  const bgColor = useColorModeValue("white", "gray.800");
+  const iconBgColor = useColorModeValue(`${color}.100`, `${color}.600`);
+  const textColor = useColorModeValue(`${color}.600`, `${color}.100`);
+  const descColor = useColorModeValue("gray.500", "gray.400");
+  const titleColor = useColorModeValue("gray.900", "inherit");
 
-const Feature: FC<FeatureProps> = (props) => {
   return (
     <Box
-      bg={useColorModeValue("white", "gray.800")}
-      _hover={{
-        shadow: "xl",
-        cursor: "default",
-      }}
+      p={{base: 2, lg: 4}}
+      bg={bgColor}
       shadow="lg"
-      p={{sm: 2, lg: 4}}
       rounded="lg"
+      _hover={{shadow: "xl", cursor: "default",}}
     >
       <Flex
         alignItems="center"
@@ -53,53 +62,54 @@ const Feature: FC<FeatureProps> = (props) => {
         h={8}
         mb={4}
         rounded="full"
-        color={useColorModeValue(`${props.color}.600`, `${props.color}.100`)}
-        bg={useColorModeValue(`${props.color}.100`, `${props.color}.600`)}
+        color={textColor}
+        bg={iconBgColor}
       >
         <Icon
           boxSize={5}
-          viewBox="0 0 20 20"
+          viewBox="0 0 16 16"
           fill="currentColor"
           aria-hidden="true"
         >
-          {props.icon}
+          {icon}
         </Icon>
       </Flex>
       <chakra.h3
         mb={2}
         fontWeight="semibold"
         lineHeight="shorter"
-        color={useColorModeValue("gray.900", "")}
+        color={titleColor}
       >
-        {props.title}
+        {title}
       </chakra.h3>
       <chakra.p
         fontSize="sm"
-        color={useColorModeValue("gray.500", "gray.400")}
+        color={descColor}
+        textTransform="none"
       >
-        {props.children}
+        {children}
       </chakra.p>
     </Box>
   );
 };
 
 export default function FeaturesSection() {
+  const bgColor = useColorModeValue("", "gray.700");
+  const titleColor = useColorModeValue("gray.900", "inherit");
+  const subtitleColor = useColorModeValue("gray.500", "gray.400");
+
   return (
     <Flex
-      p={{sm: 2, md: 2}}
+      p={{base: 2, sm: 2, md: 2}}
       px={{lg: 16}}
       py={{lg: 8}}
       w="auto"
-      bg={useColorModeValue("", "gray.700")}
+      bg={bgColor}
       justifyContent="center"
       alignItems="center"
       id="features-section"
     >
-      <Box
-        px={8}
-        py={8}
-        mx="auto"
-      >
+      <Box px={{base: 0, sm: 8}} py={8} mx="auto">
         <Box textAlign={{lg: "center"}}>
           <chakra.p
             mt={2}
@@ -107,7 +117,7 @@ export default function FeaturesSection() {
             lineHeight="8"
             fontWeight="extrabold"
             letterSpacing="tight"
-            color={useColorModeValue("gray.900", "")}
+            color={titleColor}
           >
             Features
           </chakra.p>
@@ -117,109 +127,110 @@ export default function FeaturesSection() {
             maxW="2xl"
             fontSize="xl"
             mx={{lg: "auto"}}
-            color={useColorModeValue("gray.500", "gray.400")}
+            color={subtitleColor}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam scelerisque, lacus sit amet sodales.
+            {"Bowell Dashboard has been implemented in cooperation with doctors and patients."}
           </chakra.p>
         </Box>
 
         <SimpleGrid
           columns={{base: 1, sm: 2, md: 3, lg: 4}}
-          spacingX={{sm: 8, md: 16, lg: 24}}
-          spacingY={{sm: 10, lg: 20}}
+          spacingX={{base: 4, sm: 8, md: 16, lg: 24}}
+          spacingY={{base: 4, sm: 10, lg: 20}}
           mt={6}
         >
           <Feature
             color="red"
-            title="Personal Emails"
-            icon={<Icon/>}
+            title="Doctor Statistics"
+            icon={<Icon as={FcStatistics}/>}
           >
-            Nullam elementum, metus eu lacinia egestas, orci diam ornare odio, non faucibus.
+            Doctors can see how many assigned patients they have,
+            how many examinations are there in total, on the way and coming in next week.
           </Feature>
 
           <Feature
             color="pink"
-            title="Why a beaker icon?"
-            icon={<Icon/>}
+            title="Examinations"
+            icon={<Icon as={BiReceipt}/>}
           >
-            Nulla ex lectus, varius at congue eget, porta id nunc. Sed interdum.
+            {"List of specific examinations available to doctors and patients."}
           </Feature>
 
           <Feature
             color="yellow"
-            title="Clickable"
-            icon={<Icon/>}
+            title="Create new examination"
+            icon={<Icon as={MdPlaylistAdd}/>}
           >
-            Etiam gravida consequat dapibus. Morbi aliquam varius velit nec malesuada. Nulla lectus.
+            {"Choose a date and patient to plan an appoinment and create examination."}
           </Feature>
 
           <Feature
             color="green"
-            title="Finger Printing"
-            icon={<Icon/>}
+            title="Examination details"
+            icon={<Icon as={BiDetail}/>}
           >
-            Maecenas purus est, dapibus at est et, ullamcorper aliquam velit. Nulla purus.
+            {"Details such as patient's height, mass, symptoms, medication, overview and examination status."}
           </Feature>
           <Feature
-            color="purple"
-            title="Performance on Fire"
-            icon={<Icon/>}
+            color="gray"
+            title="Edit examination"
+            icon={<Icon as={FiEdit}/>}
           >
-            Nullam orci tellus, varius sed dictum vel, consectetur et turpis. Curabitur mattis.
+            {"Doctors can edit examination details."}
           </Feature>
           <Feature
             color="blue"
-            title="Love is in the Air"
-            icon={<Icon/>}
+            title="File upload"
+            icon={<Icon as={FiUpload}/>}
           >
-            Integer pretium odio felis, et lobortis diam malesuada ac. Aliquam et pharetra.
+            {"Doctors can upload recordings in wav format."}
           </Feature>
           <Feature
-            color="brand"
-            title="Thunder and Lightning"
-            icon={<Icon/>}
+            color="teal"
+            title="Recordings management"
+            icon={<Icon as={BsFillVolumeUpFill}/>}
           >
-            In orci augue, malesuada non mollis a, dictum sit amet dolor. Sed.
+            {"Doctors can manage recordings and view their details."}
           </Feature>
 
           <Feature
             color="purple"
-            title="Puzzles"
-            icon={<Icon/>}
+            title="Attach and detach recordings"
+            icon={<Icon as={MdOutlineAttachFile}/>}
           >
-            Nullam nec augue orci. Donec ac velit non turpis malesuada luctus. Nam.
+            {"Recordings can be attached to an existing examination or detached from it."}
           </Feature>
 
           <Feature
-            color="pink"
-            title="Sparkles"
-            icon={<Icon/>}
+            color="blue"
+            title="Start recording analysis"
+            icon={<Icon as={IoMdAnalytics}/>}
           >
-            Fusce justo purus, semper id euismod at, ornare vitae nibh. Donec dignissim.
+            {"Doctors can start an asynchronous analysis of an uploaded recording."}
+          </Feature>
+
+          <Feature
+            color="green"
+            title="Real time notifications"
+            icon={<Icon as={MdOutlineNotifications}/>}
+          >
+            {"Users receive real time notifications with data about analysis."}
+          </Feature>
+
+          <Feature
+            color="cyan"
+            title="User accounts"
+            icon={<Icon as={BsFillPersonFill}/>}
+          >
+            {"Users can create a new account and then access the dashboard by logging in."}
           </Feature>
 
           <Feature
             color="red"
-            title="Stars"
-            icon={<Icon/>}
+            title="Secure authentication"
+            icon={<Icon as={HiLockClosed}/>}
           >
-            Donec non justo nec purus viverra sodales sit amet a felis. Sed.
-          </Feature>
-
-          <Feature
-            color="green"
-            title="Support"
-            icon={<Icon/>}
-          >
-            Donec aliquet, felis eu faucibus pretium, erat nulla ultrices nibh, a fringilla.
-          </Feature>
-
-          <Feature
-            color="blue"
-            title="Finger Printing for Robots"
-            icon={<Icon/>}
-          >
-            In hac habitasse platea dictumst. Curabitur eu laoreet nulla. Phasellus viverra ligula.
+            {"Protected routes prevent unauthorized users from accessing."}
           </Feature>
         </SimpleGrid>
       </Box>
