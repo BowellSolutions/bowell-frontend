@@ -35,7 +35,7 @@ const statusMapping = {
   [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
 };
 
-const RETRY_TIMES = 5;
+const RETRY_TIMES = 1;
 
 interface WebsocketContextProviderProps {
   children: ReactNode;
