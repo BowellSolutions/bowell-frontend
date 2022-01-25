@@ -31,6 +31,18 @@ This setup uses Node 14 and yarn.
 - `cypress` + dependencies - E2E testing  
 and more...
 
+#### Third Party Dependencies:
+While designing the dashboard, we took inspiration from free version of 
+[Purity UI Dashboard](https://github.com/creativetimofficial/purity-ui-dashboard) 
+created by [CreativeTim](https://www.creative-tim.com/), also licensed under MIT.
+All the code we used had been rewritten to Typescript, reformatted and refactored.
+Most of our components are self-written and only a few components come from the mentioned source.   
+
+All images are either self created or come from [stock](https://www.pexels.com/) photos and are royalty free.  
+
+[Favicon and logo](https://www.flaticon.com/free-icon/intestine_2044752?term=intestine&page=1&position=8&page=1&position=8&related_id=2044752&origin=tag) 
+are available for personal and commercial use under Flaticon License.
+
 ## File Structure
 
 Click [here](FILES.md) to read project's file structure documentation.

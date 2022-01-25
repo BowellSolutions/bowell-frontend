@@ -1,17 +1,41 @@
 /**
+ * @license MIT
+ * Copyright (c) 2022 Adam Lisichin, Gustaw Daczkowski, Hubert Decyusz, Wojciech Nowicki
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE
+ *
  * @author: Adam Lisichin
  * @file: Exports WelcomeSection component used on home page
  **/
-import {Box, Button, chakra, Flex, Icon, Image, Link, Stack, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Button, chakra, Flex, Icon, Image, Link, Text, useColorModeValue} from "@chakra-ui/react";
 import NextLink from "next/link";
 
 
 export default function WelcomeSection() {
+  const headingColor = useColorModeValue("gray.900", 'gray.100');
+  const descColor = useColorModeValue("gray.600", 'gray.300');
+
   return (
     <Box
-      px={8} py={{sm: 16, md: 24}}
+      px={{base: 2, sm: 8}} py={{sm: 16, md: 24}}
       pb={{sm: 8, md: 12, lg: 24}}
-      mx="auto" mt={{base: "32px"}}
+      mx="auto" mt={{base: "80px", sm: "32px"}}
       id="welcome-section"
     >
       <Box
@@ -25,9 +49,9 @@ export default function WelcomeSection() {
           fontWeight="bold"
           lineHeight="none"
           letterSpacing={{base: "normal", md: "tight"}}
-          color={useColorModeValue("gray.900", 'gray.100')}
+          color={headingColor}
         >
-          Lorem{" "}
+          Stay{" "}
 
           <Text
             display={{base: "block", lg: "inline"}}
@@ -36,38 +60,47 @@ export default function WelcomeSection() {
             bgGradient="linear(to-r, green.400,purple.500)"
             fontWeight="extrabold"
           >
-            consectetur adipiscing
+            safe and sound
           </Text>{" "}
-          at edit ipsum lorem.
+          with Bowell
         </chakra.h1>
 
         <chakra.p
           px={{base: 0, lg: 24}}
-          mb={6}
+          mb={2}
           fontSize={{base: "lg", md: "xl"}}
-          color={useColorModeValue("gray.600", 'gray.300')}
+          color={descColor}
+          textTransform="none"
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam consectetur et ex a facilisis. Vestibulum ante
-          ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Vestibulum mi magna, placerat id.
+          Built and designed by passionate developers with simplicity and user experience in mind,
+          for the benefit of patients and doctors.
         </chakra.p>
 
-        <Stack
-          direction={{base: "column", sm: "row"}}
+        <chakra.p
+          px={{base: 0, lg: 24}} mb={6}
+          fontSize={{base: "lg", md: "xl"}}
+          color={descColor}
+          textTransform="none"
+        >
+          Manage patients, examinations, recordings and perform bowel analysis like nowhere else.
+        </chakra.p>
+
+        <Flex
+          direction={{base: "column", md: "row"}}
           mb={{base: 4, md: 8}}
-          spacing={2}
           justifyContent={{sm: "left", md: "center"}}
         >
           <NextLink passHref href="#welcome-section-image">
             <Link>
               <Button
-                as="a"
                 variant="solid"
                 colorScheme="teal"
                 display="inline-flex"
                 alignItems="center"
                 justifyContent="center"
                 w={{base: "full", sm: "auto"}}
-                mb={{base: 2, sm: 0}}
+                mb={{base: 2, sm: 2, md: 0}}
+                mx={{base: 0, md: 2}}
                 size="lg"
                 cursor="pointer"
                 leftIcon={
@@ -85,28 +118,40 @@ export default function WelcomeSection() {
             </Link>
           </NextLink>
 
-          <NextLink href="/login" passHref>
-            <Button
-              as="a"
-              colorScheme="gray"
-              display="inline-flex"
-              alignItems="center"
-              justifyContent="center"
-              w={{base: "full", sm: "auto"}}
-              mb={{base: 2, sm: 0}}
-              size="lg"
-              cursor="pointer"
-            >
-              Go To Dashboard
-            </Button>
+          <NextLink passHref href="/login">
+            <Link>
+              <Button
+                variant="solid"
+                colorScheme="gray"
+                display="inline-flex"
+                alignItems="center"
+                justifyContent="center"
+                w={{base: "full", sm: "auto"}}
+                mb={{base: 2, sm: 2, md: 0}}
+                mx={{base: 0, md: 2}}
+                size="lg"
+                cursor="pointer"
+                leftIcon={
+                  <Icon boxSize={4} ml={1} viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      fillRule="evenodd"
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </Icon>
+                }
+              >
+                Go To Dashboard
+              </Button>
+            </Link>
           </NextLink>
-        </Stack>
+        </Flex>
       </Box>
 
       <Flex
         w={{base: "full", md: 10 / 12}}
         mx="auto"
-        mt={20}
+        mt={{base: 10, sm: 12, md: 20}}
         textAlign="center"
         justifyContent="center"
         id="welcome-section-image"
@@ -119,7 +164,7 @@ export default function WelcomeSection() {
           rounded="lg"
           shadow="2xl"
           src="/assets/hero_dashboard_lightmode.jpg"
-          alt="Dashboard screenshot"
+          alt=""
         />
       </Flex>
     </Box>
