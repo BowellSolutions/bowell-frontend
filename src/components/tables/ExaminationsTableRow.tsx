@@ -25,17 +25,28 @@
  **/
 import {FC} from "react";
 import {ExaminationData} from "../../api/types";
-import {Box, Collapse, Flex, FlexProps, Icon, IconButton, Link, Text, useColorModeValue} from "@chakra-ui/react";
+import {
+  Box,
+  Collapse,
+  Flex,
+  FlexProps,
+  Icon,
+  IconButton,
+  Link,
+  Text,
+  useColorModeValue,
+  useToast
+} from "@chakra-ui/react";
 import {useDisclosure} from "@chakra-ui/hooks";
 import {MdExpandLess, MdExpandMore} from "react-icons/md";
 import {DeleteIcon} from "@chakra-ui/icons";
 import FileUpload from "../dashboard/FileUpload";
-import {updateExamination} from "../../api/examinations";
-import {useDispatch} from "react-redux";
-import {retrieveExaminations, retrieveRecordings} from "../../redux/actions/dashboard";
+import {editExamination} from "../../redux/actions/dashboard";
 import {formatDate} from "components/views/utils/format";
 import EditExaminationModal from "../dashboard/EditExaminationModal";
 import NextLink from "next/link";
+import {useAppDispatch} from "../../redux/hooks";
+import {detachRecording} from "../../redux/reducers/dashboard";
 
 interface ExaminationsTableRowProps extends FlexProps {
   examination: ExaminationData,
@@ -46,16 +57,36 @@ const ExaminationsTableRow: FC<ExaminationsTableRowProps> = ({examination, ...fl
   const bgColor = useColorModeValue("#F8F9FA", "gray.800");
   const nameColor = useColorModeValue("gray.500", "white");
 
-  const {isOpen, onToggle} = useDisclosure();
+  const {isOpen, onToggle, onClose} = useDisclosure();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+
+  const toast = useToast();
 
   const handleDetachFile = () => {
     if (examination.recording != null) {
-      updateExamination(examination.id, {recording: null}).then((res) => {
-        dispatch(retrieveExaminations(undefined));
-        dispatch(retrieveRecordings(undefined));
-      });
+      dispatch(editExamination({id: examination.id, recording: null}))
+        .unwrap()
+        .then(() => {
+          dispatch(detachRecording({id: examination.recording?.id}));
+          onClose();
+          toast({
+            id: "success-detach-file",
+            description: "Successfully detached recording!",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+          });
+        })
+        .catch(() => {
+          toast({
+            id: "error-detach-file",
+            description: "Failed to detach recording!",
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+          });
+        });
     }
   };
 

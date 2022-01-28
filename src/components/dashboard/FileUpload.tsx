@@ -30,7 +30,7 @@ import {uploadFile} from "../../api/files";
 import {useDropzone} from "react-dropzone";
 import {DeleteIcon} from "@chakra-ui/icons";
 import {useDispatch} from "react-redux";
-import {retrieveRecordings} from "../../redux/actions/dashboard";
+import {updateExamination} from "../../redux/reducers/dashboard";
 
 const MAX_SIZE = 1024 * 1024 * 1024;
 
@@ -79,8 +79,9 @@ export const FileUpload: FC<FileUploadProps> = ({examinationId}) => {
       data.append('name', selectedFile.name);
       data.append('examination', String(examinationId));
       uploadFile(data, onUploadProgress).then(
-        res => {
+        (res) => {
           if (res.status === 201) {
+            dispatch(updateExamination({id: examinationId, recording: res.data}));
             setPercentage(0);
             setError(null);
             toast({
@@ -90,10 +91,9 @@ export const FileUpload: FC<FileUploadProps> = ({examinationId}) => {
               duration: 2500,
               isClosable: true,
             });
-            dispatch(retrieveRecordings(undefined)); // reload recordings - later replace with individual object load
           }
         }
-      ).catch(err => {
+      ).catch((err) => {
         setError(JSON.stringify(err));
         toast({
           id: "error-upload-file",

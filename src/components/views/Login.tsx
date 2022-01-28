@@ -63,7 +63,7 @@ const Login: FC = () => {
     },
     validationSchema: Yup.object({
       email: Yup.string().email('invalid email address').required('email field is required'),
-      password: Yup.string().min(6).required('password field is required')
+      password: Yup.string().required('password field is required')
     }),
     onSubmit: (values) => {
       dispatch(

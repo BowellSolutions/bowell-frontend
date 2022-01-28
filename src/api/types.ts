@@ -185,7 +185,7 @@ export interface UpdateExaminationData {
   symptoms?: string,
   medication?: string,
   status?: ExaminationStatus,
-  recording?: number | null,
+  recording?: number | null | FileData,
   date?: Date | string,
   overview?: string,
 }

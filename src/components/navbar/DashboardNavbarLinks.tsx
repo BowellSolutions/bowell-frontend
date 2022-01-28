@@ -23,7 +23,7 @@
  * @author: Adam Lisichin
  * @file: Exports DashboardNavbarLinks component - links rendered in DashboardNavbar
  **/
-import {Button, Flex, Icon, Link, useColorModeValue} from "@chakra-ui/react";
+import {Button, Flex, Icon, Link, useColorModeValue, useToast} from "@chakra-ui/react";
 import NextLink from "next/link";
 import {FC, useRef} from "react";
 import {BsFillPersonFill} from "react-icons/bs";
@@ -59,8 +59,27 @@ const DashboardNavbarLinks: FC<DashboardNavbarLinksProps> = (
   const grayLinkColor = useColorModeValue("gray.500", "gray.200");
   const navbarLinkColor = secondary ? "white" : grayLinkColor;
 
-  const logout = () => {
-    dispatch(logoutUser()).unwrap().then(async () => await router.push("/"));
+  const toast = useToast();
+
+  const logout = (): void => {
+    dispatch(logoutUser()).unwrap().then(async () => {
+      toast({
+        id: "success-logout-toast",
+        description: "Successfully logged out!",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      await router.push("/");
+    }).catch(() => {
+      toast({
+        id: "error-logout-toast",
+        description: "Failed to log out!",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    });
   };
 
   const settingsRef = useRef(null);
@@ -89,7 +108,7 @@ const DashboardNavbarLinks: FC<DashboardNavbarLinksProps> = (
       </Button>
 
       <NextLink href="/dashboard/profile" passHref>
-        <Link>
+        <Link display="flex">
           <Icon
             as={BsFillPersonFill}
             w="22px"
