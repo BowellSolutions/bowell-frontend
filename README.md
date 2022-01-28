@@ -1,4 +1,4 @@
-<div align="center" style="padding-bottom: 20px">
+<div align="center" style="padding-bottom: 10px">
     <h1>Bowell Frontend</h1>
     <img src="https://img.shields.io/badge/Next.js-%23000000.svg?&style=for-the-badge&logo=next.js&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt=""/>
@@ -10,6 +10,10 @@
     <img src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white" alt=""/>    
     <img src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/Cypress-17202C?style=for-the-badge&logo=cypress&logoColor=white" alt=""/>
+</div>
+
+<div align="center" style="padding: 20px 0">
+    <img src="docs/landing.png" alt="" height="600px"/>
 </div>
 
 ## Tools, libraries, frameworks:
@@ -90,7 +94,7 @@ yarn e2e:prod:headless    # windowless cypress with production build
 
 ### With Docker
 
-Add `.babelrc` file in root directory with this content:
+Add `.babelrc` file in root directory with this content (if not present):
 
 ```json
 {
