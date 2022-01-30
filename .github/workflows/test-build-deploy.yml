@@ -1,0 +1,82 @@
+name: Frontend CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+   jest-tests:
+     name: Jest run
+     runs-on: ubuntu-latest
+
+     steps:
+       - name: Checkout
+         uses: actions/checkout@v2
+       - name: Use Node.js 14
+         uses: actions/setup-node@v1
+         with:
+           node-version: 14
+       - name: Install dependencies
+         run: |
+           yarn install
+       - name: Run tests
+         run: |
+           yarn test --coverage
+  build-image:
+    name: Build docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      - name: Generate image's name based on tag and date
+        id: image_name
+        run: echo "::set-output name=name::frontend:${{ steps.date.outputs.date }}_${{ github.run_number }}"
+      - name: Login to private container registry
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DH_USER_NAME }}
+          password: ${{ secrets.DH_PASSWORD }}
+      - name: install buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v1
+        with:
+          version: latest
+      - name: build the image
+        run: |
+          docker buildx build \
+            --tag torisels/${{ steps.image_name.outputs.name }} \
+            --platform linux/amd64 --push=true \
+            --build-arg API_URL=https://api.bowelsound.gddc.pl/api --build-arg API_ACCESS_TOKEN_LIFETIME=3600 \
+            --file Dockerfile.prod .
+  deploy:
+    name: Deploy to k8s
+    runs-on: self-hosted
+    needs: [build-image]
+    steps:
+      - name: Checkout infra
+        uses: actions/checkout@v2
+        with:
+          repository: BowellSolutions/bowell-infra
+          token: ${{ secrets.GH_PAT }} 
+          path: infra_front
+          ref: develop          
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      - name: Generate image's name based on tag and date
+        id: image_name
+        run: echo "::set-output name=name::frontend:${{ steps.date.outputs.date }}_${{ github.run_number }}"
+      - name: Apply new deployment
+        run : |
+          sed "s|{{IMAGE_NAME}}|${{ steps.image_name.outputs.name }}|" infra_front/frontend/k8s/deployment.yaml | kubectl apply -f -
+          kubectl rollout restart deployment/bowelsound-frontend -n bowelsound-dev
+          kubectl rollout status deployment/bowelsound-frontend -n bowelsound-dev --timeout=300s

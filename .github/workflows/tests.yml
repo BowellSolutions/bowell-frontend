@@ -2,12 +2,11 @@ name: Frontend Tests
 
 on:
   push:
-    branches:
-      - '*'
 
   pull_request:
     branches:
       - main
+      - develop
 
 jobs:
   jest-tests:
